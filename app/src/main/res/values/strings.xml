@@ -3,4 +3,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Setting_info">이용약관</string>
+    <string name="Setting_personinfo">개인정보보호정책</string>
+    <string name="Setting_locationinfo">위치기반서비스이용약관</string>
+    <string name="Setting_logout">로그아웃</string>
+    <string name="Setting_delete">회원탈퇴</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="title_activity_person_info">PersonInfoActivity</string>
+    <string name="title_activity_location_info">LocationInfoActivity</string>
+
 </resources>

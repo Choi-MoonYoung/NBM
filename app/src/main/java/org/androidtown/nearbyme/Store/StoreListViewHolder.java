@@ -1,4 +1,4 @@
-package org.androidtown.nearbyme;
+package org.androidtown.nearbyme.Store;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 16..
