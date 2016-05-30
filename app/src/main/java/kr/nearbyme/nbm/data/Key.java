@@ -15,4 +15,8 @@ public class Key implements Serializable {
     public void setKey(String key) {
         this.key = key;
     }
+
+    public Key(String str) {
+        key = str;
+    }
 }

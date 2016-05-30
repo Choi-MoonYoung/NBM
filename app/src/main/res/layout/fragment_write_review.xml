@@ -1,13 +1,101 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Writereview.WriteReviewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/write_recycler"/>
-</FrameLayout>
+        android:orientation="vertical">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="2"
+            android:ems="10"
+            android:hint="헤어샵을 입력하세요"
+            android:text="">
+
+            <requestFocus />
+        </AutoCompleteTextView>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView_dsnr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="2"
+            android:ems="10"
+            android:hint="디자이너를 입력하세요"
+            android:text="">
+
+            <requestFocus />
+        </AutoCompleteTextView>
+
+        <RatingBar
+            android:id="@+id/ratingBar_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoCompleteTextView_dsnr"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp" />
+
+        <EditText
+            android:id="@+id/edit_review"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ratingBar_review"
+            android:layout_centerHorizontal="true"
+            android:hint="[후기를 작성해주세요] 후기작성 시 부적절한 사진 및 욕설, 광고가 포함된 글은 관리자에 의해 삭제될 수 있습니다." />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_keyword"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_review"
+                android:text="@string/ButtonKeyword" />
+
+            <TextView
+                android:id="@+id/text_keywords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/image_upload"
+                android:layout_toEndOf="@+id/btn_keyword"
+                android:layout_toRightOf="@+id/btn_keyword"
+                android:text="@string/KeywordTags"
+                android:layout_gravity="center_horizontal" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/image_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_post"
+            android:layout_below="@id/btn_keyword"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/item1"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/btn_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/ButtonPost"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>

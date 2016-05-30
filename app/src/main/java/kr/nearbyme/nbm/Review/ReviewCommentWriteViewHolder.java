@@ -2,31 +2,29 @@ package kr.nearbyme.nbm.Review;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Button;
 
 import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.data.Comment;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 19..
  */
 public class ReviewCommentWriteViewHolder extends RecyclerView.ViewHolder{
-    TextView cmtNameView, cmtContentView, cmtDateView;
-    ReviewCommentData mData;
+    EditText writeCommentView;
+    Button btnDone;
+    Comment mData;
 
     public ReviewCommentWriteViewHolder(View itemView) {
         super(itemView);
-        cmtNameView = (TextView) itemView.findViewById(R.id.text_username);
-        cmtContentView = (TextView) itemView.findViewById(R.id.text_usercomment);
-        cmtDateView = (TextView) itemView.findViewById(R.id.text_date);
-
+        writeCommentView = (EditText) itemView.findViewById(R.id.edit_commentwrite);
+        btnDone = (Button) itemView.findViewById(R.id.btn_done);
         }
 
 
-    public void setReviewCommentData(ReviewCommentData data){
+    public void setReviewCommentData(Comment data){
         mData = data;
-        cmtNameView.setText(data.getCmt_writerName());
-        cmtContentView.setText(data.getCmt_content());
-        cmtDateView.setText(data.getCmt_regDate());
 
 
     }

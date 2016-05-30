@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/image_review"
+        android:src="@drawable/item3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tag"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignLeft="@+id/image_review"
+        android:layout_alignStart="@+id/image_review"
+        android:id="@+id/text_tag"
+        android:layout_below="@+id/image_review" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/text_sname"
+        android:layout_alignRight="@+id/image_review"
+        android:layout_alignEnd="@+id/image_review"
+        android:layout_below="@+id/text_tag" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/text_dname"
+        android:layout_alignRight="@id/image_review"
+        android:layout_below="@id/text_sname" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/image_userIcon"
+        android:layout_alignLeft="@+id/image_review"
+        android:layout_alignStart="@+id/image_review"
+        android:layout_below="@id/text_dname"
+        android:src="@drawable/icon_person"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text_user"
+        android:layout_alignTop="@+id/image_userIcon"
+        android:layout_toRightOf="@+id/image_userIcon"
+        android:layout_toEndOf="@+id/image_userIcon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_writedate"
+        android:layout_below="@+id/text_user"
+        android:layout_toRightOf="@+id/image_userIcon"
+        android:layout_toEndOf="@+id/image_userIcon" />
+
+</RelativeLayout>

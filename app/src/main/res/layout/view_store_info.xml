@@ -1,6 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/imageStore"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/item2"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전화걸기"
+        android:id="@+id/btn_call"
+        android:layout_below="@+id/imageStore"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="찜하기"
+        android:id="@+id/btn_like"
+        android:layout_alignBottom="@+id/btn_call"
+        android:layout_toRightOf="@+id/btn_call"
+        android:layout_toEndOf="@+id/btn_call" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지도보기"
+        android:id="@+id/btn_map"
+        android:layout_below="@+id/imageStore"
+        android:layout_toRightOf="@+id/btn_like"
+        android:layout_toEndOf="@+id/btn_like" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/StoreName"
+        android:id="@+id/text_storename"
+
+        android:layout_below="@id/btn_like"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_storeInfo"
+        android:layout_marginTop="270dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_storeAddress"
+        android:layout_below="@+id/text_storeInfo"
+        android:layout_centerHorizontal="true"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_storeHour"
+        android:layout_below="@+id/text_storeAddress"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_storeNum"
+        android:layout_below="@+id/text_storeHour"
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/Price"
+        android:id="@+id/text_price"
+        android:layout_below="@+id/text_storeNum"
+        android:layout_toLeftOf="@+id/text_storeNum"
+        android:layout_toStartOf="@+id/text_storeNum" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_priceReceive"
+        android:layout_below="@+id/text_price"
+        android:layout_alignLeft="@+id/text_price"
+        android:layout_alignStart="@+id/text_price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/DesignerName"
+        android:id="@+id/textDesigner"
+        android:layout_below="@+id/text_priceReceive"
+        android:layout_toRightOf="@+id/btn_call"
+        android:layout_toEndOf="@+id/btn_call" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/image_designerIcon"
+        android:layout_below="@+id/textDesigner"
+        android:layout_alignLeft="@+id/textDesigner"
+        android:layout_alignStart="@+id/textDesigner"
+        android:src="@drawable/icon_person"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_designerName"
+        android:layout_below="@+id/textDesigner"
+        android:layout_toRightOf="@+id/textDesigner"
+        android:layout_toEndOf="@+id/textDesigner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_designerInfo"
+        android:layout_below="@+id/textDesigner"
+        android:layout_toRightOf="@+id/text_designerName"
+        android:layout_toEndOf="@+id/text_designerName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/StyleInfo"
+        android:id="@+id/text_style"
+        android:layout_below="@+id/text_designerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+         />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar_store"
+        android:layout_above="@+id/btn_call"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_score"
+        android:layout_alignTop="@+id/ratingBar_store"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/ratingBar_store"
+        android:layout_toEndOf="@+id/ratingBar_store" />
+
+
+</RelativeLayout>

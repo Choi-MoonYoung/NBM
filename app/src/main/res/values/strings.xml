@@ -11,5 +11,37 @@
     <string name="title_activity_info">InfoActivity</string>
     <string name="title_activity_person_info">PersonInfoActivity</string>
     <string name="title_activity_location_info">LocationInfoActivity</string>
+    <string name="ButtonOrder">평점순</string>
+    <string name="ButtonFilter">f</string>
+    <string name="title_activity_store_detail">StoreDetailActivity</string>
+    <string name="title_activity_review_detail">ReviewDetailActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="ActionbarName">Near by Me</string>
+    <string name="TextLocationSetting">위치설정</string>
+    <string name="TextBoundarySetting">반경설정</string>
+    <string name="BoundaryOne">1</string>
+    <string name="BoundaryThree">3</string>
+    <string name="BoundaryFive">5</string>
+    <string name="BoundaryTen">10</string>
+    <string name="SettingDone">완료</string>
+    <string name="ReviewButtonString">후기작성 편집 방법을 선택하세</string>
+    <string name="deleteReview">삭제</string>
+    <string name="editReview">수정</string>
+    <string name="buttonpost">완료</string>
+    <string name="StoreName">헤어샵소개</string>
+    <string name="Price">가격정보</string>
+    <string name="DesignerName">디자이너</string>
+    <string name="StyleInfo">스타일 정보</string>
+    <string name="title_activity_map_location">MapLocationActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="ButtonKeyword">키워드 검색</string>
+    <string name="KeywordTags">tags</string>
+    <string name="ButtonPost">완료</string>
+    <string name="KeywordSetting">키워드 설정</string>
+    <string name="Done">완료</string>
+    <string name="Metropolitan">도/시</string>
+    <string name="District">구</string>
+    <string name="Dong">동</string>
 
 </resources>

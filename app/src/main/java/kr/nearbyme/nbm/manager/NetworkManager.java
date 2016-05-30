@@ -4,12 +4,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
-import com.begentgroup.miniapplication.MyApplication;
-import com.begentgroup.miniapplication.data.TStoreCategory;
-import com.begentgroup.miniapplication.data.TStoreCategoryProduct;
-import com.begentgroup.miniapplication.data.TStoreCategoryProductResult;
-import com.begentgroup.miniapplication.data.TStoreCategoryResult;
+import kr.nearbyme.nbm.MyApplication;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -18,15 +15,28 @@ import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import kr.nearbyme.nbm.data.LikePost;
+import kr.nearbyme.nbm.data.LikeShopResult;
+import kr.nearbyme.nbm.data.LikeShopResultResult;
+import kr.nearbyme.nbm.data.PostDetailResult;
+import kr.nearbyme.nbm.data.PostListResult;
+import kr.nearbyme.nbm.data.ShopDetailResult;
+import kr.nearbyme.nbm.data.ShopListResult;
+import kr.nearbyme.nbm.data.UserWritingResult;
+import kr.nearbyme.nbm.data.UserWritingResults;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.JavaNetCookieJar;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -102,94 +112,99 @@ public class NetworkManager {
 
     Gson gson = new Gson();
 
-    private static final String TSTORE_SERVER = "http://apis.skplanetx.com";
-    private static final String TSTORE_CATEGORY_URL = TSTORE_SERVER + "/tstore/categories?version=1";
-    public Request getTStoreCategory(Object tag, OnResultListener<List<TStoreCategory>> listener) {
+    //내가 작성한 후기와 댓글 리스트 조회
+    private static final String NBM_SERVER = "http://52.79.192.50:3000";
+    private static final String NBM_USERWRITING_URL = NBM_SERVER + "/user/writings";
+    public Request getMyReviewList(OnResultListener<UserWritingResults> listener) {
+
+
         Request request = new Request.Builder()
-                .url(TSTORE_CATEGORY_URL)
-                .header("Accept","application/json")
-                .header("appKey","458a10f5-c07e-34b5-b2bd-4a891e024c2a")
+                .url(NBM_USERWRITING_URL)
                 .build();
-        final NetworkResult<List<TStoreCategory>> result = new NetworkResult<>();
+        final NetworkResult<UserWritingResults> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
+
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 result.excpetion = e;
+
                 mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 if (response.isSuccessful()) {
-                    TStoreCategoryResult data = gson.fromJson(response.body().charStream(), TStoreCategoryResult.class);
-                    result.result = data.tstore.categories.categoryList;
+                    UserWritingResults data = gson.fromJson(response.body().charStream(), UserWritingResults.class);
+                    result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
-                    throw new IOException(response.message());
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
                 }
             }
         });
         return request;
     }
 
-    private static final String TSTORE_CATEGORY_PRODUCT_URL = TSTORE_SERVER + "/tstore/categories/%s?version=1&page=%s&count=%s&order=%s";
 
-    public static final String CATEGORY_PRODUCT_ORDER_BEST_C = "C";
-    public static final String CATEGORY_PRODUCT_ORDER_BEST_F = "F";
-    public static final String CATEGORY_PRODUCT_ORDER_NEW = "N";
-    public static final String CATEGORY_PRODUCT_ORDER_R = "R";
+    //매장 상세보기
+    private static final String NBM_SHOPDETAIL_URL = NBM_SERVER + "/shop/detail/:shop_id=%s";
+    public Request getShopDetail(String shop_id, OnResultListener<ShopDetailResult> listener) {
 
-    public Request getTStoreCategoryProductList(Object tag, String code, int page, int count, String order,
-                                                OnResultListener<TStoreCategoryProduct> listener) {
-        String url = String.format(TSTORE_CATEGORY_PRODUCT_URL, code, page, count, order);
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Accept","application/json")
-                .header("appKey","458a10f5-c07e-34b5-b2bd-4a891e024c2a")
-                .build();
+        String url = String.format(NBM_SHOPDETAIL_URL, shop_id);
 
-        final NetworkResult<TStoreCategoryProduct> result = new NetworkResult<>();
-        result.request = request;
-        result.listener = listener;
-        mClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                result.excpetion = e;
-                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    TStoreCategoryProductResult data = gson.fromJson(response.body().charStream(), TStoreCategoryProductResult.class);
-                    result.result = data.tstore;
-                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
-                } else {
-                    throw new IOException(response.message());
-                }
-            }
-        });
-        return request;
-    }
-
-    private static final String TSTORE_SEARCH_PRODUCT_URL = TSTORE_SERVER + "/tstore/products?version=1&searchKeyword=%s&page=%s&count=%s&order=%s";
-
-    public static final String SEARCH_PRODUCT_ORDER_R = "R";
-    public static final String SEARCH_PRODUCT_ORDER_L = "L";
-    public static final String SEARCH_PRODUCT_ORDER_D = "D";
-
-    public Request getTStoreSearchProductList(Object tag, String keyword, int page, int count, String order,
-                                                OnResultListener<TStoreCategoryProduct> listener) throws UnsupportedEncodingException {
-        String url = String.format(TSTORE_SEARCH_PRODUCT_URL, URLEncoder.encode(keyword,"utf-8"), page, count, order);
         Request request = new Request.Builder()
                 .url(url)
-                .header("Accept","application/json")
-                .header("appKey","458a10f5-c07e-34b5-b2bd-4a891e024c2a")
                 .build();
+        final NetworkResult<ShopDetailResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
 
-        final NetworkResult<TStoreCategoryProduct> result = new NetworkResult<>();
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    ShopDetailResult data = gson.fromJson(text, ShopDetailResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    //매장보기
+    private static final String NBM_SHOPLIST_URL = NBM_SERVER +"/shop/list";
+
+    public Request getShopList(Object tag ,String keyword, int order, double locX, double locY, int radius, OnResultListener<ShopListResult> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("keyword", keyword)
+                .add("order", order+"")
+                .add("locX", locX+"")
+                .add("locY", locY+"")
+                .add("radius", radius+"")
+                .build();
+        Request request = new Request.Builder()
+                .url(NBM_SHOPLIST_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+        final NetworkResult<ShopListResult> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
         mClient.newCall(request).enqueue(new Callback() {
@@ -202,8 +217,8 @@ public class NetworkManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    TStoreCategoryProductResult data = gson.fromJson(response.body().charStream(), TStoreCategoryProductResult.class);
-                    result.result = data.tstore;
+                    ShopListResult data = gson.fromJson(response.body().charStream(), ShopListResult.class);
+                    result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     throw new IOException(response.message());
@@ -212,5 +227,169 @@ public class NetworkManager {
         });
         return request;
     }
+
+    //후기 리스트 보기
+    private static final String NBM_POSTLIST_URL = NBM_SERVER +"/post/list";
+
+    public Request getPostList(Object tag ,List<String> filters, double locX, double locY, int radius, OnResultListener<PostListResult> listener) {
+        String filter="";
+        if(filters!=null) {
+            for (String x : filters) {
+                filter += x;
+                if (!x.equals(filters.get(filters.size()-1))) {
+                    filter += ",";
+                }
+            }
+        }
+        RequestBody body = new FormBody.Builder()
+                .add("filters", filter)
+                .add("locX", locX + "")
+                .add("locY", locY + "")
+                .add("radius", radius + "")
+                .build();
+        Request request = new Request.Builder()
+                .url(NBM_POSTLIST_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+        final NetworkResult<PostListResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    PostListResult data = gson.fromJson(response.body().charStream(), PostListResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    throw new IOException(response.message());
+                }
+            }
+        });
+        return request;
+    }
+
+    //후기 상세보기
+    private static final String NBM_POSTDETAIL_URL = NBM_SERVER + "/post/detail/:param_sort=%s/:param_id=%s";
+    public Request getPostDetail(String param_sort, String param_id, OnResultListener<PostDetailResult> listener) {
+
+        String url = String.format(NBM_POSTDETAIL_URL, param_sort, param_id);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<PostDetailResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    PostDetailResult data = gson.fromJson(text, PostDetailResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    //좋아요한 후기
+    private static final String NBM_LIKEPOST_URL = NBM_SERVER + "/user/liked_post";
+    public Request getLikePost(OnResultListener<LikePost> listener) {
+
+        String url = String.format(NBM_LIKEPOST_URL);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<LikePost> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    LikePost data = gson.fromJson(text, LikePost.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    //찜한 매장
+    private static final String NBM_LIKESHOP_URL = NBM_SERVER + "/user/liked_shop";
+    public Request getLikeShop(OnResultListener<LikeShopResultResult> listener) {
+
+        String url = String.format(NBM_LIKESHOP_URL);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<LikeShopResultResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    LikeShopResultResult data = gson.fromJson(text, LikeShopResultResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
 
 }
