@@ -20,6 +20,31 @@ public class Post implements Rdata, S {
     public int post_commentNum;
     public String post_content;
     public List<Comment> post_comments;
+    public double post_score;
+
+    public int getLiked() {
+        return liked;
+    }
+
+    public void setLiked(int liked) {
+        this.liked = liked;
+    }
+
+    public List<Comment> getPost_comments() {
+        return post_comments;
+    }
+
+    public void setPost_comments(List<Comment> post_comments) {
+        this.post_comments = post_comments;
+    }
+
+    public double getPost_score() {
+        return post_score;
+    }
+
+    public void setPost_score(double post_score) {
+        this.post_score = post_score;
+    }
 
     public int getPost_likeNum() {
         return post_likeNum;

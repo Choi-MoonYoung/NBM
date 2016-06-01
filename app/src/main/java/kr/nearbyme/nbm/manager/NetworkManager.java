@@ -24,15 +24,19 @@ import kr.nearbyme.nbm.data.LikeShopResult;
 import kr.nearbyme.nbm.data.LikeShopResultResult;
 import kr.nearbyme.nbm.data.PostDetailResult;
 import kr.nearbyme.nbm.data.PostListResult;
+import kr.nearbyme.nbm.data.PostUpload;
 import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.data.ShopListResult;
 import kr.nearbyme.nbm.data.UserWritingResult;
 import kr.nearbyme.nbm.data.UserWritingResults;
+import kr.nearbyme.nbm.data.Write;
+import kr.nearbyme.nbm.data.WriteResult;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.JavaNetCookieJar;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -390,6 +394,61 @@ public class NetworkManager {
         return request;
     }
 
+    //후기 올리기
+    private static final String NBM_UPLOAD_POST = NBM_SERVER + "/post/write";
+
+    public Request getPostUpload(Object tag, String shop_id, String dsnr_id,
+                                     double post_score, String post_content, List<String> post_filters,
+                                     File file,
+                                     OnResultListener<WriteResult> listener) {
+        String url = String.format(NBM_UPLOAD_POST);
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("shop_id", shop_id)
+                .addFormDataPart("dsnr_id", dsnr_id)
+                .addFormDataPart("post_score", post_score+"")
+                .addFormDataPart("post_content", post_content);
+                for(int i = 0; i<post_filters.size(); i++){
+                    String t = post_filters.get(i);
+                    builder.addFormDataPart("post_content["+i+"]", t);
+                }
+
+            builder.setType(MultipartBody.FORM)
+                        .addFormDataPart("mUploadFile", file.getName(),
+                                RequestBody.create(MediaType.parse("image/jpeg"), file));
+                RequestBody body = builder.build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<WriteResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    WriteResult data = gson.fromJson(text, WriteResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
 
 
 }

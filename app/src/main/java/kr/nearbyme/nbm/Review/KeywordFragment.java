@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,8 @@ public class KeywordFragment extends DialogFragment {
     RecyclerView recyclerView;
     KeyAdapter mAdapter;
     GridLayoutManager mLayoutManager;
+
+    Button done;
 
     List<Key> keys= new ArrayList<>();
     String[] strs = new String[]{"여자연예인헤어스타일" , "단발머리" , "숏컷" , "롱헤어스타일" , "긴머리" , "차예련헤어스타일" ,
@@ -48,7 +54,21 @@ public class KeywordFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         mAdapter = new KeyAdapter();
 
+        mAdapter.setOnItemClickListener3(new KeyContentViewHolder.OnItemClickListener3() {
+            @Override
+            public void onItemClick3(View view, int position) {
+                Toast.makeText(getContext(),"버튼눌림" + position, Toast.LENGTH_SHORT).show();
+                //change(position,true);
+                mAdapter.setItemCheck(position, true);
+            }
+
+        });
+
     }
+
+//    private void change(int position, boolean check){
+//        mAdapter.setItemCheck(position, check);
+//    }
 
     @Override
     public void onResume() {
@@ -76,27 +96,30 @@ public class KeywordFragment extends DialogFragment {
 
     }
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_keyword, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_key);
+        done = (Button) view.findViewById(R.id.btn_done);
+
+
 
         recyclerView.setAdapter(mAdapter);
         mLayoutManager = new GridLayoutManager(getContext(), 3);
-        mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        done.setOnClickListener(new View.OnClickListener() {
             @Override
-            public int getSpanSize(int position) {
-                int type = mAdapter.getItemViewType(position);
-                if (type == KeyAdapter.VIEW_TYPE_HEADER) {
-                    return 3;
-                } else {
-                    return 1;
-                }
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "완료", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerView.setLayoutManager(mLayoutManager);
 
 
         return view;

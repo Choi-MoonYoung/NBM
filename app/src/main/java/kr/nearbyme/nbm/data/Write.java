@@ -1,11 +1,19 @@
 package kr.nearbyme.nbm.data;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 21..
  */
 public class Write {
-    String user_id, shop_id, dsnr_id, content, filters;
-    double score;
+
+    public String post_id;
+/*
+    String user_id, shop_id, dsnr_id, post_content;
+    List<String> post_filters;
+    double post_score;
     String post_pic;
 
     public String getUser_id() {
@@ -32,28 +40,28 @@ public class Write {
         this.dsnr_id = dsnr_id;
     }
 
-    public String getContent() {
-        return content;
+    public String getPost_content() {
+        return post_content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPost_content(String post_content) {
+        this.post_content = post_content;
     }
 
-    public String getFilters() {
-        return filters;
+    public List<String> getPost_filters() {
+        return post_filters;
     }
 
-    public void setFilters(String filters) {
-        this.filters = filters;
+    public void setPost_filters(List<String> post_filters) {
+        this.post_filters = post_filters;
     }
 
-    public double getScore() {
-        return score;
+    public double getPost_score() {
+        return post_score;
     }
 
-    public void setScore(double score) {
-        this.score = score;
+    public void setPost_score(double post_score) {
+        this.post_score = post_score;
     }
 
     public String getPost_pic() {
@@ -63,4 +71,5 @@ public class Write {
     public void setPost_pic(String post_pic) {
         this.post_pic = post_pic;
     }
+*/
 }
