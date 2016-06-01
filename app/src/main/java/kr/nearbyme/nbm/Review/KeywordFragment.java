@@ -57,12 +57,13 @@ public class KeywordFragment extends DialogFragment {
         mAdapter.setOnItemClickListener3(new KeyContentViewHolder.OnItemClickListener3() {
             @Override
             public void onItemClick3(View view, int position) {
-                Toast.makeText(getContext(),"버튼눌림" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "버튼눌림" + position, Toast.LENGTH_SHORT).show();
                 //change(position,true);
                 mAdapter.setItemCheck(position, true);
             }
 
         });
+
 
     }
 
@@ -118,6 +119,19 @@ public class KeywordFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "완료", Toast.LENGTH_SHORT).show();
+
+                Bundle  b = new Bundle();
+                for(int i=0; i < mAdapter.checkedItems.size(); i++){
+                    if(mAdapter.checkedItems.get(i)){
+                        b.putString("post_filters[]", keys.get(i).toString());
+
+                    }
+
+                }
+                ReviewFragment nextFragment = new ReviewFragment();
+                nextFragment.setArguments(b);
+                getFragmentManager().beginTransaction().replace(R.id.container, nextFragment).commit();
+
             }
         });
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -35,11 +36,14 @@ import okhttp3.Request;
 public class ReviewFragment extends Fragment {
     RecyclerView recyclerView;
     ReviewAdapter mAdapter;
+    TokenAdapter mTokenAdapter;
     GridLayoutManager mLayoutManager;
     private List<String> filters =new ArrayList<String>();
     private double locX = 1;
     private double locY = 1;
     private int radius = 1;
+
+    TextView post_filters;
 
 
     public ReviewFragment() {
@@ -75,6 +79,11 @@ public class ReviewFragment extends Fragment {
             }
         });
 
+        mTokenAdapter = new TokenAdapter();
+
+//        Bundle b = new Bundle();
+//        post_filters.setText(getArguments().getString("post_filters[]")); ;
+
 
     }
 
@@ -95,6 +104,9 @@ public class ReviewFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_review);
 
         View v = inflater.inflate(R.layout.view_review_header, null);
+
+        //post_filters = (TextView) v.findViewById(R.id.)
+
 
         recyclerView.setAdapter(mAdapter);
 
@@ -117,6 +129,7 @@ public class ReviewFragment extends Fragment {
     }
 
     private void initData() {
+
 
         NetworkManager.getInstance().getPostList(getContext(), filters, locX, locY, radius, new NetworkManager.OnResultListener<PostListResult>() {
             @Override

@@ -51,6 +51,14 @@ public class MapFragment extends DialogFragment {
             }
         });
 
+        presentLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), GoogleLocActivity.class);
+                startActivity(intent);
+            }
+        });
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -43,5 +43,6 @@
     <string name="Metropolitan">도/시</string>
     <string name="District">구</string>
     <string name="Dong">동</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCVYnCB5oVYVFE27H_DicgVeGDv9IcGTjA</string>
 
 </resources>
