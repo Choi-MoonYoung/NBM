@@ -15,7 +15,7 @@ public class Shop implements S {
     public String shop_pic;
     public String shop_name;
     public String shop_intro;
-    public String shop_distance;
+    public String shop_dist;
     public int liked;
     public double shop_score;
     public String shop_address;
@@ -92,12 +92,12 @@ public class Shop implements S {
         this.shop_intro = shop_intro;
     }
 
-    public String getShop_distance() {
-        return shop_distance;
+    public String getShop_dist() {
+        return shop_dist;
     }
 
-    public void setShop_distance(String shop_distance) {
-        this.shop_distance = shop_distance;
+    public void setShop_distance(String shop_dist) {
+        this.shop_dist = shop_dist;
     }
 
     public int getLiked() {

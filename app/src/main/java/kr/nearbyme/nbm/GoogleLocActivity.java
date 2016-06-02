@@ -1,5 +1,8 @@
 package kr.nearbyme.nbm;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.Manifest;
@@ -12,19 +15,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
@@ -42,6 +32,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -62,6 +57,11 @@ public class GoogleLocActivity extends AppCompatActivity implements
         GoogleMap.OnMarkerDragListener {
 
     GoogleApiClient mClient;
+    Button btn_setPresentLoc;
+    double locX, locY;
+    public static final String RESULT_LOCX = "result_locX";
+    public static final String RESULT_LOCY = "result_locY";
+
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +78,32 @@ public class GoogleLocActivity extends AppCompatActivity implements
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(android.R.drawable.ic_dialog_map);
+
+        btn_setPresentLoc = (Button) findViewById(R.id.btn_setpresentLoc);
+
+        btn_setPresentLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(GoogleLocActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                if (currentMarker != null) {
+                    LatLng latLng = currentMarker.getPosition();
+                    locX = latLng.latitude;
+                    locY = latLng.longitude;
+
+
+                }
+
+                Intent data = new Intent();
+                data.putExtra(RESULT_LOCX, locX);
+                data.putExtra(RESULT_LOCY, locY);
+                setResult(Activity.RESULT_OK, data);
+
+                finish();
+
+
+            }
+        });
+
 
     }
 
@@ -109,6 +135,7 @@ public class GoogleLocActivity extends AppCompatActivity implements
 
     }
 
+
     @Override
     public void onMarkerDragEnd(Marker marker) {
 
@@ -130,15 +157,23 @@ public class GoogleLocActivity extends AppCompatActivity implements
 //        addMarker(latLng.latitude, latLng.longitude);
 //    }
 
+    Marker currentMarker = null;
     private void addMarker(double lat, double lng) {
-        MarkerOptions options = new MarkerOptions();
-        options.position(new LatLng(lat, lng));
-        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-        options.anchor(0.5f, 1f);
+        if (currentMarker == null) {
+            MarkerOptions options = new MarkerOptions();
+            options.position(new LatLng(lat, lng));
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+            options.anchor(0.5f, 1f);
 //        options.title("MyMarker");
 //        options.snippet("marker description");
-        options.draggable(true);
-        Marker m = mMap.addMarker(options);
+            options.draggable(true);
+            currentMarker = mMap.addMarker(options);
+        } else {
+            currentMarker.setPosition(new LatLng(lat, lng));
+        }
+
+
+
     }
     @Override
     public void onConnected(@Nullable Bundle bundle) {

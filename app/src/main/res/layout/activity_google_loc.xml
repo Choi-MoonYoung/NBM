@@ -11,13 +11,21 @@ tools:context="kr.nearbyme.nbm.GoogleLocActivity">
 
 
 
-<fragment
+    <fragment
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:id="@+id/map_fragment"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_setpresentLoc"
+        android:layout_alignParentBottom="true"
+        android:text="@string/setpresentLoc"
+        android:layout_centerHorizontal="true"/>
 
 
 

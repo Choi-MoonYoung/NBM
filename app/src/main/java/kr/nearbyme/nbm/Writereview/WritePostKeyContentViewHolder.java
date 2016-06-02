@@ -1,21 +1,18 @@
-package kr.nearbyme.nbm.Review;
+package kr.nearbyme.nbm.Writereview;
 
 import android.graphics.Color;
-import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.TextView;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.Key;
-import kr.nearbyme.nbm.data.Shop;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 23..
  */
-public class KeyContentViewHolder extends RecyclerView.ViewHolder  implements Checkable {
+public class WritePostKeyContentViewHolder extends RecyclerView.ViewHolder  implements Checkable {
     TextView keyView;
     Key mData;
     boolean isChecked;
@@ -69,7 +66,7 @@ public class KeyContentViewHolder extends RecyclerView.ViewHolder  implements Ch
 
 
 
-    public KeyContentViewHolder(View itemView) {
+    public WritePostKeyContentViewHolder(View itemView) {
         super(itemView);
         keyView = (TextView) itemView.findViewById(R.id.text_key);
 

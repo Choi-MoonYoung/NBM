@@ -1,4 +1,4 @@
-package kr.nearbyme.nbm.Review;
+package kr.nearbyme.nbm.Writereview;
 
 
 import android.os.Bundle;
@@ -6,20 +6,18 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.Review.KeyAdapter;
+import kr.nearbyme.nbm.Review.KeyContentViewHolder;
 import kr.nearbyme.nbm.data.Key;
 import kr.nearbyme.nbm.manager.PropertyManager;
 
@@ -27,9 +25,9 @@ import kr.nearbyme.nbm.manager.PropertyManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class KeywordFragment extends DialogFragment {
+public class WritePostKeywordFragment extends DialogFragment {
     RecyclerView recyclerView;
-    KeyAdapter mAdapter;
+    WritePostKeyAdapter mAdapter;
     GridLayoutManager mLayoutManager;
 
     Button done, close;
@@ -48,14 +46,14 @@ public class KeywordFragment extends DialogFragment {
 
 
 
-    public KeywordFragment() {
+    public WritePostKeywordFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new KeyAdapter();
+        mAdapter = new WritePostKeyAdapter();
 
         mAdapter.setOnItemClickListener3(new KeyContentViewHolder.OnItemClickListener3() {
             @Override
@@ -79,13 +77,22 @@ public class KeywordFragment extends DialogFragment {
     }
 
     private void initData() {
-
+        /*for (int i = 0; i < 40 ; i++) {
+            Key p = new Key();
+            p.setKey("item1" + i);
+            mAdapter.add(p);
+        }
+*/
         for(int i=0; i<strs.length; i++) {
             keys.add(new Key(strs[i]));
         }
 
 
         mAdapter.addAll(keys);
+
+
+
+
 
     }
 
@@ -115,32 +122,22 @@ public class KeywordFragment extends DialogFragment {
 
                 List<String> checkedFilter = new ArrayList<String>();
                 int n = 0;
-
                 String keyword;
-                for (int i = 0; i < strs.length; i++) {
+                for (int i = 0; i < mAdapter.checkedItems.size(); i++) {
                     if (mAdapter.checkedItems.get(i)) {
                         keyword = strs[i];
-//                        Log.d("dddddddddddddddcheckItems",mAdapter.checkedItems.get(i)+"");
-//                        Log.d("dddddddddddddddkeyword",keyword);
-//                        Log.d("dddddddddddddddn", n + "");
-
                         //checkedFilter.add(n, i+"");
                         checkedFilter.add(n, keyword);
-
-//                        Log.d("ddddddddcheckedFilter",checkedFilter.get(n));
                         n++;
                     }
 
                 }
-
-
-                PropertyManager.getInstance().setFilters(checkedFilter);
-                Log.d("hddsfsdfdsfds", PropertyManager.getInstance().getFilters().get(0));
-
+                PropertyManager.getInstance().setWritePostfilter(checkedFilter);
                 dismiss();
 
             }
         });
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

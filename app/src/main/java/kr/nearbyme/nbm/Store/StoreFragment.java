@@ -22,6 +22,7 @@ import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.data.ShopListResult;
 import kr.nearbyme.nbm.data.StoreData;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 
@@ -34,9 +35,9 @@ public class StoreFragment extends Fragment {
     Button button;
     private String keyword = "1";
     private int order = 1;
-    private double locX = 1;
-    private double locY = 1;
-    private int radius = 1;
+    private double locX;
+    private double locY;
+    private int radius;
 
 
     public StoreFragment() {
@@ -75,6 +76,7 @@ public class StoreFragment extends Fragment {
                 builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        order = 1;
 
                     }
                 });
@@ -82,6 +84,7 @@ public class StoreFragment extends Fragment {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        order = 2;
 
                     }
                 });
@@ -99,6 +102,10 @@ public class StoreFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        locX = PropertyManager.getInstance().getLatitude();
+        locY = PropertyManager.getInstance().getLongitude();
+        radius = PropertyManager.getInstance().getMyRadius();
+
         initData();
         recyclerView.scrollToPosition(0);
     }

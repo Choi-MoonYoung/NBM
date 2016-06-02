@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="kr.nearbyme.nbm.MapFragment"
+    android:id="@+id/container"
     >
 
     <!-- TODO: Update blank fragment layout -->
@@ -63,35 +64,44 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/BoundaryOne"
-            android:id="@+id/btn_one" />
+            android:orientation="horizontal"
+            android:id="@+id/radio_radius">
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BoundaryOne"
+                android:id="@+id/btn_one" />
 
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/BoundaryThree"
-            android:id="@+id/btn_three" />
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BoundaryThree"
+                android:id="@+id/btn_three" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/BoundaryFive"
-            android:id="@+id/btn_five"
-             />
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/BoundaryTen"
-            android:id="@+id/btn_ten"
-             />
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BoundaryFive"
+                android:id="@+id/btn_five"
+                />
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BoundaryTen"
+                android:id="@+id/btn_ten"
+                />
+
+
+        </RadioGroup>
+
 
 
 

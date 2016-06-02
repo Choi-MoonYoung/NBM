@@ -1,4 +1,4 @@
-package kr.nearbyme.nbm.Review;
+package kr.nearbyme.nbm.Writereview;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.Store.StoreListViewHolder;
+import kr.nearbyme.nbm.Review.KeyContentViewHolder;
 import kr.nearbyme.nbm.data.Key;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 23..
  */
-public class KeyAdapter extends RecyclerView.Adapter<KeyContentViewHolder> implements KeyContentViewHolder.OnItemClickListener3{
+public class WritePostKeyAdapter extends RecyclerView.Adapter<KeyContentViewHolder> implements KeyContentViewHolder.OnItemClickListener3{
 
     KeyContentViewHolder.OnItemClickListener3 mListener3;
 

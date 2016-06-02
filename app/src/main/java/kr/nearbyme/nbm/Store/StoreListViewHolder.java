@@ -76,7 +76,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         mData = data;
         storeNameView.setText(data.getShop_name());
         storeDescriptionView.setText(data.getShop_intro());
-        storeDistanceView.setText(data.getShop_distance());
+        storeDistanceView.setText(data.getShop_dist());
 
         Glide.with(storeImageView.getContext()).load(data.getShop_pic()).into(storeImageView);
 

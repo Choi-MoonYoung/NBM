@@ -236,21 +236,18 @@ public class NetworkManager {
     private static final String NBM_POSTLIST_URL = NBM_SERVER +"/post/list";
 
     public Request getPostList(Object tag ,List<String> filters, double locX, double locY, int radius, OnResultListener<PostListResult> listener) {
-        String filter="";
-        if(filters!=null) {
-            for (String x : filters) {
-                filter += x;
-                if (!x.equals(filters.get(filters.size()-1))) {
-                    filter += ",";
-                }
-            }
-        }
-        RequestBody body = new FormBody.Builder()
-                .add("filters", filter)
-                .add("locX", locX + "")
+
+        FormBody.Builder myBuilder = new FormBody.Builder();
+        myBuilder.add("locX", locX + "")
                 .add("locY", locY + "")
-                .add("radius", radius + "")
+                .add("radius", radius + "");
+
+        for(int i =0 ; i < filters.size(); i++)
+            myBuilder.add("filters[]", filters.get(i));
+
+        RequestBody body = myBuilder
                 .build();
+
         Request request = new Request.Builder()
                 .url(NBM_POSTLIST_URL)
                 .header("Accept", "application/json")

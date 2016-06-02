@@ -2,6 +2,7 @@ package kr.nearbyme.nbm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,8 @@ import android.support.v4.app.FragmentTabHost;
 import android.widget.Toast;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 import kr.nearbyme.nbm.Mypage.MyPageFragment;
 import kr.nearbyme.nbm.Review.ReviewFragment;
 import kr.nearbyme.nbm.Store.StoreDetailActivity;
@@ -20,9 +23,30 @@ import kr.nearbyme.nbm.Store.StoreFragment;
 import kr.nearbyme.nbm.Writereview.WriteReviewFragment;
 
 
+
 public class MainActivity extends AppCompatActivity {
     private FragmentTabHost mTabHost;
     Button loc_button;
+    public double locX = 0;
+    public double locY = 0;
+
+    private static final String TAG_F1 = "f1tag";
+
+
+//    LatLng latLng = new LatLng(locX, locY);
+//
+//    locX = latLng.latitude;
+//    locY = latLng.longitude;
+//
+//    Toast.makeText(getContext(), "" + locX, Toast.LENGTH_SHORT).show();
+//
+//
+//
+//    Bundle b2 = getArguments();
+//    locX = b2.getDouble("locX");
+//    locY = b2.getDouble("locY");
+//
+//    Toast.makeText(getContext(), "" + locX, Toast.LENGTH_SHORT).show();
 
 
     @Override
@@ -43,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
         loc_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "눌렸습니다", Toast.LENGTH_SHORT).show();
+
                 MapFragment dialog = new MapFragment();
                 dialog.show(getSupportFragmentManager(), "dialog");
+
+//
             }
         });
 

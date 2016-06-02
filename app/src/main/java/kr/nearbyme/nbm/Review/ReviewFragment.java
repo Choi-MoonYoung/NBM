@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.data.User;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 
@@ -38,12 +42,10 @@ public class ReviewFragment extends Fragment {
     ReviewAdapter mAdapter;
     TokenAdapter mTokenAdapter;
     GridLayoutManager mLayoutManager;
-    private List<String> filters =new ArrayList<String>();
-    private double locX = 1;
-    private double locY = 1;
-    private int radius = 1;
-
-    TextView post_filters;
+    private List<String> filters =new ArrayList<>();
+    private double locX;
+    private double locY;
+    private int radius;
 
 
     public ReviewFragment() {
@@ -53,14 +55,12 @@ public class ReviewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        filters.add("2");
         mAdapter = new ReviewAdapter();
 
         mAdapter.setOnItemClickListener(new ReviewListViewHolder.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, PostResult post) {
-                Toast.makeText(getContext(), "눌렸습니다", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getContext(), ReviewDetailActivity.class);
                 intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, post.post.getPost_id());
@@ -72,7 +72,6 @@ public class ReviewFragment extends Fragment {
         mAdapter.setOnItemClickListener(new ReviewHeaderViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ReviewData reviewData) {
-                Toast.makeText(getContext(), "버튼이 눌렸습니다", Toast.LENGTH_SHORT).show();
                 KeywordFragment f = new KeywordFragment();
                 f.show(getActivity().getSupportFragmentManager(), "create");
 
@@ -81,8 +80,7 @@ public class ReviewFragment extends Fragment {
 
         mTokenAdapter = new TokenAdapter();
 
-//        Bundle b = new Bundle();
-//        post_filters.setText(getArguments().getString("post_filters[]")); ;
+        filters.add("2");
 
 
     }
@@ -90,7 +88,12 @@ public class ReviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initData();
+        locX = PropertyManager.getInstance().getLatitude();
+        locY = PropertyManager.getInstance().getLongitude();
+        radius = PropertyManager.getInstance().getMyRadius();
+        filters = PropertyManager.getInstance().getFilters();
+
+        //initData();
         recyclerView.scrollToPosition(0);
     }
 
@@ -130,18 +133,12 @@ public class ReviewFragment extends Fragment {
 
     private void initData() {
 
-
         NetworkManager.getInstance().getPostList(getContext(), filters, locX, locY, radius, new NetworkManager.OnResultListener<PostListResult>() {
             @Override
             public void onSuccess(Request request, PostListResult result) {
 
-
-
                 mAdapter.clear();
                 mAdapter.addAll(result.result);
-
-                //mAdapter.addStore(result.getShop_info());
-                // mAdapter.addAll(result.getPost_info());
 
             }
 

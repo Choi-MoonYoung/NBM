@@ -35,6 +35,7 @@ import java.util.List;
 
 import kr.nearbyme.nbm.MyApplication;
 import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.Review.KeywordFragment;
 import kr.nearbyme.nbm.data.PostUpload;
 import kr.nearbyme.nbm.data.Write;
 import kr.nearbyme.nbm.data.WriteResult;
@@ -244,6 +245,15 @@ public class WriteReviewFragment extends Fragment {
 
                 initData();
 
+
+            }
+        });
+
+        buttonTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WritePostKeywordFragment f = new WritePostKeywordFragment();
+                f.show(getActivity().getSupportFragmentManager(), "create");
 
             }
         });
