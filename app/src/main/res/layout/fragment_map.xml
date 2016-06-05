@@ -15,7 +15,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/btn_close"
-       />
+        android:layout_gravity="right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="17dp"/>
+
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,27 +28,35 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/TextLocationSetting"
         android:id="@+id/textView"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="69dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_marginTop="56dp"
+        android:layout_gravity="center_horizontal"
+        >
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dfs"
-            android:id="@+id/btn_presentloc" />
+            android:text="@string/presentLoc"
+            android:id="@+id/btn_presentloc"
+            android:layout_marginLeft="85dp"
+            android:layout_marginStart="85dp"
+            />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/btn_setloc" />
+            android:text="@string/setLoc"
+            android:id="@+id/btn_setloc"
+            android:layout_marginLeft="85dp"
+            android:layout_marginStart="85dp"/>
 
 
 
@@ -56,25 +69,30 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/TextBoundarySetting"
         android:id="@+id/textView2"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="112dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="58dp">
 
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/radio_radius">
+            android:id="@+id/radio_radius"
+            android:layout_gravity="center">
             <RadioButton
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/BoundaryOne"
-                android:id="@+id/btn_one" />
+                android:id="@+id/btn_one"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"/>
 
 
             <RadioButton
@@ -82,7 +100,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/BoundaryThree"
-                android:id="@+id/btn_three" />
+                android:id="@+id/btn_three"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"/>
 
             <RadioButton
                 style="?android:attr/buttonStyleSmall"
@@ -90,13 +110,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/BoundaryFive"
                 android:id="@+id/btn_five"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
                 />
+
             <RadioButton
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/BoundaryTen"
                 android:id="@+id/btn_ten"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
                 />
 
 
@@ -108,12 +133,11 @@
     </LinearLayout>
 
 
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/SettingDone"
         android:id="@+id/button_done"
-        android:layout_gravity="center|bottom" />
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

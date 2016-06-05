@@ -20,8 +20,8 @@ tools:context="kr.nearbyme.nbm.GoogleLocActivity">
     android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
         android:id="@+id/btn_setpresentLoc"
         android:layout_alignParentBottom="true"
         android:text="@string/setpresentLoc"
