@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainPageActivity"></activity>
+        <activity android:name=".MainPageActivity"
+                  android:theme="@style/AppTheme.NoStatusBar">
+        </activity>
         <activity
             android:name=".Setting.InfoActivity"
             android:label="@string/title_activity_info"
@@ -50,7 +52,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
