@@ -1,6 +1,7 @@
 package kr.nearbyme.nbm.Writereview;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.Review.KeyAdapter;
 import kr.nearbyme.nbm.Review.KeyContentViewHolder;
 import kr.nearbyme.nbm.data.Key;
 import kr.nearbyme.nbm.manager.PropertyManager;
@@ -25,7 +25,7 @@ import kr.nearbyme.nbm.manager.PropertyManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WritePostKeywordFragment extends DialogFragment {
+public class WritePostKeywordFragment extends DialogFragment{
     RecyclerView recyclerView;
     WritePostKeyAdapter mAdapter;
     GridLayoutManager mLayoutManager;
@@ -42,6 +42,17 @@ public class WritePostKeywordFragment extends DialogFragment {
             "다크브라운컬러" , "프렌치웨이브" , "묶음머리" , "긴생머리" ,  "미디움원랭스컷" , "시스루뱅" , "에어드라이 컷" ,
             "미디움디자인컷" , "뿌리염색" , "롱레이어드컷" , "미디움다듬기컷" , "앞머리펌" , "볼륨텍스쳐컷" , "드라이" ,
             "두피클리닉" , "보브단발컷" , "레이디투블럭컷"};
+
+
+
+    public interface WritePostKeyWordDoneClickListener{
+        public void onWritePostKeyWordDoneClick(List<String> keyFilters);
+    }
+    WritePostKeyWordDoneClickListener writePostKeyWordDoneClickListener;
+
+    public void setWritePostKeyWordDoneClickListener(WritePostKeyWordDoneClickListener listener) {
+        writePostKeyWordDoneClickListener = listener;
+    }
 
 
 
@@ -66,9 +77,6 @@ public class WritePostKeywordFragment extends DialogFragment {
 
     }
 
-//    private void change(int position, boolean check){
-//        mAdapter.setItemCheck(position, check);
-//    }
 
     @Override
     public void onResume() {
@@ -77,22 +85,14 @@ public class WritePostKeywordFragment extends DialogFragment {
     }
 
     private void initData() {
-        /*for (int i = 0; i < 40 ; i++) {
-            Key p = new Key();
-            p.setKey("item1" + i);
-            mAdapter.add(p);
-        }
-*/
+
+
         for(int i=0; i<strs.length; i++) {
             keys.add(new Key(strs[i]));
         }
 
 
         mAdapter.addAll(keys);
-
-
-
-
 
     }
 
@@ -132,6 +132,11 @@ public class WritePostKeywordFragment extends DialogFragment {
                     }
 
                 }
+
+//                if (writePostKeyWordDoneClickListener != null) {
+//                    writePostKeyWordDoneClickListener.onWritePostKeyWordDoneClick(checkedFilter);
+//                }
+
                 PropertyManager.getInstance().setWritePostfilter(checkedFilter);
                 dismiss();
 
@@ -149,6 +154,10 @@ public class WritePostKeywordFragment extends DialogFragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

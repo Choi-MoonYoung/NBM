@@ -8,6 +8,7 @@ import android.widget.Button;
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.Key;
 import kr.nearbyme.nbm.data.ReviewData;
+import kr.nearbyme.nbm.manager.PropertyManager;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 18..
@@ -55,16 +56,20 @@ public class ReviewHeaderViewHolder extends RecyclerView.ViewHolder{
     }
 
 
+
+
+
     public void setData() {
 
-//        // ...
-//        for(int i = 0; i<20;i++){
-//            Key r = new Key();
-//            r.setKey("item" + i);
-//            mAdapter.add(r);
-//
-//
-//        }
+
+        mAdapter.clear();
+
+        for(int i=0; i< PropertyManager.getInstance().getFilters().size(); i++){
+            Key k1 =  new Key();
+            k1.setKey(PropertyManager.getInstance().getFilters().get(i));
+            mAdapter.add(k1);
+
+        }
 
 
 

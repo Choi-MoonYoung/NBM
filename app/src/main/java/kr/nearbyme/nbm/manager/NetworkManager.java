@@ -4,32 +4,24 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
-import kr.nearbyme.nbm.MyApplication;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import kr.nearbyme.nbm.MyApplication;
 import kr.nearbyme.nbm.data.LikePost;
-import kr.nearbyme.nbm.data.LikeShopResult;
 import kr.nearbyme.nbm.data.LikeShopResultResult;
 import kr.nearbyme.nbm.data.PostDetailResult;
 import kr.nearbyme.nbm.data.PostListResult;
-import kr.nearbyme.nbm.data.PostUpload;
 import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.data.ShopListResult;
-import kr.nearbyme.nbm.data.UserWritingResult;
 import kr.nearbyme.nbm.data.UserWritingResults;
-import kr.nearbyme.nbm.data.Write;
 import kr.nearbyme.nbm.data.WriteResult;
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -407,9 +399,10 @@ public class NetworkManager {
                 .addFormDataPart("post_score", post_score+"")
                 .addFormDataPart("post_content", post_content);
                 for(int i = 0; i<post_filters.size(); i++){
-                    String t = post_filters.get(i);
-                    builder.addFormDataPart("post_content["+i+"]", t);
+                    builder.addFormDataPart("post_filters[]", post_filters.get(i));
                 }
+
+
 
             builder.setType(MultipartBody.FORM)
                         .addFormDataPart("mUploadFile", file.getName(),

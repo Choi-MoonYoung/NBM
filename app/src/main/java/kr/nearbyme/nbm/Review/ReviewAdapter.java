@@ -9,12 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Post;
-import kr.nearbyme.nbm.data.PostListResult;
 import kr.nearbyme.nbm.data.PostResult;
-import kr.nearbyme.nbm.data.Rdata;
-import kr.nearbyme.nbm.data.Shop;
-import kr.nearbyme.nbm.data.ShopDetailResult;
 
 
 /**
@@ -82,6 +77,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case VIEW_TYPE_HEADER :
                 ReviewHeaderViewHolder headerViewHolder = (ReviewHeaderViewHolder)holder;
                 headerViewHolder.setOnItemClickListener(mListener1);
+                headerViewHolder.setData();
                 break;
             case VIEW_TYPE_ITEM :
                 position--;

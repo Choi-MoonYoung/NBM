@@ -15,10 +15,18 @@ import kr.nearbyme.nbm.data.Key;
  * Created by CHOIMOONYOUNG on 2016. 5. 24..
  */
 public class TokenAdapter extends RecyclerView.Adapter<TokenViewHolder> {
-    List<Key> items = new ArrayList<Key>();
+    List<Key> items = new ArrayList<>();
 
     public void add(Key key) {
         items.add(key);
+        notifyDataSetChanged();
+    }
+    public void addAll(List<Key> key){
+        items.addAll(key);
+        notifyDataSetChanged();
+    }
+    public void clear() {
+        items.clear();
         notifyDataSetChanged();
     }
 
@@ -38,4 +46,7 @@ public class TokenAdapter extends RecyclerView.Adapter<TokenViewHolder> {
     public int getItemCount() {
         return items.size();
     }
+
+
+
 }

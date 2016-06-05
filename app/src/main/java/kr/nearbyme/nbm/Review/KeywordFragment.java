@@ -1,20 +1,17 @@
 package kr.nearbyme.nbm.Review;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +43,14 @@ public class KeywordFragment extends DialogFragment {
             "두피클리닉" , "보브단발컷" , "레이디투블럭컷"};
 
 
+    public interface KeyWordDoneClickListener{
+        public void onKeyWordDoneClick(List<String> keyFilters);
+    }
+    KeyWordDoneClickListener keyDoneListener;
+
+    public void setKeyWordDoneClickListener(KeyWordDoneClickListener listener) {
+        keyDoneListener = listener;
+    }
 
 
     public KeywordFragment() {
@@ -68,9 +73,6 @@ public class KeywordFragment extends DialogFragment {
 
     }
 
-//    private void change(int position, boolean check){
-//        mAdapter.setItemCheck(position, check);
-//    }
 
     @Override
     public void onResume() {
@@ -120,22 +122,19 @@ public class KeywordFragment extends DialogFragment {
                 for (int i = 0; i < strs.length; i++) {
                     if (mAdapter.checkedItems.get(i)) {
                         keyword = strs[i];
-//                        Log.d("dddddddddddddddcheckItems",mAdapter.checkedItems.get(i)+"");
-//                        Log.d("dddddddddddddddkeyword",keyword);
-//                        Log.d("dddddddddddddddn", n + "");
 
-                        //checkedFilter.add(n, i+"");
                         checkedFilter.add(n, keyword);
 
-//                        Log.d("ddddddddcheckedFilter",checkedFilter.get(n));
                         n++;
                     }
 
                 }
-
-
                 PropertyManager.getInstance().setFilters(checkedFilter);
-                Log.d("hddsfsdfdsfds", PropertyManager.getInstance().getFilters().get(0));
+
+
+                if (keyDoneListener != null) {
+                    keyDoneListener.onKeyWordDoneClick(checkedFilter);
+                }
 
                 dismiss();
 
@@ -152,6 +151,10 @@ public class KeywordFragment extends DialogFragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

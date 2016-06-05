@@ -4,31 +4,22 @@ package kr.nearbyme.nbm.Review;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.nearbyme.nbm.MainActivity;
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Designer;
-import kr.nearbyme.nbm.data.Post;
 import kr.nearbyme.nbm.data.PostListResult;
 import kr.nearbyme.nbm.data.PostResult;
 import kr.nearbyme.nbm.data.ReviewData;
-import kr.nearbyme.nbm.data.Shop;
-import kr.nearbyme.nbm.data.ShopDetailResult;
-import kr.nearbyme.nbm.data.User;
 import kr.nearbyme.nbm.manager.NetworkManager;
 import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
@@ -37,7 +28,7 @@ import okhttp3.Request;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewFragment extends Fragment {
+public class ReviewFragment extends Fragment implements KeywordFragment.KeyWordDoneClickListener, MainActivity.OnNotifyUpdateListener {
     RecyclerView recyclerView;
     ReviewAdapter mAdapter;
     TokenAdapter mTokenAdapter;
@@ -73,14 +64,17 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onItemClick(View view, ReviewData reviewData) {
                 KeywordFragment f = new KeywordFragment();
+                f.setKeyWordDoneClickListener(ReviewFragment.this);
                 f.show(getActivity().getSupportFragmentManager(), "create");
+
 
             }
         });
 
-        mTokenAdapter = new TokenAdapter();
 
-        filters.add("2");
+
+        filters.add("단발");
+        PropertyManager.getInstance().setFilters(filters);
 
 
     }
@@ -88,15 +82,29 @@ public class ReviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity)getActivity()).addOnOnNotifyUpdateListener(this);
         locX = PropertyManager.getInstance().getLatitude();
         locY = PropertyManager.getInstance().getLongitude();
         radius = PropertyManager.getInstance().getMyRadius();
         filters = PropertyManager.getInstance().getFilters();
 
-        //initData();
+        initData();
+
         recyclerView.scrollToPosition(0);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((MainActivity)getActivity()).removeOnNotifyUpdateListener(this);
+    }
+
+    @Override
+    public void onNotifyUpdate() {
+        initData();
+        mAdapter.notifyDataSetChanged();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,10 +114,7 @@ public class ReviewFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_review);
 
-        View v = inflater.inflate(R.layout.view_review_header, null);
-
-        //post_filters = (TextView) v.findViewById(R.id.)
-
+        View v = inflater.inflate(R.layout.view_review_header, container, false);
 
         recyclerView.setAdapter(mAdapter);
 
@@ -132,6 +137,10 @@ public class ReviewFragment extends Fragment {
     }
 
     private void initData() {
+        filters = PropertyManager.getInstance().getFilters();
+        locX = PropertyManager.getInstance().getLatitude();
+        locY = PropertyManager.getInstance().getLongitude();
+        radius = PropertyManager.getInstance().getMyRadius();
 
         NetworkManager.getInstance().getPostList(getContext(), filters, locX, locY, radius, new NetworkManager.OnResultListener<PostListResult>() {
             @Override
@@ -148,33 +157,18 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-        /*
-        ShopDetailResult result = new ShopDetailResult();
-        result.post_info = new ArrayList<PostResult>();
 
-
-        for (int i = 0; i < 40 ; i++) {
-            PostResult p = new PostResult();
-            p.shop = new Shop();
-            p.dsnr = new Designer();
-            p.user = new User();
-            p.post = new Post();
-
-            User user = new User();
-
-            //p.setPost_pic(ContextCompat.getDrawable(getContext(), R.drawable.item3));
-            //p.setPost_filters("");
-            p.shop.setShop_name("shop" + i);
-            p.dsnr.setDsnr_name("designer" + i);
-            //p.setUser_profilePic(ContextCompat.getDrawable(getContext(), R.drawable.icon_person));
-            p.user.setUser_name("user" + i);
-            p.post.setPost_regDate("dddd");
-
-            result.post_info.add(p);
-        }
-        mAdapter.add(result);
-
-        */
     }
+
+    @Override
+    public void onKeyWordDoneClick(List<String> keyFilters) {
+        PropertyManager.getInstance().setFilters(keyFilters);
+
+        initData();
+
+        mAdapter.notifyDataSetChanged();
+
+    }
+
 
 }

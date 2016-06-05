@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -33,20 +32,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.nearbyme.nbm.MyApplication;
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.Review.KeywordFragment;
-import kr.nearbyme.nbm.data.PostUpload;
-import kr.nearbyme.nbm.data.Write;
+import kr.nearbyme.nbm.Review.ReviewDetailActivity;
 import kr.nearbyme.nbm.data.WriteResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WriteReviewFragment extends Fragment {
+public class WriteReviewFragment extends Fragment{
     AutoCompleteTextView storeNameView, designerNameView;
     RatingBar ratingBar;
     Button buttonTag, buttonPost;
@@ -56,7 +53,7 @@ public class WriteReviewFragment extends Fragment {
 
     ScrollView scrollView;
 
-    Write mData;
+//    Write mData;
     private String shop_id;
     private String dsnr_id;
     private double post_score;
@@ -167,12 +164,21 @@ public class WriteReviewFragment extends Fragment {
     }
 
     private void initData() {
+        shop_id = storeNameView.getText().toString();
+        dsnr_id = designerNameView.getText().toString();
+        post_score = ratingBar.getRating();
+        post_content = contentView.getText().toString();
+        post_filters = PropertyManager.getInstance().getWritePostfilter();
+
         NetworkManager.getInstance().getPostUpload(getContext(), shop_id, dsnr_id, post_score, post_content, post_filters, mUploadFile, new NetworkManager.OnResultListener<WriteResult>() {
 
 
             @Override
             public void onSuccess(Request request, WriteResult result) {
-                mData.post_id = result.result.post_id;
+                Intent intent = new Intent(getContext(), ReviewDetailActivity.class);
+                intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, result.result.post_id);
+                startActivity(intent);
+
             }
 
             @Override
@@ -238,12 +244,14 @@ public class WriteReviewFragment extends Fragment {
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shop_id = storeNameView.getText().toString();
-                dsnr_id = designerNameView.getText().toString();
-                post_score = ratingBar.getRating();
-                post_content = contentView.getText().toString();
+
 
                 initData();
+                storeNameView.setText("");
+                designerNameView.setText("");
+                ratingBar.setRating(0.0f);
+                contentView.setText("");
+                ImageUploadView.setImageResource(R.drawable.common_google_signin_btn_icon_light_pressed);
 
 
             }
@@ -253,7 +261,10 @@ public class WriteReviewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 WritePostKeywordFragment f = new WritePostKeywordFragment();
+                //f.setWritePostKeyWordDoneClickListener(WriteReviewFragment.this);
                 f.show(getActivity().getSupportFragmentManager(), "create");
+
+                //Log.d("키워드 눌림", PropertyManager.getInstance().getWritePostfilter().get(0));
 
             }
         });
@@ -264,4 +275,28 @@ public class WriteReviewFragment extends Fragment {
     }
 
 
+//    @Override
+//    public void onWritePostKeyWordDoneClick(List<String> keyFilters) {
+//        PropertyManager.getInstance().setWritePostfilter(keyFilters);
+//
+//    }
+
+//    @Override
+//    public void onNotifyUpdate() {
+//        initData();
+//    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        ((MainActivity)getActivity()).removeOnNotifyUpdateListener(this);
+//    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        ((MainActivity)getActivity()).addOnOnNotifyUpdateListener(this);
+//        post_filters = PropertyManager.getInstance().getWritePostfilter();
+//
+//        initData();
+//    }
 }

@@ -32,15 +32,23 @@ public class PropertyManager {
     List<String> filters;
     List<String> writePostfilter;
 
+    private static final String FIELD_WRITER = "writer";
     public List<String> getWritePostfilter() {
         return writePostfilter;
     }
 
     public void setWritePostfilter(List<String> writePostfilter) {
         this.writePostfilter = writePostfilter;
+//        Set<String> set = new HashSet<>();
+//        for (String s : writePostfilter) {
+//            set.add(s);
+//        }
+//        mEditor.putStringSet(FIELD_WRITER,set);
+//        mEditor.commit();
     }
 
     public void setMyPosition(double latitude, double longitude) {
+
         this.latitude = latitude;
         this.longitude = longitude;
     }

@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class Key implements Serializable {
     public String key;
 
+    public Key() {
+
+    }
+
     public String getKey() {
         return key;
     }

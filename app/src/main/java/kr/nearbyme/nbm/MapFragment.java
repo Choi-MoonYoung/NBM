@@ -2,24 +2,17 @@ package kr.nearbyme.nbm;
 
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import android.widget.Button;
 
-import kr.nearbyme.nbm.Review.ReviewDetailActivity;
-import kr.nearbyme.nbm.Review.ReviewFragment;
 import kr.nearbyme.nbm.manager.PropertyManager;
 
 
@@ -33,6 +26,17 @@ public class MapFragment extends DialogFragment {
     Button close, presentLoc, setLoc, done;
     double locX, locY;
     int radius;
+
+
+
+    public interface DoneClickListener{
+        public void onDoneClick(double locx, double locy, int radius);
+    }
+    DoneClickListener dListener;
+
+    public void setMapDoneClickListener(DoneClickListener listener) {
+        dListener = listener;
+    }
 
 
     public MapFragment() {
@@ -49,7 +53,13 @@ public class MapFragment extends DialogFragment {
             locY = data.getDoubleExtra(GoogleLocActivity.RESULT_LOCY, locY);
 
         }
-        Toast.makeText(getContext(), "" + locX, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        dListener=(DoneClickListener)activity;
+
     }
 
     @Override
@@ -111,6 +121,8 @@ public class MapFragment extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                dListener.onDoneClick(locX, locY, radius);
 
                 PropertyManager.getInstance().setMyPosition(locX, locY);
                 PropertyManager.getInstance().setMyRadius(radius);

@@ -1,53 +1,31 @@
 package kr.nearbyme.nbm;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-
-import android.support.v4.app.FragmentTabHost;
-import android.widget.Toast;
-
-
-import com.google.android.gms.maps.model.LatLng;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.nearbyme.nbm.Mypage.MyPageFragment;
 import kr.nearbyme.nbm.Review.ReviewFragment;
-import kr.nearbyme.nbm.Store.StoreDetailActivity;
 import kr.nearbyme.nbm.Store.StoreFragment;
 import kr.nearbyme.nbm.Writereview.WriteReviewFragment;
+import kr.nearbyme.nbm.manager.PropertyManager;
 
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MapFragment.DoneClickListener{
     private FragmentTabHost mTabHost;
     Button loc_button;
     public double locX = 0;
     public double locY = 0;
+    public int radius = 0;
 
     private static final String TAG_F1 = "f1tag";
-
-
-//    LatLng latLng = new LatLng(locX, locY);
-//
-//    locX = latLng.latitude;
-//    locY = latLng.longitude;
-//
-//    Toast.makeText(getContext(), "" + locX, Toast.LENGTH_SHORT).show();
-//
-//
-//
-//    Bundle b2 = getArguments();
-//    locX = b2.getDouble("locX");
-//    locY = b2.getDouble("locY");
-//
-//    Toast.makeText(getContext(), "" + locX, Toast.LENGTH_SHORT).show();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 MapFragment dialog = new MapFragment();
+                dialog.setMapDoneClickListener(MainActivity.this);
                 dialog.show(getSupportFragmentManager(), "dialog");
 
-//
             }
         });
 
@@ -84,6 +62,39 @@ public class MainActivity extends AppCompatActivity {
         mTabHost.addTab(mTabHost.newTabSpec("MyPage").setIndicator("마이"), MyPageFragment.class, null);
 
 
+    }
+
+
+    public interface OnNotifyUpdateListener {
+        public void onNotifyUpdate();
+    }
+
+    List<OnNotifyUpdateListener> notifiers = new ArrayList<>();
+
+    public void addOnOnNotifyUpdateListener(OnNotifyUpdateListener listener) {
+        notifiers.add(listener);
+    }
+
+    public void removeOnNotifyUpdateListener(OnNotifyUpdateListener listener) {
+        notifiers.remove(listener);
+    }
+
+    public void notifyUpdate() {
+        for (OnNotifyUpdateListener l : notifiers) {
+            l.onNotifyUpdate();
+        }
+    }
+
+    @Override
+    public void onDoneClick(double locx, double locy, int radius) {
+        locX = locx;
+        locY = locy;
+        this.radius = radius;
+
+        PropertyManager.getInstance().setMyPosition(locX, locY);
+        PropertyManager.getInstance().setMyRadius(this.radius);
+
+        notifyUpdate();
     }
 
 }
