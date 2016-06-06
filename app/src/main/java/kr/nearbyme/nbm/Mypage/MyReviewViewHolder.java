@@ -6,8 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.MyReview;
-import kr.nearbyme.nbm.data.Post;
+import kr.nearbyme.nbm.data.UserWritingResult;
 
 
 /**
@@ -16,10 +15,11 @@ import kr.nearbyme.nbm.data.Post;
 public class MyReviewViewHolder extends RecyclerView.ViewHolder {
     TextView reviewView, dateView;
     ImageView kindView;
-    MyReview mData;
+    //MyReview mData;
+    UserWritingResult mData;
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, MyReview myReview);
+        public void onItemClick(View view, UserWritingResult userWritingResult);
     }
 
     OnItemClickListener mListener;
@@ -45,11 +45,16 @@ public class MyReviewViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void setReviewData(MyReview data){
+    public void setReviewData(UserWritingResult data){
         mData = data;
-        reviewView.setText(data.getWriting_content());
-        dateView.setText(data.getWriting_regDate());
-        //kindView.setImageDrawable(data.getPost_pic());
+        if(mData.getParam_sort() == 0){
+            kindView.setImageResource(R.drawable.nm_009_icon_review);
+        }
+        else{
+            kindView.setImageResource(R.drawable.nm_009_icon_coment);
+        }
+        reviewView.setText(data.writing.getWriting_content());
+        dateView.setText(data.writing.getWriting_regDate());
 
     }
 

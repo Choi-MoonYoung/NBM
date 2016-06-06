@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="110dp">
 
 
     <ImageView
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="100dp"
         android:id="@+id/image_store"
         android:layout_alignParentTop="true"
@@ -18,8 +18,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/text_store_name"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
         android:layout_toRightOf="@+id/image_store"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         />
 
     <TextView
@@ -29,8 +31,11 @@
         android:text="Medium Text"
         android:id="@+id/text_store_description"
         android:layout_below="@+id/text_store_name"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@+id/image_store"
-        android:layout_toEndOf="@+id/image_store" />
+        android:layout_toEndOf="@+id/image_store"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"/>
 
     <RatingBar
         style="?android:attr/ratingBarStyleSmall"
@@ -39,17 +44,22 @@
         android:id="@+id/ratingBar"
         android:layout_toRightOf="@id/image_store"
         android:layout_below="@+id/text_store_description"
-        android:layout_alignBottom="@id/image_store"/>
+        android:layout_alignBottom="@id/image_store"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="12dp"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
         android:text=""
         android:id="@+id/buttonLike"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,8 +67,11 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/text_distance"
-        android:layout_below="@+id/buttonLike"
         android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/ratingBar"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignBottom="@id/image_store"
+        android:layout_marginBottom="12dp"/>
 
 </RelativeLayout>

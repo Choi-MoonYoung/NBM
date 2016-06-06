@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler_review"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"/>
+        <!--android:layout_gravity="center_horizontal|bottom" />-->
 
 </FrameLayout>

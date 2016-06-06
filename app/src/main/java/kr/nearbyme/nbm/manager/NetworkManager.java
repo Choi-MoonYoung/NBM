@@ -20,7 +20,9 @@ import kr.nearbyme.nbm.data.LikeShopResultResult;
 import kr.nearbyme.nbm.data.PostDetailResult;
 import kr.nearbyme.nbm.data.PostListResult;
 import kr.nearbyme.nbm.data.ShopDetailResult;
+import kr.nearbyme.nbm.data.ShopDsnrResult;
 import kr.nearbyme.nbm.data.ShopListResult;
+import kr.nearbyme.nbm.data.ShopNameResult;
 import kr.nearbyme.nbm.data.UserWritingResults;
 import kr.nearbyme.nbm.data.WriteResult;
 import okhttp3.Cache;
@@ -439,6 +441,212 @@ public class NetworkManager {
         });
         return request;
     }
+
+    //해당 매장 소속 디자이너 리스트
+    private static final String NBM_SHOPDSNR_URL = NBM_SERVER + "/shop/dsnr_names/:shop_id=%s";
+    public Request getShopDsnrlist(String shop_id, OnResultListener<ShopDsnrResult> listener) {
+
+        String url = String.format(NBM_SHOPDSNR_URL, shop_id);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<ShopDsnrResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    ShopDsnrResult data = gson.fromJson(text, ShopDsnrResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    //후기 삭제
+    private static final String NBM_DELETEPOST_URL = NBM_SERVER +"/post/delete";
+
+    public Request deleteMyPost(String post_id, OnResultListener<String> listener) {
+
+        FormBody.Builder myBuilder = new FormBody.Builder();
+        myBuilder.add("post_id", post_id);
+
+        RequestBody body = myBuilder
+                .build();
+
+        Request request = new Request.Builder()
+                .url(NBM_DELETEPOST_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+
+        final NetworkResult<String> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+  //                  PostListResult data = gson.fromJson(response.body().charStream(), PostListResult.class);
+                    result.result= response.body().toString();
+
+//                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    throw new IOException(response.message());
+                }
+            }
+        });
+        return request;
+    }
+
+    //회원탈퇴
+    private static final String NBM_DELETEUSER_URL = NBM_SERVER +"/user/withdraw";
+
+    public Request deleteUser(String user_id, OnResultListener<String> listener) {
+
+        FormBody.Builder myBuilder = new FormBody.Builder();
+        myBuilder.add("user_id", user_id);
+
+        RequestBody body = myBuilder
+                .build();
+
+        Request request = new Request.Builder()
+                .url(NBM_DELETEUSER_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+
+        final NetworkResult<String> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    result.result= response.body().toString();
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    throw new IOException(response.message());
+                }
+            }
+        });
+        return request;
+    }
+
+
+    //댓글등록
+    private static final String NBM_POSTCOMMENT_URL = NBM_SERVER +"/comment/write";
+
+    public Request postComment(String post_id, String cmt_content, OnResultListener<String> listener) {
+
+        FormBody.Builder myBuilder = new FormBody.Builder();
+        myBuilder.add("post_id", post_id)
+                 .add("cmt_content", cmt_content);
+
+        RequestBody body = myBuilder
+                .build();
+
+        Request request = new Request.Builder()
+                .url(NBM_POSTCOMMENT_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+
+        final NetworkResult<String> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    result.result= response.body().toString();
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    throw new IOException(response.message());
+                }
+            }
+        });
+        return request;
+    }
+
+    //해당 매장 소속 디자이너 리스트
+    private static final String NBM_SHOPNAME_URL = NBM_SERVER + "/shop/names";
+    public Request getShopNameList(OnResultListener<ShopNameResult> listener) {
+
+        String url = String.format(NBM_SHOPNAME_URL);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<ShopNameResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    ShopNameResult data = gson.fromJson(text, ShopNameResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+
 
 
 }

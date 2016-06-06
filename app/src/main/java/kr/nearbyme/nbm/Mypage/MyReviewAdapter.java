@@ -5,20 +5,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.MyReview;
-import kr.nearbyme.nbm.data.Post;
+import kr.nearbyme.nbm.data.UserWritingResult;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 16..
  */
 public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewViewHolder> {
     List<MyReview> items = new ArrayList<MyReview>();
+    public List<UserWritingResult> userWritingResults = new ArrayList<>();
+    public void clear2() {
+        userWritingResults.clear();
+        notifyDataSetChanged();
+    }
 
+    public void add2(UserWritingResult data) {
+        userWritingResults.add(data);
+        notifyDataSetChanged();
+    }
+
+    public void addAll2(List<UserWritingResult> datas) {
+        userWritingResults.addAll(datas);
+        notifyDataSetChanged();
+    }
 
 
     MyReviewViewHolder.OnItemClickListener mListener;
@@ -26,20 +39,20 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewViewHolder> {
         mListener = listener;
     }
 
-    public void clear() {
-        items.clear();
-        notifyDataSetChanged();
-    }
-
-    public void add(MyReview myReview) {
-        items.add(myReview);
-        notifyDataSetChanged();
-    }
-
-    public void addAll(List<MyReview> myReviews) {
-        items.addAll(myReviews);
-        notifyDataSetChanged();
-    }
+//    public void clear() {
+//        items.clear();
+//        notifyDataSetChanged();
+//    }
+//
+//    public void add(MyReview myReview) {
+//        items.add(myReview);
+//        notifyDataSetChanged();
+//    }
+//
+//    public void addAll(List<MyReview> myReviews) {
+//        items.addAll(myReviews);
+//        notifyDataSetChanged();
+//    }
 
 
 
@@ -52,13 +65,16 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewViewHolder> {
 
     @Override
     public void onBindViewHolder(MyReviewViewHolder holder, int position) {
-        holder.setReviewData(items.get(position));
+        holder.setReviewData(userWritingResults.get(position));
         holder.setOnItemClickListener(mListener);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        if(userWritingResults==null){
+            return 0;
+        }else
+            return userWritingResults.size();
     }
 
 

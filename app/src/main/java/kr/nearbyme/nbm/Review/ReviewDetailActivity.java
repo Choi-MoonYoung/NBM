@@ -1,32 +1,35 @@
 package kr.nearbyme.nbm.Review;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Post;
 import kr.nearbyme.nbm.data.Comment;
 import kr.nearbyme.nbm.data.PostDetailResult;
 import kr.nearbyme.nbm.data.PostResult;
-import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
 import okhttp3.Request;
 
 public class ReviewDetailActivity extends AppCompatActivity {
     public static final String EXTRA_REVIEW_ID = "review_id";
-    String review_id;
+    String post_id;
+    String cmt_content;
+
     EditText writeComment;
     Button btnPost;
 
@@ -44,6 +47,40 @@ public class ReviewDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        mAdapter.setOnItemClickListener(new ReviewDetailViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, PostResult post) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ReviewDetailActivity.this);
+                builder.setMessage("수정/삭제");
+                builder.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+                builder.setNegativeButton("삭제", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletePost();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new ReviewCommentWriteViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Comment comment, String cmt_content) {
+                postComment(cmt_content);
+
+
+            }
+        });
 /*
         writeComment = (EditText) findViewById(R.id.edit_commentWrite);
         btnPost = (Button) findViewById(R.id.btn_post);
@@ -61,7 +98,44 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        review_id = intent.getStringExtra(EXTRA_REVIEW_ID);
+        post_id = intent.getStringExtra(EXTRA_REVIEW_ID);
+
+
+    }
+    private void deletePost(){
+
+        NetworkManager.getInstance().deleteMyPost(post_id, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+    }
+
+    private void modifyPost(){
+
+    }
+
+    private void postComment(String cmt_content){
+        NetworkManager.getInstance().postComment(post_id, cmt_content, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+                initData();
+
+                Log.d("SCUUUUUUUCESSSS","FFFFFFF");
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Log.d("Failllllll","FFFFFFF");
+
+            }
+        });
 
 
     }

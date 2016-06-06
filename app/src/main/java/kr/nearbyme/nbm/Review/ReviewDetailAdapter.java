@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Post;
 import kr.nearbyme.nbm.data.Comment;
 import kr.nearbyme.nbm.data.PostResult;
 
@@ -25,6 +24,19 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     List<Comment> items = new ArrayList<Comment>();
     PostResult postDetail = new PostResult();
     Comment commentData = new Comment();
+
+    ReviewDetailViewHolder.OnItemClickListener mListener;
+
+    public void setOnItemClickListener(ReviewDetailViewHolder.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    ReviewCommentWriteViewHolder.OnItemClickListener mListener2;
+
+    public void setOnItemClickListener(ReviewCommentWriteViewHolder.OnItemClickListener listener){
+        mListener2 = listener;
+    }
+
 
 
     public void addComment(Comment r) {
@@ -93,6 +105,7 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case VIEW_TYPE_DETAIL :
                 ReviewDetailViewHolder detailViewHolder = (ReviewDetailViewHolder)holder;
                 detailViewHolder.setDetailReviewData(postDetail);
+                detailViewHolder.setOnItemClickListener(mListener);
                 break;
             case VIEW_TYPE_COMMENT :
                 position--;
@@ -102,6 +115,7 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case VIEW_TYPE_COMMENTWRITE :
                 ReviewCommentWriteViewHolder commentWriteViewHolder = (ReviewCommentWriteViewHolder)holder;
                 commentWriteViewHolder.setReviewCommentData(commentData);
+                commentWriteViewHolder.setOnItemClickListener(mListener2);
                 break;
             default:
                 throw new IllegalArgumentException("invalid view type");

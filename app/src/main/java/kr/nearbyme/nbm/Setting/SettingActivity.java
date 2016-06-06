@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,10 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
+
 import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.manager.NetworkManager;
+import okhttp3.Request;
 
 public class SettingActivity extends AppCompatActivity {
     Button btn1, btn2, btn3, btn4, btn5;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,17 @@ public class SettingActivity extends AppCompatActivity {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        NetworkManager.getInstance().deleteMyPost(user_id, new NetworkManager.OnResultListener<String>() {
+                            @Override
+                            public void onSuccess(Request request, String result) {
+
+                            }
+
+                            @Override
+                            public void onFail(Request request, IOException exception) {
+
+                            }
+                        });
 
                     }
                 });

@@ -34,6 +34,10 @@ import java.util.List;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.Review.ReviewDetailActivity;
+import kr.nearbyme.nbm.data.Designer;
+import kr.nearbyme.nbm.data.Shop;
+import kr.nearbyme.nbm.data.ShopDsnrResult;
+import kr.nearbyme.nbm.data.ShopNameResult;
 import kr.nearbyme.nbm.data.WriteResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
 import kr.nearbyme.nbm.manager.PropertyManager;
@@ -59,6 +63,54 @@ public class WriteReviewFragment extends Fragment{
     private double post_score;
     private String post_content;
     List<String> post_filters = new ArrayList<String>();
+
+    List<String> shop_ids = new ArrayList<>();
+    List<String> shop_names = new ArrayList<>();
+    List<String> dsnr_names = new ArrayList<>();
+
+    private void getShopName(){
+        NetworkManager.getInstance().getShopNameList(new NetworkManager.OnResultListener<ShopNameResult>() {
+            @Override
+            public void onSuccess(Request request, ShopNameResult result) {
+                for(Shop input: result.result) {
+                    shop_ids.add(input.getShop_id());
+                    shop_names.add(input.getShop_name());
+
+                    //AutoCompleteTExtView 먼저 구현
+                }
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+
+    }
+
+    private void getDsnr(){
+
+        NetworkManager.getInstance().getShopDsnrlist(shop_id, new NetworkManager.OnResultListener<ShopDsnrResult>() {
+            @Override
+            public void onSuccess(Request request, ShopDsnrResult result) {
+
+                for(Designer input: result.result) {
+                    dsnr_names.add(input.getDsnr_name());
+                }
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+
 
     private static final int RC_GALLERY = 1;
     private static final int RC_CAMERA = 2;
@@ -151,6 +203,9 @@ public class WriteReviewFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getShopName();
+        getDsnr();
+
         if (savedInstanceState != null) {
             String path = savedInstanceState.getString("uploadfile");
             if (!TextUtils.isEmpty(path)) {

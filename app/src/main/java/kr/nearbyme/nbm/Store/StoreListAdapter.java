@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.S;
-import kr.nearbyme.nbm.data.Shop;
-import kr.nearbyme.nbm.data.ShopListResult;
-import kr.nearbyme.nbm.data.StoreData;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.data.Shop;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 16..
@@ -38,6 +35,12 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setOnItemClickListener(StoreSearchViewHolder.OnItemClickListener listener) {
         mListener2 = listener;
     }
+
+    StoreSearchViewHolder.OnItemClickListener4 mListener4;
+    public void setOnItemClickListener4(StoreSearchViewHolder.OnItemClickListener4 listener) {
+        mListener4 = listener;
+    }
+
 
 
     @Override
@@ -95,6 +98,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 StoreSearchViewHolder headerViewHolder = (StoreSearchViewHolder)holder;
                 //headerViewHolder.setStoreSearchData((StoreData)items.get(position));
                 headerViewHolder.setOnItemClickListener(mListener2);
+                headerViewHolder.setOnItemClickListener4(mListener4);
                 break;
             case VIEW_TYPE_ITEM :
                 StoreListViewHolder itemViewHolder = (StoreListViewHolder)holder;

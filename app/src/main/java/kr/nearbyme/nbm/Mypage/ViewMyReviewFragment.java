@@ -1,27 +1,18 @@
 package kr.nearbyme.nbm.Mypage;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.Review.ReviewDetailActivity;
-import kr.nearbyme.nbm.data.MyReview;
-import kr.nearbyme.nbm.data.Post;
 import kr.nearbyme.nbm.data.UserWritingResult;
 import kr.nearbyme.nbm.data.UserWritingResults;
 import kr.nearbyme.nbm.manager.NetworkManager;
@@ -50,11 +41,11 @@ public class ViewMyReviewFragment extends Fragment {
         mAdapter.setOnItemClickListener(new MyReviewViewHolder.OnItemClickListener() {
 
             @Override
-            public void onItemClick(View view, MyReview myReview) {
+            public void onItemClick(View view, UserWritingResult data) {
                 Toast.makeText(getContext(), "눌렸습니다", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getContext(), ReviewDetailActivity.class);
-                intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, myReview.getWriting_id());
+                intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, data.writing.getWriting_id());
                 startActivity(intent);
             }
 
@@ -91,16 +82,8 @@ public class ViewMyReviewFragment extends Fragment {
         NetworkManager.getInstance().getMyReviewList(new NetworkManager.OnResultListener<UserWritingResults>() {
             @Override
             public void onSuccess(Request request, UserWritingResults result) {
-
-                List<MyReview> temp = new ArrayList<MyReview>();
-
-                for(int i=0;i<result.userWritingResults.size();i++){
-                    temp.add(result.userWritingResults.get(i).writing);
-                }
-
-                mAdapter.clear();
-                mAdapter.addAll(temp);
-
+                mAdapter.clear2();
+                mAdapter.addAll2(result.userWritingResults);
 
             }
 
@@ -109,16 +92,6 @@ public class ViewMyReviewFragment extends Fragment {
                 Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-/*
-        for (int i = 0; i < 40 ; i++) {
-            Post p = new Post();
-            p.setPost_content("item" + i);
-            p.setPost_regDate("date" + i);
-            //p.setKind(ContextCompat.getDrawable(getContext(), R.drawable.item1));
-            mAdapter.add(p);
-        }
-    }
-*/
 
 
     }

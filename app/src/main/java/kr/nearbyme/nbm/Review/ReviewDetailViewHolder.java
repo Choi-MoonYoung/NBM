@@ -2,14 +2,12 @@ package kr.nearbyme.nbm.Review;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Post;
 import kr.nearbyme.nbm.data.PostResult;
-
-import android.widget.Button;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 19..
@@ -19,6 +17,16 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
     ImageView usericonView, reviewimageView;
     Button option, like, comment;
     PostResult mData;
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, PostResult post);
+    }
+
+    OnItemClickListener mListener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
 
     public ReviewDetailViewHolder(View itemView) {
         super(itemView);
@@ -35,6 +43,16 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
         option = (Button) itemView.findViewById(R.id.btn_option);
         like = (Button) itemView.findViewById(R.id.btn_like);
         comment = (Button) itemView.findViewById(R.id.btn_comment);
+
+        option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(v, mData);
+                }
+            }
+        });
+
 
     }
 
