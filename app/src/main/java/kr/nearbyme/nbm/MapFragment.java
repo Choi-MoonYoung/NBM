@@ -3,13 +3,18 @@ package kr.nearbyme.nbm;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -24,6 +29,7 @@ public class MapFragment extends DialogFragment {
 
     RadioGroup radioGroup;
     Button close, presentLoc, setLoc, done;
+    ImageView lineView;
     double locX, locY;
     int radius;
 
@@ -63,6 +69,12 @@ public class MapFragment extends DialogFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -93,6 +105,7 @@ public class MapFragment extends DialogFragment {
         presentLoc = (Button) view.findViewById(R.id.btn_presentloc);
         setLoc = (Button) view.findViewById(R.id.btn_setloc);
         done = (Button) view.findViewById(R.id.button_done);
+        lineView = (ImageView) view.findViewById(R.id.image_line);
 
         setLoc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +140,12 @@ public class MapFragment extends DialogFragment {
                 PropertyManager.getInstance().setMyPosition(locX, locY);
                 PropertyManager.getInstance().setMyRadius(radius);
 
+                WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
+                Log.i("MapFragment", "2 swidth : " + params.width + " , height : " + params.height);
+                Log.i("MapFragment", "x : " + params.x + ", y : " + params.y);
+                Point p = new Point();
+                getActivity().getWindowManager().getDefaultDisplay().getSize(p);
+                Log.i("MapFragment","Display width : " + p.x + ", height : " + p.y);
                 dismiss();
 
 
@@ -142,7 +161,14 @@ public class MapFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
         getDialog().getWindow().setLayout(width, height);
+        Log.i("MapFragment", "width : " + width + ", height : " + height);
+        Point p = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(p);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.window_background);
+        Log.i("MapFragment","Display width : " + p.x + ", height : " + p.y);
 
     }
 }

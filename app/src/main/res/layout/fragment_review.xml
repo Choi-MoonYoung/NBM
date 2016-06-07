@@ -8,11 +8,11 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="340dp"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_review"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"/>
+        android:id="@+id/recycler_review"/>
         <!--android:layout_gravity="center_horizontal|bottom" />-->
 
 </FrameLayout>

@@ -1,73 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="158dp"
+        android:layout_height="209dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         android:id="@+id/image_review"
-        android:src="@drawable/item3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
+        android:scaleType="centerCrop"
+        android:background="#222222"/>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tag"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_alignLeft="@+id/image_review"
-        android:layout_alignStart="@+id/image_review"
+        android:layout_marginLeft="6dp"
+        android:text="tag tag tag tag"
+        android:layout_marginStart="6dp"
         android:id="@+id/text_tag"
-        android:layout_below="@+id/image_review" />
+        android:layout_marginTop="6dp"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/text_sname"
-        android:layout_alignRight="@+id/image_review"
-        android:layout_alignEnd="@+id/image_review"
-        android:layout_below="@+id/text_tag" />
+        android:layout_gravity="right"
+        android:layout_marginTop="13dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:textSize="15sp"
+            android:id="@+id/text_sname"
+            android:layout_marginBottom="8dp"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:textSize="9sp"
+            android:id="@+id/text_dname"
+            android:layout_below="@id/text_sname" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:text="Large Text"-->
+            <!--android:id="@+id/text_sname"-->
+            <!--android:layout_below="@+id/text_tag"-->
+            <!--android:layout_marginTop="13dp"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+            <!--android:text="Medium Text"-->
+            <!--android:id="@+id/text_dname"-->
+            <!--android:layout_alignRight="@id/image_review"-->
+            <!--android:layout_below="@id/text_sname" />-->
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/text_dname"
-        android:layout_alignRight="@id/image_review"
-        android:layout_below="@id/text_sname" />
+        android:orientation="horizontal"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="12dp">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/image_userIcon"
-        android:layout_alignLeft="@+id/image_review"
-        android:layout_alignStart="@+id/image_review"
-        android:layout_below="@id/text_dname"
-        android:src="@drawable/icon_person"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/text_user"
-        android:layout_alignTop="@+id/image_userIcon"
-        android:layout_toRightOf="@+id/image_userIcon"
-        android:layout_toEndOf="@+id/image_userIcon" />
+            <ImageView
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:id="@+id/image_userIcon"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/icon_person"/>
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/text_writedate"
-        android:layout_below="@+id/text_user"
-        android:layout_toRightOf="@+id/image_userIcon"
-        android:layout_toEndOf="@+id/image_userIcon" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textSize="9sp"
+                android:layout_marginBottom="6dp"
+                android:id="@+id/text_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:textSize="7sp"
+                android:id="@+id/text_writedate" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

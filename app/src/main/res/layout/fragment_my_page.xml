@@ -1,25 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Mypage.MyPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/image_user"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:src="@drawable/item1"/>-->
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_marginTop="14dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:id="@+id/btn_setting"
+        android:layout_gravity="right"
+        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
+        android:background="@drawable/button_setting"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="201dp"
-            android:layout_marginTop="54dp"
+            android:layout_height="147dp"
+            android:layout_marginTop="7dp"
             android:id="@+id/relative">
 
             <com.mikhaellopez.circularimageview.CircularImageView
@@ -41,17 +44,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_centerHorizontal="true" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_marginTop="14dp"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:text="New Button"
-                android:id="@+id/btn_setting"
-                android:layout_marginRight="27dp"
-                android:layout_marginEnd="27dp"
-                android:layout_toRightOf="@+id/image_user"
-                android:layout_toEndOf="@+id/image_user" />
+
 
 
         </RelativeLayout>
@@ -64,8 +57,6 @@
             android:layout_height="match_parent"
             android:id="@android:id/tabhost"
             android:layout_below="@+id/relative">
-            <!--android:layout_alignRight="@+id/btn_setting"-->
-            <!--android:layout_alignEnd="@+id/btn_setting">-->
 
             <LinearLayout
                 android:orientation="vertical"
@@ -94,5 +85,5 @@
 
             </LinearLayout>
         </android.support.v4.app.FragmentTabHost>
-    </RelativeLayout>
-</FrameLayout>
+
+</LinearLayout>

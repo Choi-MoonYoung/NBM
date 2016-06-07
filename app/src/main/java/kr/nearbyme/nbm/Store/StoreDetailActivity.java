@@ -2,27 +2,18 @@ package kr.nearbyme.nbm.Store;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Designer;
-import kr.nearbyme.nbm.data.MyReview;
-import kr.nearbyme.nbm.data.Post;
-import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.data.ShopDetailResult;
-import kr.nearbyme.nbm.data.UserWritingResults;
 import kr.nearbyme.nbm.manager.NetworkManager;
 import okhttp3.Request;
 
@@ -65,6 +56,7 @@ public class StoreDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         shop_id = intent.getStringExtra(EXTRA_SHOP_ID);
+
 
 
     }

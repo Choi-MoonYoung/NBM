@@ -11,9 +11,9 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:background="@drawable/nm_006_button_cancel"
         android:id="@+id/btn_close"
         android:layout_gravity="right"
         android:layout_marginRight="15dp"
@@ -23,36 +23,36 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="66dp"
+        android:layout_height="18dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/TextLocationSetting"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="69dp"/>
+        android:layout_marginTop="31dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="51dp"
         android:layout_gravity="center_horizontal"
         >
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="16dp"
             android:text="@string/presentLoc"
             android:id="@+id/btn_presentloc"
-            android:layout_marginLeft="85dp"
-            android:layout_marginStart="85dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginStart="64dp"
             />
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="59dp"
+            android:layout_height="16dp"
             android:text="@string/setLoc"
             android:id="@+id/btn_setloc"
             android:layout_marginLeft="85dp"
@@ -62,15 +62,23 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="122dp"
+        android:layout_height="0.3dp"
+        android:id="@+id/image_line"
+        android:background="@drawable/nm_006_line"
+        android:layout_marginTop="71dp"
+        android:layout_gravity="center_horizontal"/>
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="66dp"
+        android:layout_height="19dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/TextBoundarySetting"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="112dp"/>
+        android:layout_marginTop="60dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,40 +96,47 @@
             <RadioButton
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/BoundaryOne"
+                android:layout_height="42dp"
                 android:id="@+id/btn_one"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"/>
+                android:background="@drawable/radius_select1"
+                android:button="@null"
+                android:layout_marginLeft="31dp"
+                android:layout_marginStart="31dp"
+                android:checkable="true"
+
+                />
 
 
             <RadioButton
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/BoundaryThree"
+                android:layout_height="42dp"
+                android:background="@drawable/radius_select3"
+                android:button="@null"
                 android:id="@+id/btn_three"
-                android:layout_marginLeft="40dp"
-                android:layout_marginStart="40dp"/>
-
-            <RadioButton
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/BoundaryFive"
-                android:id="@+id/btn_five"
-                android:layout_marginLeft="40dp"
-                android:layout_marginStart="40dp"
+                android:checkable="true"
                 />
 
             <RadioButton
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/BoundaryTen"
+                android:layout_height="42dp"
+                android:button="@null"
+                android:id="@+id/btn_five"
+                android:background="@drawable/radius_select5"
+                android:checkable="true"
+
+                />
+
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:background="@drawable/radius_select10"
+                android:button="@null"
                 android:id="@+id/btn_ten"
-                android:layout_marginLeft="40dp"
-                android:layout_marginStart="40dp"
+                android:checkable="true"
+
                 />
 
 
@@ -134,9 +149,10 @@
 
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/SettingDone"
+        android:layout_marginTop="91dp"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/nm_006_button_done"
         android:id="@+id/button_done"
         android:layout_gravity="center_horizontal" />
 

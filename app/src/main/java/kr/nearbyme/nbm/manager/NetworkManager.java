@@ -237,7 +237,7 @@ public class NetworkManager {
                 .add("radius", radius + "");
 
         for(int i =0 ; i < filters.size(); i++)
-            myBuilder.add("filters[]", filters.get(i));
+            myBuilder.add("filters", filters.get(i));
 
         RequestBody body = myBuilder
                 .build();

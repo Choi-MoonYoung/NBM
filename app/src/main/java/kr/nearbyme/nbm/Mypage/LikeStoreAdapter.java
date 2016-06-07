@@ -22,6 +22,10 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreViewHolder> 
         mListener = listener;
     }
 
+    LikeStoreViewHolder.OnItemClickListener2 mListener2;
+    public void setOnItemClickListener2(LikeStoreViewHolder.OnItemClickListener2 listener) {
+        mListener2 = listener;
+    }
     public void clear() {
         items.clear();
         notifyDataSetChanged();
@@ -49,6 +53,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreViewHolder> 
     public void onBindViewHolder(LikeStoreViewHolder holder, int position) {
         holder.setLikeStore(items.get(position));
         holder.setOnItemClickListener(mListener);
+        holder.setOnItemClickListener2(mListener2);
     }
 
     @Override

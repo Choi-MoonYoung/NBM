@@ -1,63 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="110dp"
+    android:paddingBottom="10dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        <ImageView
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
         android:id="@+id/image_store"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:background="#aaaaaa"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/text_store_name"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/image_store"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingTop="12dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="12dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/text_store_description"
-        android:layout_below="@+id/text_store_name"
-        android:layout_toRightOf="@+id/image_store"
-        android:layout_toEndOf="@+id/image_store" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:textSize="16sp"
+                android:id="@+id/text_store_name"
+                android:layout_marginBottom="10dp"
+                />
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_toRightOf="@id/image_store"
-        android:layout_below="@+id/text_store_description" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text Medium Text Medium Text Medium Text"
+                android:id="@+id/text_store_description"
+                />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/button"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ratingBar"
-        android:layout_toEndOf="@+id/ratingBar" />
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBarStore"
+                android:progressDrawable="@drawable/ratingbar_progress"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/text_score"
-        android:layout_below="@+id/button"
-        android:layout_toRightOf="@+id/ratingBar"
-        android:layout_toEndOf="@+id/ratingBar"
-        android:layout_alignBottom="@id/ratingBar"/>
+                />
 
-</RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <!--<ImageView-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:id="@+id/image_store"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+        <!--android:text="Large Text"-->
+        <!--android:id="@+id/text_store_name"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:layout_toRightOf="@+id/image_store"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:text="Medium Text"-->
+        <!--android:id="@+id/text_store_description"-->
+        <!--android:layout_below="@+id/text_store_name"-->
+        <!--android:layout_toRightOf="@+id/image_store"-->
+        <!--android:layout_toEndOf="@+id/image_store" />-->
+
+    <!--<RatingBar-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/ratingBar"-->
+        <!--android:layout_toRightOf="@id/image_store"-->
+        <!--android:layout_below="@+id/text_store_description" />-->
+
+    <!--<Button-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=""-->
+        <!--android:id="@+id/buttonLike"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_toRightOf="@+id/ratingBar"-->
+        <!--android:layout_toEndOf="@+id/ratingBar" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Small Text"-->
+        <!--android:id="@+id/text_score"-->
+        <!--android:layout_below="@+id/buttonLike"-->
+        <!--android:layout_toRightOf="@+id/ratingBar"-->
+        <!--android:layout_toEndOf="@+id/ratingBar"-->
+        <!--android:layout_alignBottom="@id/ratingBar"/>-->
+
+</LinearLayout>

@@ -4,7 +4,6 @@ package kr.nearbyme.nbm.Mypage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.Store.StoreDetailActivity;
-import kr.nearbyme.nbm.data.LikePost;
 import kr.nearbyme.nbm.data.LikeShopResult;
 import kr.nearbyme.nbm.data.LikeShopResultResult;
 import kr.nearbyme.nbm.data.Shop;
@@ -55,6 +53,12 @@ public class ViewLikeStoreFragment extends Fragment {
                 startActivity(intent);
             }
 
+        });
+        mAdapter.setOnItemClickListener2(new LikeStoreViewHolder.OnItemClickListener2() {
+            @Override
+            public void onItemClick2(View view, Shop shop) {
+
+            }
         });
 
 
@@ -105,15 +109,7 @@ public class ViewLikeStoreFragment extends Fragment {
             }
         });
 
-/*
-        for (int i = 0; i < 40 ; i++) {
-            Shop p = new Shop();
-            p.setShop_name("item" + i);
-            p.setShop_intro("description" + i);
 
-            //p.setShop_pic(ContextCompat.getDrawable(getContext(), R.drawable.item2));
-            mAdapter.add(p);
-        }*/
     }
 
 }
