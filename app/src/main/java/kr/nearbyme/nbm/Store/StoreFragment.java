@@ -31,7 +31,7 @@ public class StoreFragment extends Fragment {
     RecyclerView recyclerView;
     StoreListAdapter mAdapter;
     //Button button;
-    private String keyword = "1";
+    private String keyword = "주노";
     private int order = 1;
     private double locX;
     private double locY;
@@ -134,6 +134,7 @@ public class StoreFragment extends Fragment {
     }
 
     private void initData() {
+        
 
         NetworkManager.getInstance().getShopList(getContext()
                 , keyword, order, locX, locY, radius, new NetworkManager.OnResultListener<ShopListResult>() {

@@ -149,7 +149,7 @@ public class NetworkManager {
 
 
     //매장 상세보기
-    private static final String NBM_SHOPDETAIL_URL = NBM_SERVER + "/shop/detail/:shop_id=%s";
+    private static final String NBM_SHOPDETAIL_URL = NBM_SERVER + "/shop/detail/%s";
     public Request getShopDetail(String shop_id, OnResultListener<ShopDetailResult> listener) {
 
         String url = String.format(NBM_SHOPDETAIL_URL, shop_id);

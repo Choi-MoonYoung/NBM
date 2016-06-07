@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -51,17 +52,20 @@ public class StoreDetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        initData();
+
 
 
         Intent intent = getIntent();
         shop_id = intent.getStringExtra(EXTRA_SHOP_ID);
+
+        initData();
 
 
 
     }
 
     private void initData() {
+        Log.d("bbbbbb", shop_id);
 
         NetworkManager.getInstance().getShopDetail(shop_id, new NetworkManager.OnResultListener<ShopDetailResult>() {
             @Override
