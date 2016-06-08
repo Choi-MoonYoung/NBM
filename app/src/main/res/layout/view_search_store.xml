@@ -24,6 +24,7 @@
     <Button
         android:layout_width="53dp"
         android:layout_height="26dp"
+        android:background="@drawable/btn_search"
         android:id="@+id/btn_search"
         android:layout_toRightOf="@+id/edit_store_search"
         android:layout_marginLeft="10dp"

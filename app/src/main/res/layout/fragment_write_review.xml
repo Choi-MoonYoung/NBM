@@ -87,7 +87,8 @@
             android:layout_below="@id/btn_keyword"
             android:layout_centerHorizontal="true"
             android:background="@drawable/item1"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"/>
 
         <Button
             android:id="@+id/btn_post"

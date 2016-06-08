@@ -12,19 +12,17 @@
         android:id="@+id/image_review"
         android:layout_marginLeft="6dp"
         android:layout_marginStart="6dp"
-        android:scaleType="centerCrop"
-        android:background="#222222"/>
+        android:scaleType="centerCrop" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_marginLeft="6dp"
-        android:text="tag tag tag tag"
         android:layout_marginStart="6dp"
         android:id="@+id/text_tag"
-        android:layout_marginTop="6dp"/>
+        android:layout_marginTop="6dp"
+        android:lines="2"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

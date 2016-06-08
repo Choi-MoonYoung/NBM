@@ -2,14 +2,18 @@ package kr.nearbyme.nbm.Review;
 
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -29,7 +33,7 @@ public class KeywordFragment extends DialogFragment {
     KeyAdapter mAdapter;
     GridLayoutManager mLayoutManager;
 
-    Button done, close;
+    Button done;
 
     List<Key> keys= new ArrayList<>();
     String[] strs = new String[]{"여자연예인헤어스타일" , "단발머리" , "숏컷" , "롱헤어스타일" , "긴머리" , "차예련헤어스타일" ,
@@ -60,6 +64,7 @@ public class KeywordFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
         mAdapter = new KeyAdapter();
 
         mAdapter.setOnItemClickListener3(new KeyContentViewHolder.OnItemClickListener3() {
@@ -92,8 +97,6 @@ public class KeywordFragment extends DialogFragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,7 +104,6 @@ public class KeywordFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_keyword, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_key);
         done = (Button) view.findViewById(R.id.btn_done);
-        close = (Button) view.findViewById(R.id.btn_close);
 
 
 
@@ -140,12 +142,6 @@ public class KeywordFragment extends DialogFragment {
 
             }
         });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
 
 
         return view;
@@ -161,6 +157,14 @@ public class KeywordFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
+//        getDialog().getWindow().setLayout(width, height);
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
         getDialog().getWindow().setLayout(width, height);
+        Log.i("MapFragment", "width : " + width + ", height : " + height);
+        Point p = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(p);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.window_background);
+        Log.i("MapFragment", "Display width : " + p.x + ", height : " + p.y);
     }
 }

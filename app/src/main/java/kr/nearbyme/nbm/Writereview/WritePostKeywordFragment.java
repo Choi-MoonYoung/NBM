@@ -106,7 +106,7 @@ public class WritePostKeywordFragment extends DialogFragment{
         View view = inflater.inflate(R.layout.fragment_keyword, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_key);
         done = (Button) view.findViewById(R.id.btn_done);
-        close = (Button) view.findViewById(R.id.btn_close);
+       // close = (Button) view.findViewById(R.id.btn_close);
 
 
 
@@ -143,12 +143,12 @@ public class WritePostKeywordFragment extends DialogFragment{
             }
         });
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+//        close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
 
 
         return view;

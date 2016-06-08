@@ -2,40 +2,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="27dp"
+    android:paddingLeft="22dp"
+    android:paddingRight="17dp"
+    android:layout_marginBottom="5dp">
     <!--android:weightSum="1">-->
 
-    <EditText
-        android:layout_width="290dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_commentwrite"
-        android:layout_marginTop="45dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp">
+        android:layout_alignParentLeft="true">
 
-    </EditText>
+        <EditText
+            android:layout_width="252dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_commentwrite"
+            >
+
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="39dp"
+            android:text="@string/Done"
+            android:id="@+id/btn_done"
+            >
+        </Button>
+    </LinearLayout>
+
         <!--android:layout_weight="1.01" />-->
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:text="@string/Done"
-        android:id="@+id/btn_done"
-        android:layout_marginTop="45dp"
-        android:layout_toRightOf="@+id/edit_commentwrite"
-        android:layout_toEndOf="@+id/edit_commentwrite"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp">
-    </Button>
+
         <!--android:layout_gravity="right" />-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_below="@+id/btn_done">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="5dp"-->
+        <!--android:layout_below="@+id/btn_done">-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 
 

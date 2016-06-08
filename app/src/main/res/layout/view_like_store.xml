@@ -12,7 +12,8 @@
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:id="@+id/image_store"
-        android:background="#aaaaaa"/>
+        android:scaleType="centerCrop"
+        />
 
         <LinearLayout
             android:layout_width="match_parent"

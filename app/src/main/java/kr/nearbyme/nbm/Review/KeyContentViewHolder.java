@@ -1,16 +1,13 @@
 package kr.nearbyme.nbm.Review;
 
 import android.graphics.Color;
-import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.TextView;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.Key;
-import kr.nearbyme.nbm.data.Shop;
 
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 23..
@@ -47,7 +44,7 @@ public class KeyContentViewHolder extends RecyclerView.ViewHolder  implements Ch
 
     public void drawCheck() {
         if(isChecked){
-            keyView.setBackgroundColor(Color.GRAY);
+            keyView.setBackgroundResource(R.drawable.line);
             //check draw
         }
         else{

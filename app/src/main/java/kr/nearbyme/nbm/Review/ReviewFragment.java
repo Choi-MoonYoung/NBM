@@ -31,7 +31,6 @@ import okhttp3.Request;
 public class ReviewFragment extends Fragment implements KeywordFragment.KeyWordDoneClickListener, MainActivity.OnNotifyUpdateListener {
     RecyclerView recyclerView;
     ReviewAdapter mAdapter;
-    TokenAdapter mTokenAdapter;
     GridLayoutManager mLayoutManager;
     private List<String> filters =new ArrayList<>();
     private double locX;
@@ -53,6 +52,8 @@ public class ReviewFragment extends Fragment implements KeywordFragment.KeyWordD
             @Override
             public void onItemClick(View view, PostResult post) {
 
+                PropertyManager.getInstance().setParam_sort("0");
+                PropertyManager.getInstance().setParam_id(post.post.getPost_id());
                 Intent intent = new Intent(getContext(), ReviewDetailActivity.class);
                 intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, post.post.getPost_id());
                 startActivity(intent);
@@ -73,7 +74,7 @@ public class ReviewFragment extends Fragment implements KeywordFragment.KeyWordD
 
 
 
-        filters.add("단발");
+        filters.add("단발머리");
         PropertyManager.getInstance().setFilters(filters);
 
 
@@ -119,6 +120,9 @@ public class ReviewFragment extends Fragment implements KeywordFragment.KeyWordD
         recyclerView.setAdapter(mAdapter);
 
         mLayoutManager = new GridLayoutManager(getContext(), 2);
+        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

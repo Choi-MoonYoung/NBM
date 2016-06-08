@@ -31,6 +31,33 @@ public class PropertyManager {
     int radius;
     List<String> filters;
     List<String> writePostfilter;
+    String param_sort;
+    String param_id;
+    int onoff;
+
+    public int getOnoff() {
+        return onoff;
+    }
+
+    public void setOnoff(int onoff) {
+        this.onoff = onoff;
+    }
+
+    public String getParam_sort() {
+        return param_sort;
+    }
+
+    public void setParam_sort(String param_sort) {
+        this.param_sort = param_sort;
+    }
+
+    public String getParam_id() {
+        return param_id;
+    }
+
+    public void setParam_id(String param_id) {
+        this.param_id = param_id;
+    }
 
     private static final String FIELD_WRITER = "writer";
     public List<String> getWritePostfilter() {

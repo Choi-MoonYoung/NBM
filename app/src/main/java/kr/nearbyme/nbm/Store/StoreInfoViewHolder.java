@@ -2,15 +2,14 @@ package kr.nearbyme.nbm.Store;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 
 import kr.nearbyme.nbm.R;
-import kr.nearbyme.nbm.data.Designer;
 import kr.nearbyme.nbm.data.Shop;
 
 /**
@@ -65,19 +64,19 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
             storePriceView.setText(data.getShop_price());
             scoreView.setText(Double.toString(data.getShop_score()));
 
-            Glide.with(designerImageView.getContext()).load(data.dsnr_info.get(0).getDsnr_profilePic()
-            ).into(designerImageView);
-            storeDesignerNameView.setText(data.dsnr_info.get(0).getDsnr_name());
-            storeDesignerInfoView.setText(data.dsnr_info.get(0).getDsnr_info());
-
-
-            for (int i = 1; i < data.dsnr_info.size(); i++) {
-                Glide.with(designerImageView.getContext()).load(data.dsnr_info.get(i).getDsnr_profilePic()
-                ).into(designerImageView);
-                storeDesignerNameView.append(data.dsnr_info.get(i).getDsnr_name());
-                storeDesignerInfoView.append(data.dsnr_info.get(i).getDsnr_info());
-                System.out.println();
-            }
+//            Glide.with(designerImageView.getContext()).load(data.dsnr_info.get(0).getDsnr_profilePic()
+//            ).into(designerImageView);
+//            storeDesignerNameView.setText(data.dsnr_info.get(0).getDsnr_name());
+//            storeDesignerInfoView.setText(data.dsnr_info.get(0).getDsnr_info());
+//
+//
+//            for (int i = 1; i < data.dsnr_info.size(); i++) {
+//                Glide.with(designerImageView.getContext()).load(data.dsnr_info.get(i).getDsnr_profilePic()
+//                ).into(designerImageView);
+//                storeDesignerNameView.append(data.dsnr_info.get(i).getDsnr_name());
+//                storeDesignerInfoView.append(data.dsnr_info.get(i).getDsnr_info());
+//                System.out.println();
+//            }
 
         }
 

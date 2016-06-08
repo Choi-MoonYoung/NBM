@@ -23,12 +23,14 @@ import kr.nearbyme.nbm.data.Comment;
 import kr.nearbyme.nbm.data.PostDetailResult;
 import kr.nearbyme.nbm.data.PostResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 public class ReviewDetailActivity extends AppCompatActivity {
     public static final String EXTRA_REVIEW_ID = "review_id";
     String post_id;
     String cmt_content;
+    int onoff;
 
     EditText writeComment;
     Button btnPost;
@@ -81,6 +83,19 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        mAdapter.setOnLikeClickListener(new ReviewDetailViewHolder.OnLikeClickListener() {
+            @Override
+            public void onLikeClick(View view, PostResult post) {
+                PropertyManager.getInstance().setOnoff(1);
+                onoff = PropertyManager.getInstance().getOnoff();
+
+
+
+
+
+            }
+        });
 /*
         writeComment = (EditText) findViewById(R.id.edit_commentWrite);
         btnPost = (Button) findViewById(R.id.btn_post);
@@ -88,7 +103,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recycler_detail);
         recyclerView.setAdapter(mAdapter);
 
-        initData();
+
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -99,6 +114,9 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         post_id = intent.getStringExtra(EXTRA_REVIEW_ID);
+        PropertyManager.getInstance().setParam_id(post_id);
+
+        initData();
 
 
     }
@@ -141,6 +159,8 @@ public class ReviewDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        param_sort = PropertyManager.getInstance().getParam_sort();
+        param_id = PropertyManager.getInstance().getParam_id();
 
         NetworkManager.getInstance().getPostDetail(param_sort, param_id, new NetworkManager.OnResultListener<PostDetailResult>() {
             @Override

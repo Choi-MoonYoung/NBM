@@ -1,49 +1,58 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Review.KeywordFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <!--<Button-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:layout_width="17dp"-->
+        <!--android:layout_height="17dp"-->
+        <!--android:background="@drawable/nm_006_button_cancel"-->
+        <!--android:id="@+id/btn_close"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_marginTop="17dp"/>-->
+
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="53dp"
+        android:layout_height="15dp"
+        android:background="#ff2222"
         android:text="@string/KeywordSetting"
         android:id="@+id/text_title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_close"
-
-        />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="55dp"
+        android:textSize="15sp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
-        android:text="관심스타일을 설정해주세요.(중복선택 가능)"
+        android:background="#fff000"
+        android:text="관심스타일을 설정해주세요.\n중복선택 가능(이후 변경가능)"
+        android:layout_marginTop="40dp"
+        android:textSize="12sp"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/textDescription"
         android:layout_below="@+id/text_title"/>
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/autocompletetext_searchkeyword"
-        android:hint="search"
-        android:layout_below="@+id/textDescription"/>
+    <!--<AutoCompleteTextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/autocompletetext_searchkeyword"-->
+        <!--android:hint="search"-->
+        <!--android:layout_below="@+id/textDescription"/>-->
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_done"
+        android:layout_width="248dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/recycler_key"
-        android:layout_below="@+id/autocompletetext_searchkeyword">
+        >
 
     </android.support.v7.widget.RecyclerView>
 
@@ -51,14 +60,14 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Done"
+        android:layout_width="160dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="28dp"
         android:id="@+id/btn_done"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/nm_006_button_done"
         />
 
 
 
-</RelativeLayout>
+</LinearLayout>

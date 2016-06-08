@@ -27,6 +27,16 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
         mListener = listener;
     }
 
+    public interface OnLikeClickListener {
+        public void onLikeClick(View view, PostResult post);
+    }
+
+    OnLikeClickListener likeClickListener;
+    public void setOnLikeClickListener(OnLikeClickListener listener) {
+        likeClickListener = listener;
+    }
+
+
 
     public ReviewDetailViewHolder(View itemView) {
         super(itemView);
@@ -48,6 +58,15 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
+                    mListener.onItemClick(v, mData);
+                }
+            }
+        });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(likeClickListener != null){
                     mListener.onItemClick(v, mData);
                 }
             }

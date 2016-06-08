@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.UserWritingResult;
+import kr.nearbyme.nbm.manager.PropertyManager;
 
 
 /**
@@ -49,9 +50,11 @@ public class MyReviewViewHolder extends RecyclerView.ViewHolder {
         mData = data;
         if(mData.getParam_sort() == 0){
             kindView.setImageResource(R.drawable.nm_009_icon_review);
+            PropertyManager.getInstance().setParam_sort("0");
         }
         else{
             kindView.setImageResource(R.drawable.nm_009_icon_coment);
+            PropertyManager.getInstance().setParam_sort("1");
         }
         reviewView.setText(data.writing.getWriting_content());
         dateView.setText(data.writing.getWriting_regDate());

@@ -272,7 +272,7 @@ public class NetworkManager {
     }
 
     //후기 상세보기
-    private static final String NBM_POSTDETAIL_URL = NBM_SERVER + "/post/detail/:param_sort=%s/:param_id=%s";
+    private static final String NBM_POSTDETAIL_URL = NBM_SERVER + "/post/detail/%s/%s";
     public Request getPostDetail(String param_sort, String param_id, OnResultListener<PostDetailResult> listener) {
 
         String url = String.format(NBM_POSTDETAIL_URL, param_sort, param_id);
@@ -395,21 +395,26 @@ public class NetworkManager {
         String url = String.format(NBM_UPLOAD_POST);
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("shop_id", shop_id)
+                .setType(MultipartBody.FORM);
+
+        builder.addFormDataPart("shop_id", shop_id)
                 .addFormDataPart("dsnr_id", dsnr_id)
                 .addFormDataPart("post_score", post_score+"")
                 .addFormDataPart("post_content", post_content);
-                for(int i = 0; i<post_filters.size(); i++){
-                    builder.addFormDataPart("post_filters[]", post_filters.get(i));
-                }
 
+        for(int i = 0; i<post_filters.size(); i++){
+            builder.addFormDataPart("post_filters", post_filters.get(i));
+        }
 
+//        if(file != null)
+//            builder.addFormDataPart("mUploadFile", file.getName());
+//
+//
 
-            builder.setType(MultipartBody.FORM)
-                        .addFormDataPart("mUploadFile", file.getName(),
-                                RequestBody.create(MediaType.parse("image/jpeg"), file));
-                RequestBody body = builder.build();
+        builder.addFormDataPart("mUploadFile", file.getName(),
+                RequestBody.create(MediaType.parse("image/jpg"), file));
+        RequestBody body = builder
+                .build();
 
         Request request = new Request.Builder()
                 .url(url)
@@ -644,6 +649,44 @@ public class NetworkManager {
         });
         return request;
     }
+
+    //후기 좋아요 변경
+    private static final String NBM_POSTLIKE_URL = NBM_SERVER + "/post/like/%s/%s";
+    public Request changePostLike(String post_id, int onoff, OnResultListener<String> listener) {
+
+        String url = String.format(NBM_SHOPDETAIL_URL, post_id, onoff+"");
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<String> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    result.result = text;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
 
 
 

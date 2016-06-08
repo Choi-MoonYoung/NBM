@@ -26,9 +26,14 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     Comment commentData = new Comment();
 
     ReviewDetailViewHolder.OnItemClickListener mListener;
+    ReviewDetailViewHolder.OnLikeClickListener likeClickListener;
 
     public void setOnItemClickListener(ReviewDetailViewHolder.OnItemClickListener listener) {
         mListener = listener;
+    }
+
+    public void setOnLikeClickListener(ReviewDetailViewHolder.OnLikeClickListener listener) {
+        likeClickListener = listener;
     }
 
     ReviewCommentWriteViewHolder.OnItemClickListener mListener2;
@@ -106,6 +111,7 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ReviewDetailViewHolder detailViewHolder = (ReviewDetailViewHolder)holder;
                 detailViewHolder.setDetailReviewData(postDetail);
                 detailViewHolder.setOnItemClickListener(mListener);
+                detailViewHolder.setOnLikeClickListener(likeClickListener);
                 break;
             case VIEW_TYPE_COMMENT :
                 position--;
