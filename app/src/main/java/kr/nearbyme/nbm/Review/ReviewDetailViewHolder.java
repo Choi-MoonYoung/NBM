@@ -3,6 +3,7 @@ package kr.nearbyme.nbm.Review;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +16,8 @@ import kr.nearbyme.nbm.data.PostResult;
 public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
     TextView nameView, dateView, postView, tagView, likeCountView, commentCountView, dsnrnameView, storenameView;
     ImageView usericonView, reviewimageView;
-    Button option, like, comment;
+    Button option, comment;
+    CheckBox like;
     PostResult mData;
 
     public interface OnItemClickListener {
@@ -51,7 +53,7 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
         usericonView = (ImageView) itemView.findViewById(R.id.image_user);
         reviewimageView = (ImageView) itemView.findViewById(R.id.imageView);
         option = (Button) itemView.findViewById(R.id.btn_option);
-        like = (Button) itemView.findViewById(R.id.btn_like);
+        like = (CheckBox) itemView.findViewById(R.id.btn_like);
         comment = (Button) itemView.findViewById(R.id.btn_comment);
 
         option.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +69,7 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if(likeClickListener != null){
-                    mListener.onItemClick(v, mData);
+                    likeClickListener.onLikeClick(v,mData);
                 }
             }
         });

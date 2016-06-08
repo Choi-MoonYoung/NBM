@@ -53,7 +53,6 @@
                         android:layout_alignParentRight="true"
                         android:id="@+id/image_user"
                         android:src="@drawable/icon_person"
-
                         android:scaleType="centerCrop"
                         android:layout_gravity="center_vertical"/>
 
@@ -141,14 +140,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <CheckBox
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:text="L"
                     android:id="@+id/btn_like"
                     android:background="@drawable/review_detail_like_button"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="7dp"/>
+                    android:layout_marginRight="7dp"
+                    android:clickable="true"
+                    android:button="@null"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
                 <Button
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:text="C"
+                    android:background="@drawable/nm_007a_icon_coment"
                     android:id="@+id/btn_comment"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="7dp"/>

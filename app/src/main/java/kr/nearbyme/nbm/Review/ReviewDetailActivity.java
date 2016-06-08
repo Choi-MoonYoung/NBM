@@ -50,6 +50,10 @@ public class ReviewDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        post_id = intent.getStringExtra(EXTRA_REVIEW_ID);
+        PropertyManager.getInstance().setParam_id(post_id);
+
         mAdapter.setOnItemClickListener(new ReviewDetailViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, PostResult post) {
@@ -75,23 +79,30 @@ public class ReviewDetailActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter.setOnItemClickListener(new ReviewCommentWriteViewHolder.OnItemClickListener() {
+
+
+        mAdapter.setOnLikeClickListener(new ReviewDetailViewHolder.OnLikeClickListener() {
             @Override
-            public void onItemClick(View view, Comment comment, String cmt_content) {
-                postComment(cmt_content);
+            public void onLikeClick(View view, PostResult post) {
+                if(post.getPost().getLiked() == 0){
+                    onoff = 1;
+                }
+                else {
+                    onoff = 0;
+                }
+//                PropertyManager.getInstance().setOnoff(1);
+//                onoff = PropertyManager.getInstance().getOnoff();
+//                Log.d("ssss", ""+onoff);
+                changeLike();
 
 
             }
         });
 
-        mAdapter.setOnLikeClickListener(new ReviewDetailViewHolder.OnLikeClickListener() {
+        mAdapter.setOnItemClickListener(new ReviewCommentWriteViewHolder.OnItemClickListener() {
             @Override
-            public void onLikeClick(View view, PostResult post) {
-                PropertyManager.getInstance().setOnoff(1);
-                onoff = PropertyManager.getInstance().getOnoff();
-
-
-
+            public void onItemClick(View view, Comment comment, String cmt_content) {
+                postComment(cmt_content);
 
 
             }
@@ -108,17 +119,28 @@ public class ReviewDetailActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        //recyclerView.setHasFixedSize(true);
 
-
-
-        Intent intent = getIntent();
-        post_id = intent.getStringExtra(EXTRA_REVIEW_ID);
-        PropertyManager.getInstance().setParam_id(post_id);
 
         initData();
 
 
+    }
+
+    private void changeLike(){
+        Log.d("sss",""+onoff);
+        Log.d("sssss",""+post_id);
+        NetworkManager.getInstance().changePostLike(post_id, onoff, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(ReviewDetailActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void deletePost(){
 
