@@ -20,10 +20,31 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_STOREINFO = 0;
     public static final int VIEW_TYPE_STORESTYLE = 1;
 
+
+
     List<PostResult> items = new ArrayList<PostResult>();
     Shop shopDetail = new Shop();
 
-    ShopDetailResult result=new ShopDetailResult();
+    ShopDetailResult result = new ShopDetailResult();
+
+    StoreInfoViewHolder.OnLikeClickListener likeClickListener;
+
+    public void setOnLikeClickListener(StoreInfoViewHolder.OnLikeClickListener listener) {
+        likeClickListener = listener;
+    }
+
+    StoreInfoViewHolder.OnCallClickListener callClickListener;
+
+    public void setOnCallClickListener(StoreInfoViewHolder.OnCallClickListener listener) {
+        callClickListener = listener;
+    }
+
+    StoreInfoViewHolder.OnMapClickListener mapClickListener;
+
+    public void setOnMapClickListener(StoreInfoViewHolder.OnMapClickListener listener) {
+        mapClickListener = listener;
+    }
+
 
     public void clear() {
         items.clear();
@@ -83,7 +104,9 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         switch (holder.getItemViewType()){
             case VIEW_TYPE_STOREINFO :
                 StoreInfoViewHolder storeInfoViewHolder = (StoreInfoViewHolder)holder;
-                //storeInfoViewHolder.setStoreInfo(result.);
+                storeInfoViewHolder.setOnLikeClickListener(likeClickListener);
+                storeInfoViewHolder.setOnCallClickListener(callClickListener);
+                storeInfoViewHolder.setOnMapClickListener(mapClickListener);
                 storeInfoViewHolder.setStoreInfo(result.getShop_info());
                 break;
             case VIEW_TYPE_STORESTYLE :

@@ -130,7 +130,8 @@
                     android:background="@drawable/nm_010_btn_keyword"
                     android:layout_marginBottom="10dp"/>
 
-                <TextView
+                <com.wefika.flowlayout.FlowLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/text_keywords"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

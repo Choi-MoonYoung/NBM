@@ -1,9 +1,5 @@
 package kr.nearbyme.nbm.data;
 
-import android.graphics.drawable.Drawable;
-
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -15,7 +11,7 @@ public class Shop implements S {
     public String shop_pic;
     public String shop_name;
     public String shop_intro;
-    public String shop_dist;
+    public String dist;
     public int liked;
     public double shop_score;
     public String shop_address;
@@ -92,12 +88,12 @@ public class Shop implements S {
         this.shop_intro = shop_intro;
     }
 
-    public String getShop_dist() {
-        return shop_dist;
+    public String getDist() {
+        return dist;
     }
 
-    public void setShop_distance(String shop_dist) {
-        this.shop_dist = shop_dist;
+    public void setDist(String dist) {
+        this.dist = dist;
     }
 
     public int getLiked() {

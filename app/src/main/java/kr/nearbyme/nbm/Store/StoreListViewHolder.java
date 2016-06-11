@@ -2,9 +2,10 @@ package kr.nearbyme.nbm.Store;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 
@@ -17,14 +18,15 @@ import kr.nearbyme.nbm.data.Shop;
 public class StoreListViewHolder extends RecyclerView.ViewHolder{
     TextView storeNameView, storeDescriptionView, storeDistanceView;
     ImageView storeImageView;
-    Button buttonLike;
+    CheckBox buttonLike;
+    RatingBar shoplistRatingbar;
     Shop mData;
 
     public interface OnItemClickListener {
         public void onItemClick(View view, Shop shop);
     }
-    public interface OnItemClickListener3 {
-        public void onItemClick3(View view, Shop shop);
+    public interface OnShopLikeClickListener {
+        public void onShopLikeClick(View view, Shop shop);
     }
 
 
@@ -35,9 +37,9 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         mListener = listener;
     }
 
-    OnItemClickListener3 mListener3;
-    public void setOnItemClickListener3(OnItemClickListener3 listener) {
-        mListener3 = listener;
+    OnShopLikeClickListener likeshopListener;
+    public void setOnShopLikeClickListener(OnShopLikeClickListener listener) {
+        likeshopListener = listener;
     }
 
 
@@ -48,7 +50,8 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         storeDescriptionView = (TextView) itemView.findViewById(R.id.text_store_description);
         storeDistanceView = (TextView) itemView.findViewById(R.id.text_distance);
         storeImageView = (ImageView) itemView.findViewById(R.id.image_store);
-        buttonLike = (Button) itemView.findViewById(R.id.buttonLike);
+        buttonLike = (CheckBox) itemView.findViewById(R.id.buttonLike);
+        shoplistRatingbar = (RatingBar) itemView.findViewById(R.id.ratingBar);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +65,8 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         buttonLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener3 != null) {
-                    mListener3.onItemClick3(v, mData);
+                if (likeshopListener != null) {
+                    likeshopListener.onShopLikeClick(v, mData);
 
                 }
             }
@@ -76,8 +79,9 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         mData = data;
         storeNameView.setText(data.getShop_name());
         storeDescriptionView.setText(data.getShop_intro());
-        storeDistanceView.setText(data.getShop_dist());
+        storeDistanceView.setText(data.getDist());
 
+        shoplistRatingbar.setRating((float)data.getShop_score());
         Glide.with(storeImageView.getContext()).load(data.getShop_pic()).into(storeImageView);
 
     }

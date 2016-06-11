@@ -49,7 +49,7 @@ public class LikeStoreViewHolder extends RecyclerView.ViewHolder{
         storeImageView = (ImageView) itemView.findViewById(R.id.image_store);
         //buttonLike = (Button) itemView.findViewById(R.id.)
 //        storeRatingNumView = (TextView) itemView.findViewById(R.id.text_score);
-        ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBarStore);
+        ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

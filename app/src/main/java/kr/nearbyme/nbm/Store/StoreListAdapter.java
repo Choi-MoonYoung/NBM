@@ -20,14 +20,14 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static final int VIEW_TYPE_ITEM = 1;
 
     StoreListViewHolder.OnItemClickListener mListener;
-    StoreListViewHolder.OnItemClickListener3 mListener3;
+    StoreListViewHolder.OnShopLikeClickListener likeShopListener;
 
     public void setOnItemClickListener(StoreListViewHolder.OnItemClickListener listener) {
         mListener = listener;
     }
 
-    public void setOnItemClickListener3(StoreListViewHolder.OnItemClickListener3 listener) {
-        mListener3 = listener;
+    public void setOnShopLikeClickListener(StoreListViewHolder.OnShopLikeClickListener listener) {
+        likeShopListener = listener;
     }
 
 
@@ -105,7 +105,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 position--;
                 itemViewHolder.setStoreData((Shop)items.get(position));
                 itemViewHolder.setOnItemClickListener(mListener);
-                itemViewHolder.setOnItemClickListener3(mListener3);
+                itemViewHolder.setOnShopLikeClickListener(likeShopListener);
                 break;
         }
 

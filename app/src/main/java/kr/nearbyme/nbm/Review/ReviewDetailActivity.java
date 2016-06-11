@@ -50,6 +50,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
         Intent intent = getIntent();
         post_id = intent.getStringExtra(EXTRA_REVIEW_ID);
         PropertyManager.getInstance().setParam_id(post_id);

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,7 +17,6 @@ import android.support.v7.widget.ListPopupWindow;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.wefika.flowlayout.FlowLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,13 +55,13 @@ public class WriteReviewFragment extends Fragment {
     EditText storeNameView, designerNameView;
     RatingBar ratingBar;
     Button buttonTag, buttonPost;
-    TextView filterTagsView;
+    FlowLayout tagLayout;
     EditText contentView;
     ImageView ImageUploadView;
 
     ScrollView scrollView;
 
-//    Write mData;
+
     private String shop_id;
     private String dsnr_id;
     private double post_score;
@@ -75,56 +76,6 @@ public class WriteReviewFragment extends Fragment {
     List<String> dsnr_names = new ArrayList<>();
 
     List<ItemData> shopList = new ArrayList<>();
-
-    /*private void getShopName(){
-        NetworkManager.getInstance().getShopNameList(new NetworkManager.OnResultListener<ShopNameResult>() {
-            @Override
-            public void onSuccess(Request request, ShopNameResult result) {
-                ItemData temp = new ItemData();
-                for(Shop input: result.result) {
-//                    shop_ids.add(input.getShop_id());
-//                    shop_names.add(input.getShop_name());
-
-                    temp.id = input.getShop_id();
-                    temp.name = input.getShop_name();
-                    shopList.add(temp);
-
-                    //AutoCompleteTExtView 먼저 구현
-                }
-//                Log.i("log_kwon", shop_names.size() + "");
-
-            }
-
-            @Override
-            public void onFail(Request request, IOException exception) {
-
-            }
-        });
-
-    }*/
-
-/*    private void getDsnr(){
-
-        NetworkManager.getInstance().getShopDsnrlist(shop_id, new NetworkManager.OnResultListener<ShopDsnrResult>() {
-            @Override
-            public void onSuccess(Request request, ShopDsnrResult result) {
-
-                for(Designer input: result.result) {
-                    dsnr_names.add(input.getDsnr_name());
-                }
-
-            }
-
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }*/
-
-
 
     private static final int RC_GALLERY = 1;
     private static final int RC_CAMERA = 2;
@@ -232,6 +183,8 @@ public class WriteReviewFragment extends Fragment {
         }
 
         mAdapter = new ArrayAdapter<ItemData>(getContext(), android.R.layout.simple_list_item_1);
+
+
     }
 
     private void initData() {
@@ -242,10 +195,6 @@ public class WriteReviewFragment extends Fragment {
         post_score = ratingBar.getRating();
         post_content = contentView.getText().toString();
         post_filters = PropertyManager.getInstance().getWritePostfilter();
-        Log.i("log_kwon", "post_filters size: " + post_filters.size() );
-        for(int i = 0; i < post_filters.size(); i ++){
-            Log.i("log_kwon", "each post_filters[" + i + "]: " + post_filters.get(i));
-        }
 
 
         NetworkManager.getInstance().getPostUpload(getContext(), shop_id, dsnr_id, post_score, post_content, post_filters, mUploadFile, new NetworkManager.OnResultListener<WriteResult>() {
@@ -400,7 +349,7 @@ public class WriteReviewFragment extends Fragment {
 
         ratingBar = (RatingBar) view.findViewById(R.id.ratingBar_review);
         buttonTag = (Button) view.findViewById(R.id.btn_keyword);
-        filterTagsView = (TextView) view.findViewById(R.id.text_keywords);
+        tagLayout = (FlowLayout) view.findViewById(R.id.text_keywords);
         contentView = (EditText) view.findViewById(R.id.edit_review);
         ImageUploadView = (ImageView) view.findViewById(R.id.image_upload);
         buttonPost = (Button) view.findViewById(R.id.btn_post);
@@ -426,6 +375,23 @@ public class WriteReviewFragment extends Fragment {
 //                Log.i("log_kwon", )
             }
         });*/
+
+        tagLayout.removeAllViews();
+
+        if(PropertyManager.getInstance().getWritePostfilter() != null){
+            for(int i = 0; i< PropertyManager.getInstance().getWritePostfilter().size(); i++){
+                TextView filterTagsView = new TextView(getContext());
+                FlowLayout.LayoutParams lp = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(6, 6, 6, 6);
+                filterTagsView.setLayoutParams(lp);
+                filterTagsView.setTextSize(10);
+                filterTagsView.setBackgroundColor(Color.BLUE);
+                filterTagsView.setBackgroundResource(R.drawable.tag_s_001);
+                filterTagsView.setText(PropertyManager.getInstance().getWritePostfilter().get(i));
+                tagLayout.addView(filterTagsView);
+            }
+
+        }
 
 
         ImageUploadView.setOnClickListener(new View.OnClickListener() {
@@ -481,6 +447,7 @@ public class WriteReviewFragment extends Fragment {
 
 //                Log.d("키워드 눌림", PropertyManager.getInstance().getWritePostfilter().get(0));
 
+
             }
         });
 
@@ -490,28 +457,5 @@ public class WriteReviewFragment extends Fragment {
     }
 
 
-//    @Override
-//    public void onWritePostKeyWordDoneClick(List<String> keyFilters) {
-//        PropertyManager.getInstance().setWritePostfilter(keyFilters);
-//
-//    }
 
-//    @Override
-//    public void onNotifyUpdate() {
-//        initData();
-//    }
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        ((MainActivity)getActivity()).removeOnNotifyUpdateListener(this);
-//    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        ((MainActivity)getActivity()).addOnOnNotifyUpdateListener(this);
-//        post_filters = PropertyManager.getInstance().getWritePostfilter();
-//
-//        initData();
-//    }
 }

@@ -56,10 +56,9 @@ public class StoreFragment extends Fragment {
 
             }
         });
-        mAdapter.setOnItemClickListener3(new StoreListViewHolder.OnItemClickListener3() {
+        mAdapter.setOnShopLikeClickListener(new StoreListViewHolder.OnShopLikeClickListener() {
             @Override
-            public void onItemClick3(View view, Shop shop) {
-                Toast.makeText(getContext(), "버튼이 눌렸습니다", Toast.LENGTH_SHORT).show();
+            public void onShopLikeClick(View view, Shop shop) {
 
             }
         });
