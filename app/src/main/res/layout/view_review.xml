@@ -1,95 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="170dp"
     android:layout_height="360dp"
+    android:layout_marginBottom="6dp"
     android:background="@drawable/nm_007_review_bg">
 
     <ImageView
         android:layout_marginLeft="6dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
         android:layout_width="158dp"
         android:layout_height="209dp"
         android:id="@+id/image_review"
-        android:src="@drawable/item3"
+        android:background="#b0b2b7"
         android:scaleType="centerCrop"
         />
 
-
-
-    <com.wefika.flowlayout.FlowLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/image_review"
-        android:layout_alignLeft="@+id/image_review"
-        android:layout_alignStart="@+id/image_review"
-        android:layout_marginStart="6dp"
+    <LinearLayout
+        android:layout_width="158dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_marginLeft="6dp"
-        android:id="@+id/text_tag">
+        android:paddingLeft="6dp"
+        android:paddingRight="7dp"
+        android:paddingTop="6dp">
 
-        <!--<View-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="tag"/>-->
+        <com.wefika.flowlayout.FlowLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="13dp"
+            android:id="@+id/text_tag">
 
-    </com.wefika.flowlayout.FlowLayout>
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
 
-        <!--android:layout_below="@+id/image_review"-->
-        <!--android:layout_alignLeft="@+id/image_review"-->
-        <!--android:layout_alignStart="@+id/image_review"-->
-        <!--android:id="@+id/text_tag"-->
-        <!--android:lines="2"/>-->
+        </com.wefika.flowlayout.FlowLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/text_sname"
-        android:layout_below="@id/text_tag"
-        android:layout_alignRight="@+id/image_review"
-        android:layout_alignEnd="@+id/image_review" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_marginBottom="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/text_dname"
-        android:layout_alignRight="@id/image_review"
-        android:layout_below="@id/text_sname" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Large Text"
+                android:textSize="15sp"
+                android:textColor="#3f4857"
+                android:id="@+id/text_sname"/>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/image_userIcon"
-        android:layout_alignLeft="@+id/image_review"
-        android:layout_alignStart="@+id/image_review"
-        android:layout_below="@id/text_dname"
-        android:scaleType="centerCrop"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textSize="12sp"
+                android:textColor="#3f4857"
+                android:id="@+id/text_dname"/>
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/text_user"
-        android:layout_alignTop="@+id/image_userIcon"
-        android:layout_toRightOf="@+id/image_userIcon"
-        android:layout_toEndOf="@+id/image_userIcon" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/text_writedate"
-        android:layout_below="@+id/text_user"
-        android:layout_toRightOf="@+id/image_userIcon"
-        android:layout_toEndOf="@+id/image_userIcon" />
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:id="@+id/image_userIcon"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="10dp"/>
 
-</RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:textSize="12sp"
+                        android:textColor="#3f4857"
+                        android:id="@+id/text_user" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textSize="10sp"
+                        android:textColor="#b0b2b7"
+                        android:id="@+id/text_writedate"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

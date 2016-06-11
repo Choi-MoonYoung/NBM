@@ -38,10 +38,10 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
         storeCallView = (TextView) itemView.findViewById(R.id.text_storeNum);
         storePriceNameView = (TextView) itemView.findViewById(R.id.text_price);
         storePriceView = (TextView) itemView.findViewById(R.id.text_priceReceive);
-        storeDesignerView = (TextView) itemView.findViewById(R.id.textDesigner);
-        designerImageView = (ImageView) itemView.findViewById(R.id.image_designerIcon);
-        storeDesignerNameView = (TextView) itemView.findViewById(R.id.text_designerName);
-        storeDesignerInfoView = (TextView) itemView.findViewById(R.id.text_designerInfo);
+//        storeDesignerView = (TextView) itemView.findViewById(R.id.textDesigner);
+//        designerImageView = (ImageView) itemView.findViewById(R.id.image_designerIcon);
+//        storeDesignerNameView = (TextView) itemView.findViewById(R.id.text_designerName);
+//        storeDesignerInfoView = (TextView) itemView.findViewById(R.id.text_designerInfo);
         styleNameView = (TextView) itemView.findViewById(R.id.text_style);
         scoreView = (TextView) itemView.findViewById(R.id.text_score);
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar_store);

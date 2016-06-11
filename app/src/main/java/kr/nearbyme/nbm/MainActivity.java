@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements MapFragment.DoneC
 
     private static final String TAG_F1 = "f1tag";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,19 @@ public class MainActivity extends AppCompatActivity implements MapFragment.DoneC
         actionBar.setDisplayShowCustomEnabled(true);
 
         actionBar.setCustomView(R.layout.custom_action);
+
+        ImageView tabView_review = new ImageView(this);
+        tabView_review.setImageResource(R.drawable.tab_review_selector);
+
+        ImageView tabView_shop = new ImageView(this);
+        tabView_shop.setImageResource(R.drawable.tab_shop_selector);
+
+        ImageView tabView_write = new ImageView(this);
+        tabView_write.setImageResource(R.drawable.tab_write_selector);
+
+        ImageView tabView_my = new ImageView(this);
+        tabView_my.setImageResource(R.drawable.tab_mypage_selector);
+
 
         loc_button = (Button) findViewById(R.id.btn_location);
         loc_button.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +71,13 @@ public class MainActivity extends AppCompatActivity implements MapFragment.DoneC
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        mTabHost.addTab(mTabHost.newTabSpec("ReviewList").setIndicator("후기"), ReviewFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("StoreList").setIndicator("매장"), StoreFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("WriteReview").setIndicator("글쓰기"), WriteReviewFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("MyPage").setIndicator("마이"), MyPageFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("ReviewList").setIndicator(tabView_review), ReviewFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("StoreList").setIndicator(tabView_shop), StoreFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("WriteReview").setIndicator(tabView_write), WriteReviewFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("MyPage").setIndicator(tabView_my), MyPageFragment.class, null);
+
+
+
 
 
     }

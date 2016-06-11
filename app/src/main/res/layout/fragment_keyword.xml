@@ -21,7 +21,6 @@
     <TextView
         android:layout_width="53dp"
         android:layout_height="15dp"
-        android:background="#ff2222"
         android:text="@string/KeywordSetting"
         android:id="@+id/text_title"
         android:layout_gravity="center_horizontal"
@@ -31,7 +30,6 @@
     <TextView
         android:layout_width="145dp"
         android:layout_height="wrap_content"
-        android:background="#fff000"
         android:text="관심스타일을 설정해주세요.\n중복선택 가능(이후 변경가능)"
         android:layout_marginTop="40dp"
         android:textSize="12sp"

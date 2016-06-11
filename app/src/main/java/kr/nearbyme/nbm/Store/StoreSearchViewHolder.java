@@ -3,6 +3,7 @@ package kr.nearbyme.nbm.Store;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import kr.nearbyme.nbm.R;
@@ -14,7 +15,8 @@ import kr.nearbyme.nbm.data.StoreData;
  */
 public class StoreSearchViewHolder extends RecyclerView.ViewHolder {
     EditText store;
-    Button order, search;
+    Button search;
+    CheckBox order;
     StoreData mData;
     Shop shopData;
 
@@ -44,7 +46,7 @@ public class StoreSearchViewHolder extends RecyclerView.ViewHolder {
     public StoreSearchViewHolder(View itemView) {
         super(itemView);
         store = (EditText) itemView.findViewById(R.id.edit_store_search);
-        order = (Button) itemView.findViewById(R.id.btn_order);
+        order = (CheckBox) itemView.findViewById(R.id.btn_order);
         //iconView = (ImageView) itemView.findViewById(R.id.image_search);
         search = (Button) itemView.findViewById(R.id.btn_search);
 

@@ -32,16 +32,17 @@
         android:layout_marginTop="7dp"
         />
 
-    <Button
+    <CheckBox
         style="?android:attr/buttonStyleSmall"
         android:layout_width="74dp"
         android:layout_height="26dp"
-        android:text="@string/ButtonOrder"
         android:id="@+id/btn_order"
         android:layout_toRightOf="@+id/btn_search"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="7dp"
+        android:button="@null"
+        android:background="@drawable/button_order_selector"
         />
 
 

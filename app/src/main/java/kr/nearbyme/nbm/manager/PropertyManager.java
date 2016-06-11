@@ -33,15 +33,15 @@ public class PropertyManager {
     List<String> writePostfilter;
     String param_sort;
     String param_id;
-    int onoff;
-
-    public int getOnoff() {
-        return onoff;
-    }
-
-    public void setOnoff(int onoff) {
-        this.onoff = onoff;
-    }
+//    int onoff;
+//
+//    public int getOnoff() {
+//        return onoff;
+//    }
+//
+//    public void setOnoff(int onoff) {
+//        this.onoff = onoff;
+//    }
 
     public String getParam_sort() {
         return param_sort;

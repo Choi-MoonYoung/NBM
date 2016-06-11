@@ -68,6 +68,7 @@ public class WritePostKeyAdapter extends RecyclerView.Adapter<KeyContentViewHold
 
     public void setItemCheck(int position, boolean check) {
         checkedItems.put(position, check);
+//        Log.i("log_kwon", "position: " + position + ", check: " + check);
         notifyDataSetChanged();
     }
 
@@ -76,7 +77,7 @@ public class WritePostKeyAdapter extends RecyclerView.Adapter<KeyContentViewHold
         boolean checked = !checkedItems.get(position);
         checkedItems.put(position, checked);
         notifyDataSetChanged();
-
+//        Log.i("log_kwon", "checkedItems size: " + checkedItems.size());
     }
 
 }

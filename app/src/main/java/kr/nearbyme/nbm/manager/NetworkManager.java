@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import kr.nearbyme.nbm.MyApplication;
+import kr.nearbyme.nbm.Writereview.ItemData;
+import kr.nearbyme.nbm.data.ItemDataList;
 import kr.nearbyme.nbm.data.LikePost;
 import kr.nearbyme.nbm.data.LikeShopResultResult;
 import kr.nearbyme.nbm.data.PostDetailResult;
@@ -22,7 +25,6 @@ import kr.nearbyme.nbm.data.PostListResult;
 import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.data.ShopDsnrResult;
 import kr.nearbyme.nbm.data.ShopListResult;
-import kr.nearbyme.nbm.data.ShopNameResult;
 import kr.nearbyme.nbm.data.UserWritingResults;
 import kr.nearbyme.nbm.data.WriteResult;
 import okhttp3.Cache;
@@ -69,6 +71,11 @@ public class NetworkManager {
         builder.writeTimeout(30, TimeUnit.SECONDS);
 
         mClient = builder.build();
+    }
+
+    public Request getMatchShopName(String text, OnResultListener<List<ItemData>> onResultListener) {
+
+        return null;
     }
 
     public interface OnResultListener<T> {
@@ -392,15 +399,22 @@ public class NetworkManager {
                                      double post_score, String post_content, List<String> post_filters,
                                      File file,
                                      OnResultListener<WriteResult> listener) {
+        Log.i("log_kwon", "reached");
         String url = String.format(NBM_UPLOAD_POST);
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
 
+//        shop_id = "5756328db45e57954aac5508";
+//        dsnr_id = "575655d5b691a6524c7260a0";
+
         builder.addFormDataPart("shop_id", shop_id)
                 .addFormDataPart("dsnr_id", dsnr_id)
                 .addFormDataPart("post_score", post_score+"")
                 .addFormDataPart("post_content", post_content);
+
+        Log.i("log_kwon", "shop_id:" + shop_id + ", dsnr_id:" + dsnr_id);
+
 
         for(int i = 0; i<post_filters.size(); i++){
             builder.addFormDataPart("post_filters", post_filters.get(i));
@@ -411,7 +425,7 @@ public class NetworkManager {
 //
 //
 
-        builder.addFormDataPart("mUploadFile", file.getName(),
+        builder.addFormDataPart("post_pic", file.getName(),
                 RequestBody.create(MediaType.parse("image/jpg"), file));
         RequestBody body = builder
                 .build();
@@ -612,16 +626,18 @@ public class NetworkManager {
         return request;
     }
 
-    //해당 매장 소속 디자이너 리스트
-    private static final String NBM_SHOPNAME_URL = NBM_SERVER + "/shop/names";
-    public Request getShopNameList(OnResultListener<ShopNameResult> listener) {
+    //매장 이름 리스트
+    //public Request getMatchShopName(String text, OnResultListener<List<ItemData>> onResultListener) {
 
-        String url = String.format(NBM_SHOPNAME_URL);
+    private static final String NBM_SHOPNAME_URL = NBM_SERVER + "/shop/names/%s";
+    public Request getShopNameList(String text, OnResultListener<ItemDataList> listener) {
+
+        String url = String.format(NBM_SHOPNAME_URL, text);
 
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        final NetworkResult<ShopNameResult> result = new NetworkResult<>();
+        final NetworkResult<ItemDataList> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
 
@@ -638,7 +654,44 @@ public class NetworkManager {
 
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-                    ShopNameResult data = gson.fromJson(text, ShopNameResult.class);
+                    ItemDataList data = gson.fromJson(text, ItemDataList.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String NBM_DSNRNAME_URL = NBM_SERVER + "/shop/dsnr_names/%s/%s";
+    public Request getDsnrNameList(String shopId, String keyword, OnResultListener<ItemDataList> listener) {
+
+        String url = String.format(NBM_DSNRNAME_URL, shopId, keyword);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<ItemDataList> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    ItemDataList data = gson.fromJson(text, ItemDataList.class);
                     result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
@@ -654,7 +707,7 @@ public class NetworkManager {
     private static final String NBM_POSTLIKE_URL = NBM_SERVER + "/post/like/%s/%s";
     public Request changePostLike(String post_id, int onoff, OnResultListener<String> listener) {
 
-        String url = String.format(NBM_SHOPDETAIL_URL, post_id, onoff+"");
+        String url = String.format(NBM_POSTLIKE_URL, post_id, onoff+"");
 
         Request request = new Request.Builder()
                 .url(url)

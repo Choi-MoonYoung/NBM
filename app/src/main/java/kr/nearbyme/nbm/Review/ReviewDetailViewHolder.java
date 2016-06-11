@@ -7,6 +7,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.PostResult;
 
@@ -95,6 +97,8 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
             storenameView.setText(data.shop.getShop_name());
             //usericonView.setImageDrawable(data.getUser_profilePic());
             //reviewimageView.setImageDrawable(data.getPost_pic());
+            Glide.with(usericonView.getContext()).load(data.getUser().getUser_profilePic()).into(usericonView);
+            Glide.with(reviewimageView.getContext()).load(data.getPost().getPost_pic()).into(reviewimageView);
         }
 
 

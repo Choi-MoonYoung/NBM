@@ -6,42 +6,50 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="240dp"
         android:id="@+id/imageStore"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/item2"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="전화걸기"
-        android:id="@+id/btn_call"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:orientation="horizontal"
         android:layout_below="@+id/imageStore"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/btn_linear"
+        android:paddingTop="26dp"
+        android:paddingBottom="16dp">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="찜하기"
-        android:id="@+id/btn_like"
-        android:layout_alignBottom="@+id/btn_call"
-        android:layout_toRightOf="@+id/btn_call"
-        android:layout_toEndOf="@+id/btn_call" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_call"
+            android:background="@drawable/nm_008a_btn_call"
+            />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="지도보기"
-        android:id="@+id/btn_map"
-        android:layout_below="@+id/imageStore"
-        android:layout_toRightOf="@+id/btn_like"
-        android:layout_toEndOf="@+id/btn_like" />
+        <CheckBox
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_like"
+            android:background="@drawable/store_detail_like"
+            android:clickable="true"
+            android:button="@null"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_map"
+            android:background="@drawable/nm_008a_btn_map"
+            />
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,9 +57,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/StoreName"
         android:id="@+id/text_storename"
-
-        android:layout_below="@id/btn_like"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@id/btn_linear"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,8 +67,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/text_storeInfo"
-        android:layout_marginTop="270dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/text_storename"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,6 +79,7 @@
         android:id="@+id/text_storeAddress"
         android:layout_below="@+id/text_storeInfo"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
          />
 
     <TextView
@@ -97,6 +107,7 @@
         android:text="@string/Price"
         android:id="@+id/text_price"
         android:layout_below="@+id/text_storeNum"
+        android:layout_marginTop="60dp"
         android:layout_toLeftOf="@+id/text_storeNum"
         android:layout_toStartOf="@+id/text_storeNum" />
 
@@ -110,43 +121,42 @@
         android:layout_alignLeft="@+id/text_price"
         android:layout_alignStart="@+id/text_price" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/DesignerName"
-        android:id="@+id/textDesigner"
-        android:layout_below="@+id/text_priceReceive"
-        android:layout_toRightOf="@+id/btn_call"
-        android:layout_toEndOf="@+id/btn_call" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+        <!--android:text="@string/DesignerName"-->
+        <!--android:id="@+id/textDesigner"-->
+        <!--android:layout_below="@+id/text_priceReceive"-->
+         <!--/>-->
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/image_designerIcon"
-        android:layout_below="@+id/textDesigner"
-        android:layout_alignLeft="@+id/textDesigner"
-        android:layout_alignStart="@+id/textDesigner"
-        android:src="@drawable/icon_person"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/text_designerName"
-        android:layout_below="@+id/textDesigner"
-        android:layout_toRightOf="@+id/textDesigner"
-        android:layout_toEndOf="@+id/textDesigner" />
+    <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:id="@+id/image_designerIcon"-->
+        <!--android:layout_below="@+id/textDesigner"-->
+        <!--android:layout_alignLeft="@+id/textDesigner"-->
+        <!--android:layout_alignStart="@+id/textDesigner"-->
+        <!--android:src="@drawable/icon_person"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Small Text"-->
+        <!--android:id="@+id/text_designerName"-->
+        <!--android:layout_below="@+id/textDesigner"-->
+        <!--android:layout_toRightOf="@+id/textDesigner"-->
+        <!--android:layout_toEndOf="@+id/textDesigner" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/text_designerInfo"
-        android:layout_below="@+id/textDesigner"
-        android:layout_toRightOf="@+id/text_designerName"
-        android:layout_toEndOf="@+id/text_designerName" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Small Text"-->
+        <!--android:id="@+id/text_designerInfo"-->
+        <!--android:layout_below="@+id/textDesigner"-->
+        <!--android:layout_toRightOf="@+id/text_designerName"-->
+        <!--android:layout_toEndOf="@+id/text_designerName" />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -154,7 +164,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/StyleInfo"
         android:id="@+id/text_style"
-        android:layout_below="@+id/text_designerInfo"
+        android:layout_below="@+id/text_priceReceive"
+        android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
          />
@@ -163,7 +174,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar_store"
-        android:layout_above="@+id/btn_call"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

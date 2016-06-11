@@ -90,9 +90,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
                 else {
                     onoff = 0;
                 }
-//                PropertyManager.getInstance().setOnoff(1);
-//                onoff = PropertyManager.getInstance().getOnoff();
-//                Log.d("ssss", ""+onoff);
+
                 changeLike();
 
 

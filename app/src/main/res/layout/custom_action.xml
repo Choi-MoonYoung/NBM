@@ -16,12 +16,15 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="18dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/ActionbarName"
+        android:background="@drawable/title_nearbyme"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="center_vertical"
+        android:textColor="#ffffff"
         android:id="@+id/text_appName"
-        android:layout_alignBottom="@+id/btn_location"
-        android:layout_alignParentTop="true" />
+         />
 
 </RelativeLayout>

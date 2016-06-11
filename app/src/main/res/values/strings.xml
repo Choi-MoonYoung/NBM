@@ -16,7 +16,7 @@
     <string name="title_activity_store_detail">StoreDetailActivity</string>
     <string name="title_activity_review_detail">ReviewDetailActivity</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="ActionbarName">Near by Me</string>
+    <string name="ActionbarName">near by me</string>
     <string name="TextLocationSetting">위치설정</string>
     <string name="TextBoundarySetting">반경설정</string>
     <string name="BoundaryOne">1</string>
