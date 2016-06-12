@@ -26,19 +26,24 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/shoplist_item_center_field">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="Large Text"
                 android:textSize="16sp"
                 android:textColor="#3f4857"
                 android:id="@+id/text_store_name"
+                android:ellipsize="marquee"
                 android:layout_marginBottom="8dp"
+                android:maxEms="8"
+                android:maxLines="1"
+                android:textStyle="bold"
+
                 />
 
             <TextView
@@ -47,9 +52,11 @@
                 android:text="Medium Text"
                 android:layout_marginRight="36dp"
                 android:maxLines="2"
+                android:ellipsize="end"
                 android:textSize="12sp"
-                android:textColor="#3f4857"
-                android:id="@+id/text_store_description"/>
+                android:textColor="#883f4857"
+                android:id="@+id/text_store_description"
+                />
 
 
         </LinearLayout>
@@ -81,14 +88,19 @@
             android:text=""
             android:id="@+id/buttonLike"
             android:background="@drawable/review_detail_like_button"
-            android:button="@null"/>
+            android:button="@null"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="M"
             android:id="@+id/text_distance"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="#883f4957"
+            android:textStyle="bold"/>
 
 
     </RelativeLayout>

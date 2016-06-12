@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -28,12 +29,14 @@ public class StoreDetailActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     StoreDetailAdapter mAdapter;
     GridLayoutManager mLayoutManager;
+    TextView textTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new StoreDetailAdapter();
         setContentView(R.layout.activity_store_detail);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -74,7 +77,10 @@ public class StoreDetailActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-        
+
+        textTitle = (TextView)findViewById(R.id.text_title);
+        textTitle.setText(shop_name);
+
     }
 
     private void initData() {

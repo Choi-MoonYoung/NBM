@@ -114,7 +114,8 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
         if(data!=null) {
 
             Glide.with(storeImageView.getContext()).load(data.getShop_pic()).into(storeImageView);
-            storeInfoView.setText(data.getShop_name());
+            storeNameView.setText(data.getShop_name());
+            storeInfoView.setText(data.getShop_intro());
             storeAdressView.setText(data.getShop_address());
             storeHourView.setText(data.getShop_time());
             storeCallView.setText(data.getShop_phone());
