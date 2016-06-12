@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +66,7 @@ public class WritePostKeywordFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
         mAdapter = new WritePostKeyAdapter();
 
         mAdapter.setOnItemClickListener3(new KeyContentViewHolder.OnItemClickListener3() {
@@ -121,7 +121,6 @@ public class WritePostKeywordFragment extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "완료", Toast.LENGTH_SHORT).show();
 
                 List<String> checkedFilter = new ArrayList<String>();
                 int n = 0;
@@ -130,9 +129,7 @@ public class WritePostKeywordFragment extends DialogFragment {
                 for (int i = 0; i < strs.length; i++) {
                     if (mAdapter.checkedItems.get(i)) {
                         keyword = strs[i];
-                        //checkedFilter.add(n, i+"");
                         checkedFilter.add(n, keyword);
-                        Log.i("log_kwon", "keyword[" + i + "]: " + keyword);
                         n++;
                     }
 
@@ -164,18 +161,6 @@ public class WritePostKeywordFragment extends DialogFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-//        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-//
-//        Window window = getDialog().getWindow();
-//        WindowManager.LayoutParams params = window.getAttributes();
-//        getDialog().getWindow().setLayout(width, height);
-//        Log.i("MapFragment", "width : " + width + ", height : " + height);
-//        Point p = new Point();
-//        getActivity().getWindowManager().getDefaultDisplay().getSize(p);
-//        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.window_background);
-//        Log.i("MapFragment", "Display width : " + p.x + ", height : " + p.y);
 
         super.onActivityCreated(savedInstanceState);
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);

@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +48,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("후기");
 
 
         Intent intent = getIntent();
@@ -72,6 +72,9 @@ public class ReviewDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deletePost();
+                        Toast.makeText(ReviewDetailActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+
+                        finish();
 
                     }
                 });
@@ -87,12 +90,14 @@ public class ReviewDetailActivity extends AppCompatActivity {
             public void onLikeClick(View view, PostResult post) {
                 if(post.getPost().getLiked() == 0){
                     onoff = 1;
+                    changeLike();
+
                 }
                 else {
                     onoff = 0;
-                }
+                    changeLike();
 
-                changeLike();
+                }
 
 
             }
@@ -126,11 +131,11 @@ public class ReviewDetailActivity extends AppCompatActivity {
     }
 
     private void changeLike(){
-        Log.d("sss",""+onoff);
-        Log.d("sssss",""+post_id);
         NetworkManager.getInstance().changePostLike(post_id, onoff, new NetworkManager.OnResultListener<String>() {
             @Override
             public void onSuccess(Request request, String result) {
+                initData();
+                onResume();
 
 
             }
@@ -166,12 +171,10 @@ public class ReviewDetailActivity extends AppCompatActivity {
             public void onSuccess(Request request, String result) {
                 initData();
 
-                Log.d("SCUUUUUUUCESSSS","FFFFFFF");
             }
 
             @Override
             public void onFail(Request request, IOException exception) {
-                Log.d("Failllllll","FFFFFFF");
 
             }
         });
@@ -203,27 +206,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
                 Toast.makeText(ReviewDetailActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-/*
-        PostResult s = new PostResult();
-        //s.setUser_profilePic(ContextCompat.getDrawable(this, R.drawable.icon_person));
-        s.user.setUser_name("user");
-        s.post.setPost_regDate("ddddd");
-        s.post.setPost_content("dsfasdfdsafdf");
-        //s.setPost_pic(ContextCompat.getDrawable(this, R.drawable.item3));
-        s.post.setPost_likeNum(1);
-        s.post.setCommentNum(3);
-        s.shop.setShop_name("asdfdf");
-        s.dsnr.setDsnr_name("dsfdg");
 
-        mAdapter.addReview(s);
-
-        for (int i = 0; i < 3 ; i++) {
-            Comment p = new Comment();
-            p.setCmt_writerName("name");
-            p.setCmt_content("good");
-            p.setCmt_regDate("mmmm");
-            mAdapter.addComment(p);
-        }*/
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -234,4 +217,8 @@ public class ReviewDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

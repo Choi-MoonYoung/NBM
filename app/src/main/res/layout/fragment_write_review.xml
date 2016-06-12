@@ -40,7 +40,8 @@
                     android:hint="헤어샵을 입력하세요"
                     android:text=""
                     android:textSize="12sp"
-                    android:background="@android:color/transparent">
+                    android:background="@android:color/transparent"
+                    android:nextFocusDown="@+id/autoCompleteTextView_dsnr">
 
                     <requestFocus />
                 </EditText>
@@ -70,7 +71,6 @@
                     android:textSize="12sp"
                     android:background="@android:color/transparent">
 
-                    <requestFocus />
                 </EditText>
 
             </LinearLayout>

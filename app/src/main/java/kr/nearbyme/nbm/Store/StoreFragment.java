@@ -30,7 +30,6 @@ import okhttp3.Request;
 public class StoreFragment extends Fragment {
     RecyclerView recyclerView;
     StoreListAdapter mAdapter;
-    //Button button;
     private String keyword = "없음";
     private int order = 1;
     private double locX;
@@ -52,6 +51,7 @@ public class StoreFragment extends Fragment {
                 Toast.makeText(getContext(), "눌렸습니다", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), StoreDetailActivity.class);
                 intent.putExtra(StoreDetailActivity.EXTRA_SHOP_ID, shop.getShop_id());
+                intent.putExtra(StoreDetailActivity.EXTRA_SHOP_NAME, shop.getShop_name());
                 startActivity(intent);
 
             }
@@ -151,21 +151,6 @@ public class StoreFragment extends Fragment {
             }
         });
 
-/*
-        StoreData s = new StoreData();
-        s.setSearchImg(ContextCompat.getDrawable(getContext(), R.drawable.icon));
-        mAdapter.add(s);
-
-
-        for (int i = 0; i < 40 ; i++) {
-            Shop p = new Shop();
-            p.setShop_name("item" + i);
-            p.setShop_intro("description" + i);
-            p.setShop_distance("distance" + i);
-           // p.setShop_pic(ContextCompat.getDrawable(getContext(), R.drawable.item2));
-            mAdapter.add(p);
-        }
-*/
     }
 
 }

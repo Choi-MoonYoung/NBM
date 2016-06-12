@@ -24,9 +24,9 @@
 
     <TextView
         android:layout_width="66dp"
-        android:layout_height="18dp"
+        android:layout_height="19dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/TextLocationSetting"
+        android:background="@drawable/nm_006_p_setting"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="31dp"/>
@@ -39,24 +39,33 @@
         android:layout_gravity="center_horizontal"
         >
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="44dp"
-            android:layout_height="16dp"
-            android:text="@string/presentLoc"
-            android:id="@+id/btn_presentloc"
-            android:layout_marginLeft="64dp"
-            android:layout_marginStart="64dp"
-            />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="59dp"
+            android:layout_marginStart="59dp">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="59dp"
-            android:layout_height="16dp"
-            android:text="@string/setLoc"
-            android:id="@+id/btn_setloc"
-            android:layout_marginLeft="85dp"
-            android:layout_marginStart="85dp"/>
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="54dp"
+                android:layout_height="31dp"
+                android:id="@+id/btn_presentloc"
+                android:button="@null"
+                android:background="@drawable/map_mylocation_selector"
+                />
+
+            <RadioButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="61dp"
+                android:layout_height="31dp"
+                android:id="@+id/btn_setloc"
+                android:layout_marginLeft="79dp"
+                android:layout_marginStart="79dp"
+                android:button="@null"
+                android:background="@drawable/map_setlocation_selector"/>
+
+        </RadioGroup>
 
 
 
@@ -75,7 +84,7 @@
         android:layout_width="66dp"
         android:layout_height="19dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/TextBoundarySetting"
+        android:background="@drawable/nm_006_r_setting"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"/>

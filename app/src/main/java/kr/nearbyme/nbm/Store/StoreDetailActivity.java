@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,13 +22,13 @@ import okhttp3.Request;
 
 public class StoreDetailActivity extends AppCompatActivity {
     public static final String EXTRA_SHOP_ID = "shop_id";
+    public static final String EXTRA_SHOP_NAME = "shop_name";
     String shop_id;
     String shop_name;
     String shop_phonenum;
     RecyclerView recyclerView;
     StoreDetailAdapter mAdapter;
     GridLayoutManager mLayoutManager;
-    TextView textTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,7 @@ public class StoreDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
 
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler_storedetail);
@@ -67,19 +67,19 @@ public class StoreDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         shop_id = intent.getStringExtra(EXTRA_SHOP_ID);
+        shop_name = intent.getStringExtra(EXTRA_SHOP_NAME);
 
+        actionBar.setTitle(shop_name);
         initData();
 
         mAdapter.setOnCallClickListener(new StoreInfoViewHolder.OnCallClickListener() {
             @Override
             public void onCallClick(View view, Shop shop) {
-                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+shop_phonenum));
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + shop_phonenum));
                 startActivity(myIntent);
             }
         });
 
-        textTitle = (TextView)findViewById(R.id.text_title);
-        textTitle.setText(shop_name);
 
     }
 
@@ -96,7 +96,6 @@ public class StoreDetailActivity extends AppCompatActivity {
                 mAdapter.setResult(result);
 
                 shop_phonenum = result.shop_info.getShop_phone();
-                shop_name = result.shop_info.getShop_name();
 
                 //mAdapter.addStore(result.getShop_info());
                // mAdapter.addAll(result.getPost_info());

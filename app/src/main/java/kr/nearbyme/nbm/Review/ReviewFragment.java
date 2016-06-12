@@ -74,7 +74,7 @@ public class ReviewFragment extends Fragment implements KeywordFragment.KeyWordD
 
 
 
-        filters.add("단발머리");
+//        filters.add("단발머리");
         PropertyManager.getInstance().setFilters(filters);
 
 

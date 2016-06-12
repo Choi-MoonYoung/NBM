@@ -228,6 +228,7 @@ public class WriteReviewFragment extends Fragment {
     boolean isForced = false;
     boolean isForced2 = false;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -358,41 +359,6 @@ public class WriteReviewFragment extends Fragment {
             Glide.with(this).load(mUploadFile).into(ImageUploadView);
         }
 
-//        ArrayAdapter<String> autoShopNames = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, shop_names);
-//        storeNameView.setAdapter(autoShopNames);
-//
-//        storeNameView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getContext(), "position:" + position, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-/*        designerNameView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                Log.i("log_kwon", )
-            }
-        });*/
-
-        tagLayout.removeAllViews();
-
-        if(PropertyManager.getInstance().getWritePostfilter() != null){
-            for(int i = 0; i< PropertyManager.getInstance().getWritePostfilter().size(); i++){
-                TextView filterTagsView = new TextView(getContext());
-                FlowLayout.LayoutParams lp = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(6, 6, 6, 6);
-                filterTagsView.setLayoutParams(lp);
-                filterTagsView.setTextSize(10);
-                filterTagsView.setBackgroundColor(Color.BLUE);
-                filterTagsView.setBackgroundResource(R.drawable.tag_s_001);
-                filterTagsView.setText(PropertyManager.getInstance().getWritePostfilter().get(i));
-                tagLayout.addView(filterTagsView);
-            }
-
-        }
-
 
         ImageUploadView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -438,6 +404,7 @@ public class WriteReviewFragment extends Fragment {
             }
         });
 
+
         buttonTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -445,17 +412,44 @@ public class WriteReviewFragment extends Fragment {
                 //f.setWritePostKeyWordDoneClickListener(WriteReviewFragment.this);
                 f.show(getActivity().getSupportFragmentManager(), "create");
 
-//                Log.d("키워드 눌림", PropertyManager.getInstance().getWritePostfilter().get(0));
+                onResume();
 
 
             }
-        });
 
+
+
+        });
 
 
         return view;
     }
 
+    public void setKeywords(){
+        tagLayout.removeAllViews();
+        if (PropertyManager.getInstance().getWritePostfilter() != null) {
+            for (int i = 0; i < PropertyManager.getInstance().getWritePostfilter().size(); i++) {
+                TextView filterTagsView = new TextView(getContext());
+                FlowLayout.LayoutParams lp = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(6, 6, 6, 6);
+                filterTagsView.setLayoutParams(lp);
+                filterTagsView.setTextSize(10);
+                filterTagsView.setBackgroundColor(Color.BLUE);
+                filterTagsView.setBackgroundResource(R.drawable.tag_s_001);
+                filterTagsView.setText(PropertyManager.getInstance().getWritePostfilter().get(i));
+                tagLayout.addView(filterTagsView);
+            }
+
+        }
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setKeywords();
+
+
+    }
 }

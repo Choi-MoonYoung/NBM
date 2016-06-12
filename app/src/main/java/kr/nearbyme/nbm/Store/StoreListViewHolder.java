@@ -79,7 +79,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         mData = data;
         storeNameView.setText(data.getShop_name());
         storeDescriptionView.setText(data.getShop_intro());
-        storeDistanceView.setText(data.getDist());
+        storeDistanceView.setText(data.getDist() + "M");
 
         shoplistRatingbar.setRating((float)data.getShop_score());
         Glide.with(storeImageView.getContext()).load(data.getShop_pic()).into(storeImageView);

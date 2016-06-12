@@ -16,6 +16,8 @@
         android:layout_weight="0.79"
         android:background="@drawable/btn_searchbar_bg"
         android:layout_marginTop="7dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
         />
     <Button
         android:layout_width="53dp"
