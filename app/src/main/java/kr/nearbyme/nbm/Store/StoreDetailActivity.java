@@ -26,6 +26,7 @@ public class StoreDetailActivity extends AppCompatActivity {
     String shop_id;
     String shop_name;
     String shop_phonenum;
+    int likeshop;
     RecyclerView recyclerView;
     StoreDetailAdapter mAdapter;
     GridLayoutManager mLayoutManager;
@@ -96,6 +97,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                 mAdapter.setResult(result);
 
                 shop_phonenum = result.shop_info.getShop_phone();
+                likeshop = result.shop_info.getLiked();
 
                 //mAdapter.addStore(result.getShop_info());
                // mAdapter.addAll(result.getPost_info());

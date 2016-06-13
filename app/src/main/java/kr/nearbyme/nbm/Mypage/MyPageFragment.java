@@ -10,10 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.Setting.SettingActivity;
-
+import kr.nearbyme.nbm.manager.PropertyManager;
 
 
 /**
@@ -22,6 +26,8 @@ import kr.nearbyme.nbm.Setting.SettingActivity;
 public class MyPageFragment extends Fragment {
     FragmentTabHost mTabHost;
     Button btn;
+    CircularImageView userImage;
+    TextView userName;
 
 
     public MyPageFragment() {
@@ -35,6 +41,9 @@ public class MyPageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_page, container, false);
         btn = (Button) view.findViewById(R.id.btn_setting);
+        userImage = (CircularImageView) view.findViewById(R.id.image_user);
+        userName = (TextView) view.findViewById(R.id.text_name);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +51,9 @@ public class MyPageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Glide.with(userImage.getContext()).load(PropertyManager.getInstance().getUser_profilePic()).into(userImage);
+        userName.setText(PropertyManager.getInstance().getUser_name());
 
         ImageView tabView_myreview = new ImageView(getContext());
         tabView_myreview.setImageResource(R.drawable.tab_myreview_selector);

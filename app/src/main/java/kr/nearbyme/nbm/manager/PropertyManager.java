@@ -33,15 +33,36 @@ public class PropertyManager {
     List<String> writePostfilter;
     String param_sort;
     String param_id;
-//    int onoff;
-//
-//    public int getOnoff() {
-//        return onoff;
-//    }
-//
-//    public void setOnoff(int onoff) {
-//        this.onoff = onoff;
-//    }
+
+    String user_id;
+    String user_name;
+    String user_profilePic;
+
+    //비회원을 위한 flag설정하기
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getUser_profilePic() {
+        return user_profilePic;
+    }
+
+    public void setUser_profilePic(String user_profilePic) {
+        this.user_profilePic = user_profilePic;
+    }
 
     public String getParam_sort() {
         return param_sort;

@@ -20,6 +20,7 @@ import kr.nearbyme.nbm.Writereview.ItemData;
 import kr.nearbyme.nbm.data.ItemDataList;
 import kr.nearbyme.nbm.data.LikePost;
 import kr.nearbyme.nbm.data.LikeShopResultResult;
+import kr.nearbyme.nbm.data.LoginServerResult;
 import kr.nearbyme.nbm.data.PostDetailResult;
 import kr.nearbyme.nbm.data.PostListResult;
 import kr.nearbyme.nbm.data.ShopDetailResult;
@@ -77,6 +78,49 @@ public class NetworkManager {
 
         return null;
     }
+    private static final String NBM_SERVER = "http://52.79.192.50:3000";
+    private static final String NBM_LOGINSERVER_URL = NBM_SERVER +"/user/login";
+    public Request facebookLogin(int user_sort, String user_token, OnResultListener<LoginServerResult> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("user_sort", user_sort+"")
+                .add("user_token", user_token)
+                .build();
+        Request request = new Request.Builder()
+                .url(NBM_LOGINSERVER_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+        final NetworkResult<LoginServerResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    LoginServerResult data = gson.fromJson(response.body().charStream(), LoginServerResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+//                if (response.isSuccessful()) {
+//                    result.result = response.body().string();
+//                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+//                } else {
+//                    throw new IOException(response.message());
+//                }
+            }
+        });
+        return request;
+    }
+
 
     public interface OnResultListener<T> {
         public void onSuccess(Request request, T result);
@@ -118,7 +162,7 @@ public class NetworkManager {
     Gson gson = new Gson();
 
     //내가 작성한 후기와 댓글 리스트 조회
-    private static final String NBM_SERVER = "http://52.79.192.50:3000";
+
     private static final String NBM_USERWRITING_URL = NBM_SERVER + "/user/writings";
     public Request getMyReviewList(OnResultListener<UserWritingResults> listener) {
 
@@ -739,6 +783,46 @@ public class NetworkManager {
         });
         return request;
     }
+
+    //매 좋아요 변경
+    private static final String NBM_SHOPLIKE_URL = NBM_SERVER + "/shop/like/%s/%s";
+    public Request changeShopLike(String shop_id, int onoff, OnResultListener<String> listener) {
+
+        String url = String.format(NBM_SHOPLIKE_URL, shop_id, onoff+"");
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        final NetworkResult<String> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    result.result = text;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+
 
 
 

@@ -30,6 +30,7 @@ import okhttp3.Request;
 public class ViewLikeStoreFragment extends Fragment {
     RecyclerView recyclerView;
     LikeStoreAdapter mAdapter;
+    int onoff = 1;
 
 
 
@@ -96,7 +97,7 @@ public class ViewLikeStoreFragment extends Fragment {
 
                 mAdapter.clear();
                 List<Shop> shopList = new ArrayList<Shop>();
-                for(LikeShopResult tmp : result.result){
+                for (LikeShopResult tmp : result.result) {
                     shopList.add(tmp.shop);
                 }
                 mAdapter.addAll(shopList);
@@ -110,6 +111,21 @@ public class ViewLikeStoreFragment extends Fragment {
         });
 
 
+    }
+
+    private void changeShopLike(String shop_id) {
+
+        NetworkManager.getInstance().changeShopLike(shop_id, onoff, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+                initData();
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
     }
 
 }

@@ -122,19 +122,12 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
             storePriceView.setText(data.getShop_price());
             scoreView.setText(Double.toString(data.getShop_score()));
 
-//            Glide.with(designerImageView.getContext()).load(data.dsnr_info.get(0).getDsnr_profilePic()
-//            ).into(designerImageView);
-//            storeDesignerNameView.setText(data.dsnr_info.get(0).getDsnr_name());
-//            storeDesignerInfoView.setText(data.dsnr_info.get(0).getDsnr_info());
-//
-//
-//            for (int i = 1; i < data.dsnr_info.size(); i++) {
-//                Glide.with(designerImageView.getContext()).load(data.dsnr_info.get(i).getDsnr_profilePic()
-//                ).into(designerImageView);
-//                storeDesignerNameView.append(data.dsnr_info.get(i).getDsnr_name());
-//                storeDesignerInfoView.append(data.dsnr_info.get(i).getDsnr_info());
-//                System.out.println();
+//            if(data.getLiked() == 0){
+//                btnLike.setBackgroundResource(R.drawable.btnnm_008a_btn_like_off);
 //            }
+//            else
+//                btnLike.setBackgroundResource(R.drawable.btnnm_008a_btn_like_on);
+
 
         }
 

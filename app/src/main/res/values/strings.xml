@@ -47,5 +47,6 @@
     <string name="setpresentLoc">현재위치로 설정</string>
     <string name="presentLoc">현위치</string>
     <string name="setLoc">지역설정</string>
+    <string name="facebook_app_id">1549160065389425</string>
 
 </resources>

@@ -135,7 +135,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Request request, String result) {
                 initData();
-                onResume();
+//                onResume();
 
 
             }

@@ -19,6 +19,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+repositories {
+    mavenCentral()
 }
 
 
@@ -41,5 +47,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.wefika:flowlayout:0.4.1'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 }

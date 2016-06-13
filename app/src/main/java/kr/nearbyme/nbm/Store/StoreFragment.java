@@ -1,8 +1,6 @@
 package kr.nearbyme.nbm.Store;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -36,11 +33,11 @@ public class StoreFragment extends Fragment {
     private double locX;
     private double locY;
     private int radius;
+    public int onoff = 0;
+    public String shop_id;
+    //private List<String> shop_id= new ArrayList<>();
 
-    ImageView buttonChange, buttonChange2;
-
-
-//    InputMethodManager mIMM;
+    //InputMethodManager mIMM;
 
 
     public StoreFragment() {
@@ -65,6 +62,20 @@ public class StoreFragment extends Fragment {
         mAdapter.setOnShopLikeClickListener(new StoreListViewHolder.OnShopLikeClickListener() {
             @Override
             public void onShopLikeClick(View view, Shop shop) {
+                shop_id = shop.getShop_id();
+
+                if(onoff == 0){
+                    onoff = 1;
+                    changeShopLike(shop_id, onoff);
+                }
+                else{
+                    onoff = 0;
+                    changeShopLike(shop_id, onoff);
+                }
+
+                changeShopLike(shop_id, onoff);
+                initData();
+
 
             }
         });
@@ -74,32 +85,33 @@ public class StoreFragment extends Fragment {
             @Override
             public void onItemClick(View view, StoreData storeData) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("정렬순서");
-                builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "평점순눌림", Toast.LENGTH_SHORT).show();
-                        order = 1;
-//                        changeOrder();
-                        initData();
 
+                order = 1;
 
-                    }
-                });
-                builder.setNegativeButton("후기순", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        order = 2;
-//                        changeOrder();
-                        initData();
-
-
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                builder.setMessage("정렬순서");
+//                builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(getContext(), "평점순눌림", Toast.LENGTH_SHORT).show();
+//                        order = 1;
+//                        initData();
+//
+//
+//                    }
+//                });
+//                builder.setNegativeButton("후기순", new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        order = 2;
+//                        initData();
+//
+//
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
 
             }
         });
@@ -107,37 +119,35 @@ public class StoreFragment extends Fragment {
         mAdapter.setOnOrderClickListener(new StoreSearchViewHolder.OnOrderClickListener() { //후기순
             @Override
             public void onOrderClick(View view, StoreData storeData) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("정렬순서");
-                builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        order = 1;
-//                        changeOrder();
-                        initData();
-
-
-
-                    }
-                });
-                builder.setNegativeButton("후기순", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        order = 2;
-//                        changeOrder();
-                        initData();
-
-
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                order = 2;
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                builder.setMessage("정렬순서");
+//                builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        order = 1;
+//                       initData();
+//
+//
+//                    }
+//                });
+//                builder.setNegativeButton("후기순", new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        order = 2;
+//                        initData();
+//
+//
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
             }
         });
 
-        mAdapter.setOnItemClickListener4(new StoreSearchViewHolder.OnItemClickListener4() {
+        mAdapter.setOnItemClickListener4(new StoreSearchViewHolder.OnItemClickListener4() { //검색
             @Override
             public void onItemClick4(View view, Shop shop) {
 
@@ -149,21 +159,20 @@ public class StoreFragment extends Fragment {
 
     }
 
-//    public void changeOrder(){
-//        if(order == 1){ //평점순
-//            Toast.makeText(getContext(), "sadkfjsladkfjlsadkfj", Toast.LENGTH_SHORT).show();
-//            buttonChange.setVisibility(View.VISIBLE);
-//            buttonChange2.setVisibility(View.GONE);
-//
-//
-//        }
-//        else if(order == 2){ //후기순
-//            buttonChange.setVisibility(View.GONE);
-//            buttonChange2.setVisibility(View.VISIBLE);
-//
-//        }
-//    }
+    private void changeShopLike(String shop_id, int onoff) {
 
+        NetworkManager.getInstance().changeShopLike(shop_id, onoff, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+                initData();
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+    }
 
 
     @Override
@@ -210,15 +219,22 @@ public class StoreFragment extends Fragment {
                 mAdapter.clear();
                 mAdapter.addAll(result.result);
 
+//                for(int i=0; i<result.result.size(); i++){
+//                    shop_id.add(result.result.get(i).getShop_id());
+//                }
+
+
             }
 
             @Override
             public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(),"네트워크 에러",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "네트워크 에러", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+
 
 }
 
