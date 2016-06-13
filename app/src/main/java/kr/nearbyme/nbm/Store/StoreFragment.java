@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -35,6 +36,11 @@ public class StoreFragment extends Fragment {
     private double locX;
     private double locY;
     private int radius;
+
+    ImageView buttonChange, buttonChange2;
+
+
+//    InputMethodManager mIMM;
 
 
     public StoreFragment() {
@@ -64,7 +70,7 @@ public class StoreFragment extends Fragment {
         });
 
 
-        mAdapter.setOnItemClickListener(new StoreSearchViewHolder.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new StoreSearchViewHolder.OnItemClickListener() { //평점순
             @Override
             public void onItemClick(View view, StoreData storeData) {
 
@@ -73,7 +79,11 @@ public class StoreFragment extends Fragment {
                 builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "평점순눌림", Toast.LENGTH_SHORT).show();
                         order = 1;
+//                        changeOrder();
+                        initData();
+
 
                     }
                 });
@@ -82,12 +92,48 @@ public class StoreFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         order = 2;
+//                        changeOrder();
+                        initData();
+
 
                     }
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
+            }
+        });
+
+        mAdapter.setOnOrderClickListener(new StoreSearchViewHolder.OnOrderClickListener() { //후기순
+            @Override
+            public void onOrderClick(View view, StoreData storeData) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("정렬순서");
+                builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        order = 1;
+//                        changeOrder();
+                        initData();
+
+
+
+                    }
+                });
+                builder.setNegativeButton("후기순", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        order = 2;
+//                        changeOrder();
+                        initData();
+
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -98,8 +144,25 @@ public class StoreFragment extends Fragment {
             }
         });
 
+//        mIMM = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
     }
+
+//    public void changeOrder(){
+//        if(order == 1){ //평점순
+//            Toast.makeText(getContext(), "sadkfjsladkfjlsadkfj", Toast.LENGTH_SHORT).show();
+//            buttonChange.setVisibility(View.VISIBLE);
+//            buttonChange2.setVisibility(View.GONE);
+//
+//
+//        }
+//        else if(order == 2){ //후기순
+//            buttonChange.setVisibility(View.GONE);
+//            buttonChange2.setVisibility(View.VISIBLE);
+//
+//        }
+//    }
 
 
 
@@ -124,7 +187,11 @@ public class StoreFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_store);
 
-        View v = inflater.inflate(R.layout.view_search_store, null);
+//        View v = inflater.inflate(R.layout.view_search_store, null);
+
+//        buttonChange = (ImageView) v.findViewById(R.id.btn_order); //평점순
+//        buttonChange2 = (ImageView) v.findViewById(R.id.btn_order2); //후기순
+
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

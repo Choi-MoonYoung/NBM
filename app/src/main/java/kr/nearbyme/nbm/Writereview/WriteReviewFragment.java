@@ -51,7 +51,7 @@ import okhttp3.Request;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WriteReviewFragment extends Fragment {
+public class WriteReviewFragment extends Fragment implements WritePostKeywordFragment.WritePostKeyWordDoneClickListener{
     EditText storeNameView, designerNameView;
     RatingBar ratingBar;
     Button buttonTag, buttonPost;
@@ -76,6 +76,7 @@ public class WriteReviewFragment extends Fragment {
     List<String> dsnr_names = new ArrayList<>();
 
     List<ItemData> shopList = new ArrayList<>();
+
 
     private static final int RC_GALLERY = 1;
     private static final int RC_CAMERA = 2;
@@ -230,7 +231,7 @@ public class WriteReviewFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_write_review, container, false);
@@ -319,7 +320,7 @@ public class WriteReviewFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String keyword = s.toString();
 
-                if (!TextUtils.isEmpty(keyword)  && !isForced2) {
+                if (!TextUtils.isEmpty(keyword) && !isForced2) {
 
                     NetworkManager.getInstance().getDsnrNameList(selectItem.id, keyword, new NetworkManager.OnResultListener<ItemDataList>() {
                         @Override
@@ -389,11 +390,38 @@ public class WriteReviewFragment extends Fragment {
 
 
         buttonPost.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
 
 
+                if(selectItem == null || TextUtils.isEmpty(selectItem.id)){
+                    Toast.makeText(getContext(), "매장명을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(selectItem_dsnr == null || TextUtils.isEmpty(selectItem_dsnr.id)){
+                    Toast.makeText(getContext(), "디자이너이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(contentView.getText().toString())){
+                    Toast.makeText(getContext(), "후기를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mUploadFile == null){
+                    Toast.makeText(getContext(), "사진을 올려주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(PropertyManager.getInstance().getWritePostfilter() == null  || TextUtils.isEmpty(PropertyManager.getInstance().getWritePostfilter().get(0))){
+                    Toast.makeText(getContext(), "키워드를 선택해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 initData();
+
+
+
+
                 storeNameView.setText("");
                 designerNameView.setText("");
                 ratingBar.setRating(0.0f);
@@ -409,10 +437,8 @@ public class WriteReviewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 WritePostKeywordFragment f = new WritePostKeywordFragment();
-                //f.setWritePostKeyWordDoneClickListener(WriteReviewFragment.this);
+                f.setWritePostKeyWordDoneClickListener(WriteReviewFragment.this);
                 f.show(getActivity().getSupportFragmentManager(), "create");
-
-                onResume();
 
 
             }
@@ -448,8 +474,13 @@ public class WriteReviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        setKeywords();
 
+
+    }
+
+    @Override
+    public void onWritePostKeyWordDoneClick(List<String> keyFilters) {
+        setKeywords();
 
     }
 }

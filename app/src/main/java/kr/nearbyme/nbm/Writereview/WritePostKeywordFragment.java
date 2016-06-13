@@ -33,7 +33,7 @@ public class WritePostKeywordFragment extends DialogFragment {
     WritePostKeyAdapter mAdapter;
     GridLayoutManager mLayoutManager;
 
-    Button done, close;
+    Button done;
 
     List<Key> keys= new ArrayList<>();
     String[] strs = new String[]{"여자 연예인\n헤어스타일" , "단발머리" , "숏컷" , "롱\n헤어스타일" , "긴머리" , "차예련\n헤어스타일" ,
@@ -138,18 +138,14 @@ public class WritePostKeywordFragment extends DialogFragment {
 
 
                 PropertyManager.getInstance().setWritePostfilter(checkedFilter);
+                if(writePostKeyWordDoneClickListener != null){
+                    writePostKeyWordDoneClickListener.onWritePostKeyWordDoneClick(checkedFilter);
+                }
                 dismiss();
+
 
             }
         });
-
-//        close.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dismiss();
-//            }
-//        });
-
 
         return view;
     }

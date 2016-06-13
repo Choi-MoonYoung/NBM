@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:weightSum="1">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
 
 
 
@@ -13,7 +12,6 @@
         android:id="@+id/edit_store_search"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_weight="0.79"
         android:background="@drawable/btn_searchbar_bg"
         android:layout_marginTop="7dp"
         android:paddingLeft="50dp"
@@ -30,7 +28,7 @@
         android:layout_marginTop="7dp"
         />
 
-    <CheckBox
+    <ImageView
         style="?android:attr/buttonStyleSmall"
         android:layout_width="74dp"
         android:layout_height="26dp"
@@ -39,9 +37,26 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="7dp"
-        android:button="@null"
-        android:background="@drawable/button_order_selector"
+        android:background="@drawable/btn_gradelist"
+        android:visibility="visible"
+        android:clickable="true"
+        />
+
+    <ImageView
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="74dp"
+        android:layout_height="26dp"
+        android:id="@+id/btn_order2"
+        android:layout_toRightOf="@+id/btn_search"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/btn_reviewlist"
+        android:visibility="gone"
+        android:clickable="true"
         />
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

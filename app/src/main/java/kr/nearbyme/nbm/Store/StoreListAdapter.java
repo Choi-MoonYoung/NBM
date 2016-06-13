@@ -36,6 +36,11 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mListener2 = listener;
     }
 
+    StoreSearchViewHolder.OnOrderClickListener orderListener;
+    public void setOnOrderClickListener(StoreSearchViewHolder.OnOrderClickListener listener) {
+        orderListener = listener;
+    }
+
     StoreSearchViewHolder.OnItemClickListener4 mListener4;
     public void setOnItemClickListener4(StoreSearchViewHolder.OnItemClickListener4 listener) {
         mListener4 = listener;
@@ -60,13 +65,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         notifyDataSetChanged();
     }
 
-/*
-    public void addShop(ShopListResult shopListResult){
-        this.shopListResult = shopListResult;
-        notifyDataSetChanged();
-    }
 
-*/
     public void clear() {
         items.clear();
         notifyDataSetChanged();
@@ -99,6 +98,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 //headerViewHolder.setStoreSearchData((StoreData)items.get(position));
                 headerViewHolder.setOnItemClickListener(mListener2);
                 headerViewHolder.setOnItemClickListener4(mListener4);
+                headerViewHolder.setOnOrderClickListener(orderListener);
                 break;
             case VIEW_TYPE_ITEM :
                 StoreListViewHolder itemViewHolder = (StoreListViewHolder)holder;
