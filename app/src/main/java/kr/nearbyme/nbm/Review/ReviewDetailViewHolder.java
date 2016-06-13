@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
     TextView nameView, dateView, postView, likeCountView, commentCountView, dsnrnameView, storenameView;
     ImageView usericonView, reviewimageView;
     Button option, comment;
-    CheckBox like;
+    Button like;
     FlowLayout tagLayout;
     PostResult mData;
 
@@ -58,7 +57,7 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
         usericonView = (ImageView) itemView.findViewById(R.id.image_user);
         reviewimageView = (ImageView) itemView.findViewById(R.id.imageView);
         option = (Button) itemView.findViewById(R.id.btn_option);
-        like = (CheckBox) itemView.findViewById(R.id.btn_like);
+        like = (Button) itemView.findViewById(R.id.btn_like);
         comment = (Button) itemView.findViewById(R.id.btn_comment);
 
         option.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +106,13 @@ public class ReviewDetailViewHolder extends RecyclerView.ViewHolder {
                 filterTagsView.setBackgroundResource(R.drawable.tag_s_001);
                 filterTagsView.setText(data.post.getPost_filters().get(i));
                 tagLayout.addView(filterTagsView);
+            }
+
+            if(data.getPost().getLiked() == 0){
+                like.setBackgroundResource(R.drawable.nm_007a_icon_heartline);
+            }
+            else if(data.getPost().getLiked() == 1){
+                like.setBackgroundResource(R.drawable.nm_007a_icon_heartfull);
             }
 
             likeCountView.setText(""+data.post.getPost_likeNum());

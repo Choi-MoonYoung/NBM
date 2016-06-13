@@ -47,7 +47,7 @@ public class LikeStoreViewHolder extends RecyclerView.ViewHolder{
         storeNameView = (TextView) itemView.findViewById(R.id.text_store_name);
         storeDescriptionView = (TextView) itemView.findViewById(R.id.text_store_description);
         storeImageView = (ImageView) itemView.findViewById(R.id.image_store);
-        //buttonLike = (Button) itemView.findViewById(R.id.)
+        buttonLike = (Button) itemView.findViewById(R.id.buttonLike);
 //        storeRatingNumView = (TextView) itemView.findViewById(R.id.text_score);
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
 
@@ -59,15 +59,15 @@ public class LikeStoreViewHolder extends RecyclerView.ViewHolder{
                 }
             }
         });
-//        buttonLike.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mListener2 != null){
-//                    mListener2.onItemClick2(v, mData);
-//                }
-//
-//            }
-//        });
+        buttonLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener2 != null){
+                    mListener2.onItemClick2(v, mData);
+                }
+
+            }
+        });
 
 //        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 //            @Override
@@ -81,12 +81,16 @@ public class LikeStoreViewHolder extends RecyclerView.ViewHolder{
     public void setLikeStore(Shop data){
         mData = data;
         if(mData != null){
-//            if(mData.getLiked() == 1){
-//                buttonLike.setBackgroundDrawable(@drawable/likeshop_selector);
-//            }
             storeNameView.setText(data.getShop_name());
             storeDescriptionView.setText(data.getShop_intro());
             //storeRatingNumView.setText(""+data.getShop_score());
+            if(data.getLiked() == 0){
+                buttonLike.setBackgroundResource(R.drawable.btn_nm008_like_off);
+            }
+            else if(data.getLiked() == 1){
+                buttonLike.setBackgroundResource(R.drawable.btn_nm008_like_on);
+            }
+
             ratingBar.setRating((float) data.getShop_score());
             Glide.with(storeImageView.getContext()).load(data.getShop_pic()).into(storeImageView);
 

@@ -26,7 +26,7 @@ public class StoreDetailActivity extends AppCompatActivity {
     String shop_id;
     String shop_name;
     String shop_phonenum;
-    int likeshop;
+    int onoff;
     RecyclerView recyclerView;
     StoreDetailAdapter mAdapter;
     GridLayoutManager mLayoutManager;
@@ -81,8 +81,42 @@ public class StoreDetailActivity extends AppCompatActivity {
             }
         });
 
+        mAdapter.setOnLikeClickListener(new StoreInfoViewHolder.OnLikeClickListener() {
+            @Override
+            public void onLikeClick(View view, Shop shop) {
+
+                if(shop.getLiked() == 0){
+                    onoff = 1;
+                    changeShopLike(shop_id, onoff);
+                }
+                else if(shop.getLiked() == 1){
+                    onoff = 0;
+                    changeShopLike(shop_id, onoff);
+                }
+                initData();
+
+
+            }
+        });
+
 
     }
+
+    private void changeShopLike(String shop_id, int onoff) {
+
+        NetworkManager.getInstance().changeShopLike(shop_id, onoff, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+                initData();
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+    }
+
 
     private void initData() {
 
@@ -97,7 +131,7 @@ public class StoreDetailActivity extends AppCompatActivity {
                 mAdapter.setResult(result);
 
                 shop_phonenum = result.shop_info.getShop_phone();
-                likeshop = result.shop_info.getLiked();
+                onoff = result.shop_info.getLiked();
 
                 //mAdapter.addStore(result.getShop_info());
                // mAdapter.addAll(result.getPost_info());

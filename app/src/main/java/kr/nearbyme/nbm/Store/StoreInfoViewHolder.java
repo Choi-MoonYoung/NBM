@@ -3,7 +3,6 @@ package kr.nearbyme.nbm.Store;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
     ImageView storeImageView, designerImageView;
     RatingBar ratingBar;
     Button btnCall, btnMap;
-    CheckBox btnLike;
+    Button btnLike;
 
     Shop mData;
 
@@ -60,7 +59,7 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         storeImageView = (ImageView) itemView.findViewById(R.id.imageStore);
         btnCall = (Button) itemView.findViewById(R.id.btn_call);
-        btnLike = (CheckBox) itemView.findViewById(R.id.btn_like);
+        btnLike = (Button) itemView.findViewById(R.id.btn_like);
         btnMap = (Button) itemView.findViewById(R.id.btn_map);
         storeNameView = (TextView) itemView.findViewById(R.id.text_storename);
         storeInfoView = (TextView) itemView.findViewById(R.id.text_storeInfo);
@@ -121,6 +120,13 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
             storeCallView.setText(data.getShop_phone());
             storePriceView.setText(data.getShop_price());
             scoreView.setText(Double.toString(data.getShop_score()));
+
+            if(data.getLiked() == 0){
+                btnLike.setBackgroundResource(R.drawable.nm_008a_btn_like_off);
+            }
+            else if(data.getLiked() == 1){
+                btnLike.setBackgroundResource(R.drawable.nm_008a_btn_like_on);
+            }
 
 //            if(data.getLiked() == 0){
 //                btnLike.setBackgroundResource(R.drawable.btnnm_008a_btn_like_off);

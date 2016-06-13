@@ -140,15 +140,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <CheckBox
+                <Button
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:id="@+id/btn_like"
-                    android:background="@drawable/review_detail_like_button"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="7dp"
                     android:clickable="true"
-                    android:button="@null"/>
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -40,7 +40,8 @@
                 android:id="@+id/ratingBar_store"
                 android:layout_marginTop="186dp"
                 android:layout_gravity="center_horizontal"
-                android:progressDrawable="@drawable/ratingbar_progress_storedetail"/>
+                android:progressDrawable="@drawable/ratingbar_progress_storedetail"
+                android:isIndicator="true"/>
 
 
         </FrameLayout>
@@ -66,13 +67,12 @@
             android:background="@drawable/nm_008a_btn_call"
             />
 
-        <CheckBox
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_like"
-            android:background="@drawable/store_detail_like"
-            android:clickable="true"
-            android:button="@null"
+            android:background="@drawable/nm_008a_btn_like_off"
+
             />
 
         <Button

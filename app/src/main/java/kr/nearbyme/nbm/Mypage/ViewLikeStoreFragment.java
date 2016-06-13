@@ -31,6 +31,7 @@ public class ViewLikeStoreFragment extends Fragment {
     RecyclerView recyclerView;
     LikeStoreAdapter mAdapter;
     int onoff = 1;
+    String shop_id;
 
 
 
@@ -59,11 +60,41 @@ public class ViewLikeStoreFragment extends Fragment {
             @Override
             public void onItemClick2(View view, Shop shop) {
 
+                shop_id = shop.getShop_id();
+
+
+                if(shop.getLiked() == 0){
+                    onoff = 1;
+                    changeShopLike(shop_id, onoff);
+                }
+                else if(shop.getLiked() == 1){
+                    onoff = 0;
+                    changeShopLike(shop_id, onoff);
+                }
+                initData();
+
+
             }
         });
 
 
     }
+
+    private void changeShopLike(String shop_id, int onoff) {
+
+        NetworkManager.getInstance().changeShopLike(shop_id, onoff, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+                initData();
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onResume() {

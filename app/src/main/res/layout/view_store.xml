@@ -82,13 +82,11 @@
         android:paddingBottom="12dp"
         android:paddingTop="12dp">
 
-        <CheckBox
+        <Button
             android:layout_width="20dp"
             android:layout_height="18dp"
             android:text=""
             android:id="@+id/buttonLike"
-            android:background="@drawable/review_detail_like_button"
-            android:button="@null"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"/>
 

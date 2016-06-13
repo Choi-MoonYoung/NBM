@@ -64,16 +64,15 @@ public class StoreFragment extends Fragment {
             public void onShopLikeClick(View view, Shop shop) {
                 shop_id = shop.getShop_id();
 
-                if(onoff == 0){
+
+                if(shop.getLiked() == 0){
                     onoff = 1;
                     changeShopLike(shop_id, onoff);
                 }
-                else{
+                else if(shop.getLiked() == 1){
                     onoff = 0;
                     changeShopLike(shop_id, onoff);
                 }
-
-                changeShopLike(shop_id, onoff);
                 initData();
 
 

@@ -2,7 +2,7 @@ package kr.nearbyme.nbm.Store;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -18,7 +18,7 @@ import kr.nearbyme.nbm.data.Shop;
 public class StoreListViewHolder extends RecyclerView.ViewHolder{
     TextView storeNameView, storeDescriptionView, storeDistanceView;
     ImageView storeImageView;
-    CheckBox buttonLike;
+    Button buttonLike;
     RatingBar shoplistRatingbar;
     Shop mData;
 
@@ -50,7 +50,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         storeDescriptionView = (TextView) itemView.findViewById(R.id.text_store_description);
         storeDistanceView = (TextView) itemView.findViewById(R.id.text_distance);
         storeImageView = (ImageView) itemView.findViewById(R.id.image_store);
-        buttonLike = (CheckBox) itemView.findViewById(R.id.buttonLike);
+        buttonLike = (Button) itemView.findViewById(R.id.buttonLike);
         shoplistRatingbar = (RatingBar) itemView.findViewById(R.id.ratingBar);
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +80,13 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder{
         storeNameView.setText(data.getShop_name());
         storeDescriptionView.setText(data.getShop_intro());
         storeDistanceView.setText(data.getDist() + "M");
+
+        if(data.getLiked() == 0){
+            buttonLike.setBackgroundResource(R.drawable.btn_nm008_like_off);
+        }
+        else if(data.getLiked() == 1){
+            buttonLike.setBackgroundResource(R.drawable.btn_nm008_like_on);
+        }
 
         shoplistRatingbar.setRating((float)data.getShop_score());
         Glide.with(storeImageView.getContext()).load(data.getShop_pic()).into(storeImageView);
