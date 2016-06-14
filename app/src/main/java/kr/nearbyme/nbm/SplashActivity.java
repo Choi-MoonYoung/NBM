@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import kr.nearbyme.nbm.data.LoginServerResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 public class SplashActivity extends AppCompatActivity {
@@ -55,6 +56,11 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         }
                     }, 2000);
+
+                    PropertyManager.getInstance().setUser_id(result.result.getUser_id());
+                    PropertyManager.getInstance().setUser_name(result.result.getUser_name());
+                    PropertyManager.getInstance().setUser_profilePic(result.result.getUser_profilePic());
+
                 }
 
                 @Override

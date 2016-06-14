@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -47,13 +48,26 @@ public class MyPageFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SettingActivity.class);
-                startActivity(intent);
+                if(PropertyManager.getInstance().getIsGuest() == 0){
+                    Intent intent = new Intent(getContext(), SettingActivity.class);
+                    startActivity(intent);
+
+                }
+                else{
+                    Toast.makeText(getContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
-        Glide.with(userImage.getContext()).load(PropertyManager.getInstance().getUser_profilePic()).into(userImage);
-        userName.setText(PropertyManager.getInstance().getUser_name());
+
+        if(PropertyManager.getInstance().getIsGuest() == 0){
+            Glide.with(userImage.getContext()).load(PropertyManager.getInstance().getUser_profilePic()).into(userImage);
+            userName.setText(PropertyManager.getInstance().getUser_name());
+        }
+        else{
+            userName.setText("손님");
+        }
 
         ImageView tabView_myreview = new ImageView(getContext());
         tabView_myreview.setImageResource(R.drawable.tab_myreview_selector);

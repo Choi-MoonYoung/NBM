@@ -19,6 +19,7 @@ public class PersonInfoActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("개인정보보호 정책");
 
 
 

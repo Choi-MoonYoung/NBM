@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class StoreFragment extends Fragment {
     private int radius;
     public int onoff = 0;
     public String shop_id;
+    EditText searchstorename;
     //private List<String> shop_id= new ArrayList<>();
 
     //InputMethodManager mIMM;
@@ -51,7 +53,6 @@ public class StoreFragment extends Fragment {
         mAdapter.setOnItemClickListener(new StoreListViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Shop shop) {
-                Toast.makeText(getContext(), "눌렸습니다", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), StoreDetailActivity.class);
                 intent.putExtra(StoreDetailActivity.EXTRA_SHOP_ID, shop.getShop_id());
                 intent.putExtra(StoreDetailActivity.EXTRA_SHOP_NAME, shop.getShop_name());
@@ -64,16 +65,23 @@ public class StoreFragment extends Fragment {
             public void onShopLikeClick(View view, Shop shop) {
                 shop_id = shop.getShop_id();
 
+                if(PropertyManager.getInstance().getIsGuest() == 0){
+                    if(shop.getLiked() == 0){
+                        onoff = 1;
+                        changeShopLike(shop_id, onoff);
+                    }
+                    else if(shop.getLiked() == 1){
+                        onoff = 0;
+                        changeShopLike(shop_id, onoff);
+                    }
+                    initData();
 
-                if(shop.getLiked() == 0){
-                    onoff = 1;
-                    changeShopLike(shop_id, onoff);
                 }
-                else if(shop.getLiked() == 1){
-                    onoff = 0;
-                    changeShopLike(shop_id, onoff);
+                else{
+                    Toast.makeText(getContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
                 }
-                initData();
+
+
 
 
             }
@@ -86,6 +94,7 @@ public class StoreFragment extends Fragment {
 
 
                 order = 1;
+                initData();
 
 //                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 //                builder.setMessage("정렬순서");
@@ -119,6 +128,7 @@ public class StoreFragment extends Fragment {
             @Override
             public void onOrderClick(View view, StoreData storeData) {
                 order = 2;
+                initData();
 //                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 //                builder.setMessage("정렬순서");
 //                builder.setPositiveButton("평점순", new DialogInterface.OnClickListener() {
@@ -148,7 +158,14 @@ public class StoreFragment extends Fragment {
 
         mAdapter.setOnItemClickListener4(new StoreSearchViewHolder.OnItemClickListener4() { //검색
             @Override
-            public void onItemClick4(View view, Shop shop) {
+            public void onItemClick4(View view, String str) {
+//                Toast.makeText(MyApplication.getContext(), str, Toast.LENGTH_SHORT).show();
+
+                keyword = str;
+
+                initData();
+
+
 
             }
         });
@@ -195,7 +212,9 @@ public class StoreFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_store);
 
-//        View v = inflater.inflate(R.layout.view_search_store, null);
+        View v = inflater.inflate(R.layout.view_search_store, null);
+        searchstorename = (EditText) v.findViewById(R.id.edit_store_search);
+
 
 //        buttonChange = (ImageView) v.findViewById(R.id.btn_order); //평점순
 //        buttonChange2 = (ImageView) v.findViewById(R.id.btn_order2); //후기순

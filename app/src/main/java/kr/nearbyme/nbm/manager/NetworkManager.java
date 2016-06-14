@@ -362,6 +362,7 @@ public class NetworkManager {
 
     //좋아요한 후기
     private static final String NBM_LIKEPOST_URL = NBM_SERVER + "/user/liked_post";
+
     public Request getLikePost(OnResultListener<LikePost> listener) {
 
         String url = String.format(NBM_LIKEPOST_URL);
@@ -386,8 +387,7 @@ public class NetworkManager {
 
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-                    LikePost data = gson.fromJson(text, LikePost.class);
-                    result.result = data;
+                    LikePost data = gson.fromJson(text, LikePost.class);                   result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     result.excpetion = new IOException(response.message());
@@ -815,6 +815,48 @@ public class NetworkManager {
                 } else {
                     result.excpetion = new IOException(response.message());
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    //댓글삭제
+    private static final String NBM_DELETECOMMENT_URL = NBM_SERVER +"/comment/delete";
+
+    public Request deleteComment(String post_id, String cmt_id, OnResultListener<String> listener) {
+
+        FormBody.Builder myBuilder = new FormBody.Builder();
+        myBuilder.add("post_id", post_id)
+                .add("cmt_id", cmt_id);
+
+        RequestBody body = myBuilder
+                .build();
+
+        Request request = new Request.Builder()
+                .url(NBM_DELETECOMMENT_URL)
+                .header("Accept", "application/json")
+                .post(body)
+                .build();
+
+        final NetworkResult<String> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    result.result= response.body().toString();
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    throw new IOException(response.message());
                 }
             }
         });

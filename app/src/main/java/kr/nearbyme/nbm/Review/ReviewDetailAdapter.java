@@ -42,6 +42,10 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mListener2 = listener;
     }
 
+    ReviewCommentViewHolder.OnDeleteClickListener deleteListener;
+    public void setOnDeleteClickListener(ReviewCommentViewHolder.OnDeleteClickListener listener){
+        deleteListener = listener;
+    }
 
 
     public void addComment(Comment r) {
@@ -59,7 +63,9 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void clear() {
+        items.clear();
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -117,6 +123,7 @@ public class ReviewDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 position--;
                 ReviewCommentViewHolder commentViewHolder = (ReviewCommentViewHolder)holder;
                 commentViewHolder.setReviewCommentData(items.get(position));
+                commentViewHolder.setOnDeleteClickListener(deleteListener);
                 break;
             case VIEW_TYPE_COMMENTWRITE :
                 ReviewCommentWriteViewHolder commentWriteViewHolder = (ReviewCommentWriteViewHolder)holder;

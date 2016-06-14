@@ -249,9 +249,10 @@ public class WriteReviewFragment extends Fragment implements WritePostKeywordFra
                 isForced = true;
                 storeNameView.setText(selectItem.name);
                 isForced = false;
-                Toast.makeText(getContext(), "매장 이름:" + selectItem.name, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "매장 이름:" + selectItem.name, Toast.LENGTH_SHORT).show();
                 popupWindow.dismiss();
-                storeNameView.setFocusableInTouchMode(false);
+//                storeNameView.setFocusableInTouchMode(false);
+                designerNameView.requestFocus();
             }
         });
         storeNameView.addTextChangedListener(new TextWatcher() {
@@ -396,28 +397,36 @@ public class WriteReviewFragment extends Fragment implements WritePostKeywordFra
             public void onClick(View v) {
 
 
-                if(selectItem == null || TextUtils.isEmpty(selectItem.id)){
-                    Toast.makeText(getContext(), "매장명을 입력해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(selectItem_dsnr == null || TextUtils.isEmpty(selectItem_dsnr.id)){
-                    Toast.makeText(getContext(), "디자이너이름을 입력해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(contentView.getText().toString())){
-                    Toast.makeText(getContext(), "후기를 입력해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(mUploadFile == null){
-                    Toast.makeText(getContext(), "사진을 올려주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(PropertyManager.getInstance().getWritePostfilter() == null  || TextUtils.isEmpty(PropertyManager.getInstance().getWritePostfilter().get(0))){
-                    Toast.makeText(getContext(), "키워드를 선택해주세요", Toast.LENGTH_SHORT).show();
-                    return;
+
+                if(PropertyManager.getInstance().getIsGuest() == 0){
+                    if(selectItem == null || TextUtils.isEmpty(selectItem.id)){
+                        Toast.makeText(getContext(), "매장명을 입력해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(selectItem_dsnr == null || TextUtils.isEmpty(selectItem_dsnr.id)){
+                        Toast.makeText(getContext(), "디자이너이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(TextUtils.isEmpty(contentView.getText().toString())){
+                        Toast.makeText(getContext(), "후기를 입력해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(mUploadFile == null){
+                        Toast.makeText(getContext(), "사진을 올려주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(PropertyManager.getInstance().getWritePostfilter() == null  || TextUtils.isEmpty(PropertyManager.getInstance().getWritePostfilter().get(0))){
+                        Toast.makeText(getContext(), "키워드를 선택해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    initData();
+
                 }
 
-                initData();
+                else{
+                    Toast.makeText(getContext(), "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                }
 
 
 
@@ -426,7 +435,7 @@ public class WriteReviewFragment extends Fragment implements WritePostKeywordFra
                 designerNameView.setText("");
                 ratingBar.setRating(0.0f);
                 contentView.setText("");
-                ImageUploadView.setImageResource(R.drawable.common_google_signin_btn_icon_light_pressed);
+                ImageUploadView.setImageResource(R.drawable.nm_010_btn_imgupload);
 
 
             }

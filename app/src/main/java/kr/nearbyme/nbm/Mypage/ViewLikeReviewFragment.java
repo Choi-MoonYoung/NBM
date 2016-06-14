@@ -20,6 +20,7 @@ import kr.nearbyme.nbm.Review.ReviewDetailActivity;
 import kr.nearbyme.nbm.data.LikePost;
 import kr.nearbyme.nbm.data.PostResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 
@@ -85,25 +86,27 @@ public class ViewLikeReviewFragment extends Fragment {
 
     private void initData() {
 
-        NetworkManager.getInstance().getLikePost(new NetworkManager.OnResultListener<LikePost>() {
-            @Override
-            public void onSuccess(Request request, LikePost result) {
+        if(PropertyManager.getInstance().getIsGuest() == 0){
+            NetworkManager.getInstance().getLikePost(new NetworkManager.OnResultListener<LikePost>() {
+                @Override
+                public void onSuccess(Request request, LikePost result) {
 
 
-                mAdapter.clear();
-                mAdapter.addAll(result.result);
+                    mAdapter.clear();
+                    mAdapter.addAll(result.result);
 
-                //mAdapter.addStore(result.getShop_info());
-                // mAdapter.addAll(result.getPost_info());
+                    //mAdapter.addStore(result.getShop_info());
+                    // mAdapter.addAll(result.getPost_info());
 
-            }
+                }
 
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
+        }
 
 
     }

@@ -16,6 +16,15 @@ public class User {
     List<String> user_likedShops;
     List<String> user_filters;
     String user_regDate;
+    int mine;
+
+    public int getMine() {
+        return mine;
+    }
+
+    public void setMine(int mine) {
+        this.mine = mine;
+    }
 
     public String getUser_id() {
         return user_id;

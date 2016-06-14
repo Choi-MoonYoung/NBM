@@ -18,9 +18,28 @@ public class ReviewCommentViewHolder extends RecyclerView.ViewHolder{
     TextView cmtNameView, cmtContentView;
     Comment mData;
 
+    public interface OnDeleteClickListener {
+        public void onDelteClick(View view, Comment comment, String cmt_content);
+    }
+
+    OnDeleteClickListener mListener;
+    public void setOnDeleteClickListener(OnDeleteClickListener listener) {
+        mListener = listener;
+    }
+
+
     public ReviewCommentViewHolder(View itemView) {
         super(itemView);
         cmtNameView = (TextView) itemView.findViewById(R.id.text_username);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onDelteClick(v, mData, cmtNameView.getText().toString());
+                }
+            }
+        });
+
        // cmtContentView = (TextView) itemView.findViewById(R.id.text_usercomment);
 
         }

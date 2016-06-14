@@ -32,6 +32,7 @@
                 android:textSize="13sp"
                 android:id="@+id/text_desingername"
                 android:layout_marginTop="5dp"
+                android:textColor="#d1ac00"
                 />
 
             <RelativeLayout

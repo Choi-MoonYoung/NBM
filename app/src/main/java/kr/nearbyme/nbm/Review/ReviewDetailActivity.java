@@ -28,8 +28,11 @@ import okhttp3.Request;
 public class ReviewDetailActivity extends AppCompatActivity {
     public static final String EXTRA_REVIEW_ID = "review_id";
     String post_id;
-    String cmt_content;
+    String cmt_id;
     int onoff;
+    int mine_post;
+    int mine_cmt;
+//    int mine_cmt[];
 
     EditText writeComment;
     Button btnPost;
@@ -57,29 +60,38 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
         mAdapter.setOnItemClickListener(new ReviewDetailViewHolder.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, PostResult post) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ReviewDetailActivity.this);
-                builder.setMessage("수정/삭제");
-                builder.setPositiveButton("수정", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            public void onItemClick(View view, PostResult post) { //후기삭제
+
+                if((PropertyManager.getInstance().getIsGuest() == 0)){
+                    if(mine_post == 1){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ReviewDetailActivity.this);
+                        builder.setMessage("삭제하시겠습니까?");
+                        builder.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
 
+                            }
+                        });
+                        builder.setNegativeButton("삭제", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deletePost();
+                                Toast.makeText(ReviewDetailActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+
+                                finish();
+
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
-                });
-                builder.setNegativeButton("삭제", new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deletePost();
-                        Toast.makeText(ReviewDetailActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
-
-                        finish();
-
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                }
+                else if(PropertyManager.getInstance().getIsGuest() == 1){
+                    Toast.makeText(ReviewDetailActivity.this, "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -88,15 +100,19 @@ public class ReviewDetailActivity extends AppCompatActivity {
         mAdapter.setOnLikeClickListener(new ReviewDetailViewHolder.OnLikeClickListener() {
             @Override
             public void onLikeClick(View view, PostResult post) {
-                if(post.getPost().getLiked() == 0){
-                    onoff = 1;
-                    changeLike();
 
-                }
-                else {
-                    onoff = 0;
-                    changeLike();
+                if (PropertyManager.getInstance().getIsGuest() == 0) {
+                    if (post.getPost().getLiked() == 0) {
+                        onoff = 1;
+                        changeLike();
 
+                    } else {
+                        onoff = 0;
+                        changeLike();
+
+                    }
+                } else {
+                    Toast.makeText(ReviewDetailActivity.this, "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -108,6 +124,40 @@ public class ReviewDetailActivity extends AppCompatActivity {
             public void onItemClick(View view, Comment comment, String cmt_content) {
                 postComment(cmt_content);
 
+
+            }
+        });
+
+        mAdapter.setOnDeleteClickListener(new ReviewCommentViewHolder.OnDeleteClickListener() { //댓글삭제
+            @Override
+            public void onDelteClick(View view, Comment comment, String cmt_content) {
+                cmt_id = comment.getCmt_id();
+                mine_cmt = comment.getMine();
+
+
+                if(mine_cmt == 1){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ReviewDetailActivity.this);
+                    builder.setMessage("삭제하시겠습니까?");
+                    builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteComment(post_id, cmt_id);
+                            Toast.makeText(ReviewDetailActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                            initData();
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+                }
 
             }
         });
@@ -127,6 +177,23 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
         initData();
 
+
+    }
+
+    private void deleteComment(String post_id, String cmt_id) {
+        NetworkManager.getInstance().deleteComment(post_id, cmt_id, new NetworkManager.OnResultListener<String>() {
+            @Override
+            public void onSuccess(Request request, String result) {
+                initData();
+
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
 
     }
 
@@ -160,6 +227,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void modifyPost(){
 
@@ -195,9 +263,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
                 mAdapter.addReview(result.result);
                 mAdapter.addCommentAll(result.result.post.post_comments);
-
-                //mAdapter.addStore(result.getShop_info());
-                // mAdapter.addAll(result.getPost_info());
+                mine_post = result.result.user.getMine();
 
             }
 

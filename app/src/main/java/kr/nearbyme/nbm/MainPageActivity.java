@@ -3,6 +3,7 @@ package kr.nearbyme.nbm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,12 +22,14 @@ import kr.nearbyme.nbm.manager.NetworkManager;
 import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
+
 public class MainPageActivity extends AppCompatActivity {
     Button btnEnter, btnFacebook;
 
     CallbackManager callbackManager;
     LoginManager loginManager;
     int user_sort = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +42,13 @@ public class MainPageActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginManager = LoginManager.getInstance();
 
+
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainPageActivity.this, MainActivity.class);
                 startActivity(intent);
+                PropertyManager.getInstance().setIsGuest(1);
             }
         });
 
@@ -55,6 +60,7 @@ public class MainPageActivity extends AppCompatActivity {
                 login();
             }
         });
+
     }
 
     private void login() {
@@ -86,7 +92,7 @@ public class MainPageActivity extends AppCompatActivity {
     private void serverLogin() {
         AccessToken user_token = AccessToken.getCurrentAccessToken();
         if (user_token != null) {
-            NetworkManager.getInstance().facebookLogin(user_sort, user_token.getToken(), new NetworkManager.OnResultListener<LoginServerResult>(){
+            NetworkManager.getInstance().facebookLogin(user_sort, user_token.getToken(), new NetworkManager.OnResultListener<LoginServerResult>() {
 //                @Override
 //                public void onSuccess(Request request, String result) {
 //                    startActivity(new Intent(MainPageActivity.this, MainActivity.class));
@@ -95,9 +101,11 @@ public class MainPageActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Request request, LoginServerResult result) {
                     PropertyManager.getInstance().setUser_id(result.result.getUser_id());
-                    PropertyManager.getInstance().setUser_name(result.result.getUser_id());
+                    PropertyManager.getInstance().setUser_name(result.result.getUser_name());
                     PropertyManager.getInstance().setUser_profilePic(result.result.getUser_profilePic());
-                      startActivity(new Intent(MainPageActivity.this, MainActivity.class));
+
+                    Log.d("user", result.result.getUser_name());
+                    startActivity(new Intent(MainPageActivity.this, MainActivity.class));
                 }
 
                 @Override
@@ -113,4 +121,8 @@ public class MainPageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
+
+
 }

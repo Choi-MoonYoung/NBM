@@ -19,6 +19,7 @@ public class InfoActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("이용약관");
 
 
 

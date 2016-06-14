@@ -110,9 +110,10 @@ public class MapFragment extends DialogFragment {
         setLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "눌렸어요!!!!!", Toast.LENGTH_SHORT).show();
-                SetLocationFragment f = new SetLocationFragment();
-                f.show(getActivity().getSupportFragmentManager(), "create");
+                Toast.makeText(getContext(), "아직 지원하지 않는 서비스입니다", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "눌렸어요!!!!!", Toast.LENGTH_SHORT).show();
+//                SetLocationFragment f = new SetLocationFragment();
+//                f.show(getActivity().getSupportFragmentManager(), "create");
             }
         });
 

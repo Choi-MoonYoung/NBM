@@ -21,7 +21,26 @@ public class Shop implements S {
     public String shop_menu;
     public String shop_postNum;
     public int shop_likeNum;
+    public double shop_locX;
+    public double shop_locY;
+
     public List<Designer> dsnr_info;
+
+    public double getShop_locX() {
+        return shop_locX;
+    }
+
+    public void setShop_locX(double shop_locX) {
+        this.shop_locX = shop_locX;
+    }
+
+    public double getShop_locY() {
+        return shop_locY;
+    }
+
+    public void setShop_locY(double shop_locY) {
+        this.shop_locY = shop_locY;
+    }
 
     public List<Designer> getDsnr_info() {
         return dsnr_info;

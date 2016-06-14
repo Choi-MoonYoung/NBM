@@ -1,7 +1,5 @@
 package kr.nearbyme.nbm.data;
 
-import kr.nearbyme.nbm.data.Rdata;
-
 /**
  * Created by CHOIMOONYOUNG on 2016. 5. 19..
  */
@@ -11,6 +9,15 @@ public class Comment implements Rdata {
     public String cmt_writerId;
     public String cmt_content;
     public String cmt_writerName;
+    public int mine;
+
+    public int getMine() {
+        return mine;
+    }
+
+    public void setMine(int mine) {
+        this.mine = mine;
+    }
 
     public String getCmt_writerName() {
         return cmt_writerName;

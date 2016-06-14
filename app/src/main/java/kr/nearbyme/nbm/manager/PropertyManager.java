@@ -27,6 +27,16 @@ public class PropertyManager {
         mEditor = mPrefs.edit();
     }
 
+    int isGuest;
+
+    public int getIsGuest() {
+        return isGuest;
+    }
+
+    public void setIsGuest(int isGuest) {
+        this.isGuest = isGuest;
+    }
+
     double latitude, longitude;
     int radius;
     List<String> filters;

@@ -29,7 +29,7 @@ public class StoreSearchViewHolder extends RecyclerView.ViewHolder {
     }
 
     public interface OnItemClickListener4 {
-        public void onItemClick4(View view, Shop shop);
+        public void onItemClick4(View view, String str);
     }
 
 
@@ -91,7 +91,8 @@ public class StoreSearchViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if(mListener4 != null){
-                    mListener4.onItemClick4(v, shopData);
+
+                    mListener4.onItemClick4(v, store.getText()+"");
                 }
             }
         });
@@ -102,6 +103,7 @@ public class StoreSearchViewHolder extends RecyclerView.ViewHolder {
     public void setStoreSearchData(StoreData data){
         mData = data;
         //iconView.setImageDrawable(data.getSearchImg());
+
 
     }
 

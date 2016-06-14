@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.wefika.flowlayout.FlowLayout;
 
 import kr.nearbyme.nbm.R;
@@ -17,7 +18,8 @@ import kr.nearbyme.nbm.data.PostResult;
  */
 public class LikeReviewViewHolder extends RecyclerView.ViewHolder {
     TextView filterTagsView, storeNameView, designerNameView, userNameView, dateView;
-    ImageView postImageView, userImageView;
+    ImageView postImageView;
+    CircularImageView userImageView;
     FlowLayout tagLayout;
     PostResult mData;
 
@@ -37,7 +39,7 @@ public class LikeReviewViewHolder extends RecyclerView.ViewHolder {
         designerNameView = (TextView) itemView.findViewById(R.id.text_dname);
         //filterTagsView = (TextView) itemView.findViewById(R.id.text_tag);
         tagLayout = (FlowLayout) itemView.findViewById(R.id.text_tag);
-        userImageView = (ImageView) itemView.findViewById(R.id.image_userIcon);
+        userImageView = (CircularImageView) itemView.findViewById(R.id.image_userIcon);
         userNameView = (TextView) itemView.findViewById(R.id.text_user);
         dateView = (TextView) itemView.findViewById(R.id.text_writedate);
         postImageView = (ImageView) itemView.findViewById(R.id.image_review);

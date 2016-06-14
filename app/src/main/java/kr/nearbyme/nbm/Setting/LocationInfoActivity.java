@@ -19,6 +19,7 @@ public class LocationInfoActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("위치기반 서비스 이용약관");
 
 
 

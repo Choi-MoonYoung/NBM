@@ -120,6 +120,7 @@ public class StoreInfoViewHolder extends RecyclerView.ViewHolder{
             storeCallView.setText(data.getShop_phone());
             storePriceView.setText(data.getShop_price());
             scoreView.setText(Double.toString(data.getShop_score()));
+            ratingBar.setRating((float)data.getShop_score());
 
             if(data.getLiked() == 0){
                 btnLike.setBackgroundResource(R.drawable.nm_008a_btn_like_off);

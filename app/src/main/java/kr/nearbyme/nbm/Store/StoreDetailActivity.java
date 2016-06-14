@@ -18,6 +18,7 @@ import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 public class StoreDetailActivity extends AppCompatActivity {
@@ -30,6 +31,9 @@ public class StoreDetailActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     StoreDetailAdapter mAdapter;
     GridLayoutManager mLayoutManager;
+
+    double locX;
+    double locY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,16 +89,34 @@ public class StoreDetailActivity extends AppCompatActivity {
             @Override
             public void onLikeClick(View view, Shop shop) {
 
-                if(shop.getLiked() == 0){
-                    onoff = 1;
-                    changeShopLike(shop_id, onoff);
-                }
-                else if(shop.getLiked() == 1){
-                    onoff = 0;
-                    changeShopLike(shop_id, onoff);
-                }
-                initData();
+                if (PropertyManager.getInstance().getIsGuest() == 0) {
+                    if (shop.getLiked() == 0) {
+                        onoff = 1;
+                        changeShopLike(shop_id, onoff);
+                    } else if (shop.getLiked() == 1) {
+                        onoff = 0;
+                        changeShopLike(shop_id, onoff);
+                    }
+                    initData();
 
+
+                } else {
+                    Toast.makeText(StoreDetailActivity.this, "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+        mAdapter.setOnMapClickListener(new StoreInfoViewHolder.OnMapClickListener() {
+            @Override
+            public void onMapClick(View view, Shop shop) {
+                locX = shop.getShop_locX();
+                locY = shop.getShop_locY();
+
+                Intent intent = new Intent(StoreDetailActivity.this, StoreMapActivity.class);
+                intent.putExtra(StoreMapActivity.EXTRA_SHOP_LOCX, shop.getShop_locX());
+                intent.putExtra(StoreMapActivity.EXTRA_SHOP_LOCY, shop.getShop_locY());
+                startActivity(intent);
 
             }
         });

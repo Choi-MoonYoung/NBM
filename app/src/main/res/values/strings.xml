@@ -48,5 +48,6 @@
     <string name="presentLoc">현위치</string>
     <string name="setLoc">지역설정</string>
     <string name="facebook_app_id">1549160065389425</string>
+    <string name="title_activity_store_map">Map</string>
 
 </resources>

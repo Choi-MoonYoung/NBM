@@ -1,12 +1,12 @@
 package kr.nearbyme.nbm.Review;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.wefika.flowlayout.FlowLayout;
 
 import kr.nearbyme.nbm.R;
@@ -18,7 +18,8 @@ import kr.nearbyme.nbm.data.ShopDetailResult;
  */
 public class ReviewListViewHolder extends RecyclerView.ViewHolder{
     TextView storeNameView, designerNameView, userNameView, dateView;
-    ImageView postImageView, userImageView;
+    ImageView postImageView;
+    CircularImageView userImageView;
     PostResult mData;
     FlowLayout tagLayout;
     ShopDetailResult result;
@@ -42,7 +43,7 @@ public class ReviewListViewHolder extends RecyclerView.ViewHolder{
         designerNameView = (TextView) itemView.findViewById(R.id.text_dname);
         tagLayout = (FlowLayout) itemView.findViewById(R.id.text_tag);
         //filterTagsView = (TextView) itemView.findViewById(R.id.text_tag);
-        userImageView = (ImageView) itemView.findViewById(R.id.image_userIcon);
+        userImageView = (CircularImageView) itemView.findViewById(R.id.image_userIcon);
         userNameView = (TextView) itemView.findViewById(R.id.text_user);
         dateView = (TextView) itemView.findViewById(R.id.text_writedate);
         postImageView = (ImageView) itemView.findViewById(R.id.image_review);
@@ -75,19 +76,14 @@ public class ReviewListViewHolder extends RecyclerView.ViewHolder{
                 lp.setMargins(6, 6, 6, 6);
                 filterTagsView.setLayoutParams(lp);
                 filterTagsView.setTextSize(10);
-                filterTagsView.setBackgroundColor(Color.BLUE);
                 filterTagsView.setBackgroundResource(R.drawable.tag_s_001);
                 filterTagsView.setText(data.post.getPost_filters().get(i));
                 tagLayout.addView(filterTagsView);
             }
 
-            if (data.getUser().getUser_profilePic() == null){
-                userImageView.setImageResource(R.drawable.nm_007_user_image);
-            }
-            else{
-                Glide.with(userImageView.getContext()).load(data.user.getUser_profilePic()).into(userImageView);
+            Glide.with(userImageView.getContext()).load(data.user.getUser_profilePic()).into(userImageView);
 
-            }
+
 
             userNameView.setText(data.user.getUser_name());
             dateView.setText(data.post.getPost_regDate());
