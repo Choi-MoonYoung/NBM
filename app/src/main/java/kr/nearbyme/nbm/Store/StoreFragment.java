@@ -30,7 +30,7 @@ public class StoreFragment extends Fragment {
     RecyclerView recyclerView;
     StoreListAdapter mAdapter;
     private String keyword = "없음";
-    private int order = 1;
+    private int order = 2;
     private double locX;
     private double locY;
     private int radius;
