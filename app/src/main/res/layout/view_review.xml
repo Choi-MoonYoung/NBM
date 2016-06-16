@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="170dp"
     android:layout_height="360dp"
@@ -69,11 +69,12 @@
             android:gravity="center_vertical">
 
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="37dp"
-                android:layout_height="37dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/image_userIcon"
                 android:scaleType="centerCrop"
                 android:layout_marginRight="10dp"
+                app:civ_border_width="0dp"
                 android:background="@drawable/nm_007_user_image"/>
 
 

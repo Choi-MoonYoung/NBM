@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import kr.nearbyme.nbm.MainActivity;
 import kr.nearbyme.nbm.R;
 import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.data.ShopListResult;
@@ -26,7 +27,7 @@ import okhttp3.Request;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StoreFragment extends Fragment {
+public class StoreFragment extends Fragment implements MainActivity.OnNotifyUpdateListener{
     RecyclerView recyclerView;
     StoreListAdapter mAdapter;
     private String keyword = "없음";
@@ -253,6 +254,18 @@ public class StoreFragment extends Fragment {
     }
 
 
+    @Override
+    public void onNotifyUpdate() {
+        initData();
+        mAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((MainActivity)getActivity()).removeOnNotifyUpdateListener(this);
+    }
 
 }
 

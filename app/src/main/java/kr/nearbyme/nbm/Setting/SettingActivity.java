@@ -11,7 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.facebook.login.LoginManager;
+
+import kr.nearbyme.nbm.MainPageActivity;
 import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.manager.PropertyManager;
 
 public class SettingActivity extends AppCompatActivity {
     Button btn1, btn2, btn3, btn4, btn5;
@@ -66,6 +70,15 @@ public class SettingActivity extends AppCompatActivity {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        PropertyManager.getInstance().setUser_id(null);
+                        PropertyManager.getInstance().setUser_name(null);
+                        PropertyManager.getInstance().setUser_profilePic(null);
+
+                        LoginManager.getInstance().logOut();
+                        Intent intent = new Intent(SettingActivity.this, MainPageActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
 
                     }
                 });
