@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -73,7 +72,6 @@ public class GoogleLocActivity extends AppCompatActivity implements
         btn_setPresentLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(GoogleLocActivity.this, "눌림", Toast.LENGTH_SHORT).show();
                 if (currentMarker != null) {
                     LatLng latLng = currentMarker.getPosition();
                     locX = latLng.latitude;

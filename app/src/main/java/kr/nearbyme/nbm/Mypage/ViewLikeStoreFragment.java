@@ -21,6 +21,7 @@ import kr.nearbyme.nbm.data.LikeShopResult;
 import kr.nearbyme.nbm.data.LikeShopResultResult;
 import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 
@@ -63,11 +64,10 @@ public class ViewLikeStoreFragment extends Fragment {
                 shop_id = shop.getShop_id();
 
 
-                if(shop.getLiked() == 0){
+                if (shop.getLiked() == 0) {
                     onoff = 1;
                     changeShopLike(shop_id, onoff);
-                }
-                else if(shop.getLiked() == 1){
+                } else if (shop.getLiked() == 1) {
                     onoff = 0;
                     changeShopLike(shop_id, onoff);
                 }
@@ -122,24 +122,29 @@ public class ViewLikeStoreFragment extends Fragment {
 
     private void initData() {
 
-        NetworkManager.getInstance().getLikeShop(new NetworkManager.OnResultListener<LikeShopResultResult>() {
-            @Override
-            public void onSuccess(Request request, LikeShopResultResult result) {
+        if(PropertyManager.getInstance().getIsGuest() == 0){
+            NetworkManager.getInstance().getLikeShop(new NetworkManager.OnResultListener<LikeShopResultResult>() {
+                @Override
+                public void onSuccess(Request request, LikeShopResultResult result) {
 
-                mAdapter.clear();
-                List<Shop> shopList = new ArrayList<Shop>();
-                for (LikeShopResult tmp : result.result) {
-                    shopList.add(tmp.shop);
+                    mAdapter.clear();
+                    List<Shop> shopList = new ArrayList<Shop>();
+                    for (LikeShopResult tmp : result.result) {
+                        shopList.add(tmp.shop);
+                    }
+                    mAdapter.addAll(shopList);
+
                 }
-                mAdapter.addAll(shopList);
 
-            }
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        }
+
 
 
     }

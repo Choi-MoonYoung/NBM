@@ -103,6 +103,7 @@ public class MainPageActivity extends AppCompatActivity {
                     PropertyManager.getInstance().setUser_id(result.result.getUser_id());
                     PropertyManager.getInstance().setUser_name(result.result.getUser_name());
                     PropertyManager.getInstance().setUser_profilePic(result.result.getUser_profilePic());
+                    PropertyManager.getInstance().setIsGuest(0);
 
                     Log.d("user", result.result.getUser_name());
                     startActivity(new Intent(MainPageActivity.this, MainActivity.class));

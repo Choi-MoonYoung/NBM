@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:id="@android:id/tabs"
             android:orientation="horizontal"
-            android:layout_weight="0"/>
+            android:layout_weight="0"
+            android:divider="@null"/>
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="0dp"

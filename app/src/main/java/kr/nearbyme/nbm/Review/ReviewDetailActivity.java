@@ -111,7 +111,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
                         changeLike();
 
                     }
-                } else {
+                } else if(PropertyManager.getInstance().getIsGuest() == 1){
                     Toast.makeText(ReviewDetailActivity.this, "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
                 }
 
@@ -122,7 +122,21 @@ public class ReviewDetailActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new ReviewCommentWriteViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Comment comment, String cmt_content) {
-                postComment(cmt_content);
+
+                if(PropertyManager.getInstance().getIsGuest() == 0){
+                    if(cmt_content.equals("")){
+                        Toast.makeText(ReviewDetailActivity.this, "댓글을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        postComment(cmt_content);
+                    }
+
+
+                }
+                else{
+                    Toast.makeText(ReviewDetailActivity.this, "로그인이 필요한 서비스입니다", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }
@@ -234,18 +248,21 @@ public class ReviewDetailActivity extends AppCompatActivity {
     }
 
     private void postComment(String cmt_content){
-        NetworkManager.getInstance().postComment(post_id, cmt_content, new NetworkManager.OnResultListener<String>() {
-            @Override
-            public void onSuccess(Request request, String result) {
-                initData();
+        if(PropertyManager.getInstance().getIsGuest() == 0){
+            NetworkManager.getInstance().postComment(post_id, cmt_content, new NetworkManager.OnResultListener<String>() {
+                @Override
+                public void onSuccess(Request request, String result) {
+                    initData();
 
-            }
+                }
 
-            @Override
-            public void onFail(Request request, IOException exception) {
+                @Override
+                public void onFail(Request request, IOException exception) {
 
-            }
-        });
+                }
+            });
+
+        }
 
 
     }

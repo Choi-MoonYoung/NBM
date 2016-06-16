@@ -44,7 +44,6 @@ public class ViewLikeReviewFragment extends Fragment {
 
             @Override
             public void onItemClick(View view, PostResult post) {
-                Toast.makeText(getContext(), "눌렸습니다", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getContext(), ReviewDetailActivity.class);
                 intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, post.post.getPost_id());

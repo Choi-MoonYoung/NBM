@@ -46,6 +46,14 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
+
+    ReviewViewHolder.OnItemClickListener mListener;
+    public void setOnItemClickListener(ReviewViewHolder.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+
+
     public void clear() {
         items.clear();
         notifyDataSetChanged();
@@ -70,10 +78,7 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
 
-    ReviewViewHolder.OnItemClickListener mListener;
-    public void setOnItemClickListener(ReviewViewHolder.OnItemClickListener listener) {
-        mListener = listener;
-    }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -115,7 +120,7 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if(result.getPost_info()==null){
                     itemViewHolder.setReview(null);
                 }else {
-                    itemViewHolder.setReview(result.getPost_info().get(holder.getPosition()-position));
+                    itemViewHolder.setReview(result.getPost_info().get(position-1));
                 }
                 itemViewHolder.setOnItemClickListener(mListener);
                 break;

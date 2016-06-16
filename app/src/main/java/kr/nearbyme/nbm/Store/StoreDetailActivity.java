@@ -15,6 +15,8 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import kr.nearbyme.nbm.R;
+import kr.nearbyme.nbm.Review.ReviewDetailActivity;
+import kr.nearbyme.nbm.data.PostResult;
 import kr.nearbyme.nbm.data.Shop;
 import kr.nearbyme.nbm.data.ShopDetailResult;
 import kr.nearbyme.nbm.manager.NetworkManager;
@@ -118,6 +120,15 @@ public class StoreDetailActivity extends AppCompatActivity {
                 intent.putExtra(StoreMapActivity.EXTRA_SHOP_LOCY, shop.getShop_locY());
                 startActivity(intent);
 
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new ReviewViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, PostResult post) {
+                Intent intent = new Intent(StoreDetailActivity.this, ReviewDetailActivity.class);
+                intent.putExtra(ReviewDetailActivity.EXTRA_REVIEW_ID, post.post.getPost_id());
+                startActivity(intent);
             }
         });
 

@@ -70,15 +70,21 @@ public class SettingActivity extends AppCompatActivity {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+
+
+
                         PropertyManager.getInstance().setUser_id(null);
                         PropertyManager.getInstance().setUser_name(null);
                         PropertyManager.getInstance().setUser_profilePic(null);
 
                         LoginManager.getInstance().logOut();
+
                         Intent intent = new Intent(SettingActivity.this, MainPageActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
+
 
                     }
                 });

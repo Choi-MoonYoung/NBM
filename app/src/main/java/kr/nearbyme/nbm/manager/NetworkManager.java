@@ -387,7 +387,8 @@ public class NetworkManager {
 
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-                    LikePost data = gson.fromJson(text, LikePost.class);                   result.result = data;
+                    LikePost data = gson.fromJson(text, LikePost.class);
+                    result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     result.excpetion = new IOException(response.message());

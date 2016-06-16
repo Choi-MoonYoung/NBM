@@ -16,6 +16,7 @@ import kr.nearbyme.nbm.Review.ReviewDetailActivity;
 import kr.nearbyme.nbm.data.UserWritingResult;
 import kr.nearbyme.nbm.data.UserWritingResults;
 import kr.nearbyme.nbm.manager.NetworkManager;
+import kr.nearbyme.nbm.manager.PropertyManager;
 import okhttp3.Request;
 
 
@@ -79,19 +80,24 @@ public class ViewMyReviewFragment extends Fragment {
 
     private void initData() {
 
-        NetworkManager.getInstance().getMyReviewList(new NetworkManager.OnResultListener<UserWritingResults>() {
-            @Override
-            public void onSuccess(Request request, UserWritingResults result) {
-                mAdapter.clear2();
-                mAdapter.addAll2(result.userWritingResults);
+        if(PropertyManager.getInstance().getIsGuest() == 0){
+            NetworkManager.getInstance().getMyReviewList(new NetworkManager.OnResultListener<UserWritingResults>() {
+                @Override
+                public void onSuccess(Request request, UserWritingResults result) {
+                    mAdapter.clear2();
+                    mAdapter.addAll2(result.userWritingResults);
 
-            }
+                }
 
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        }
+
 
 
     }
